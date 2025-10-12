@@ -113,4 +113,31 @@ zvezna.
 > $$
 > G'(x) = f(\beta(x), x) \beta'(x) - f(\alpha(x), x) \alpha'(x) + \int_{\alpha(x)}^{\beta(x)} \frac{\partial f}{\partial x}(t, x) dt.
 > $$
+> >[!|dokaz]- Dokaz:
+> > Po definiciji odvoda zapišemo
+> > $$
+> > F'(x) = \lim_{h \to 0} \frac{F(x+h) - F(x)}{h} = \lim_{h \to 0} \int_a^b \frac{f(t, x+h) - f(t, x)}{h} dt.
+> > $$
+> > Po Lagrangeovem izreku o povprečni vrednosti za funkcijo $x \mapsto f(t, x)$ obstaja za vsak $t \in [a, b]$ med $x$ in $x+h$ število $\xi_{t,h}$, da je $\frac{f(t, x+h) - f(t, x)}{h} = \frac{\partial f}{\partial x}(t, \xi_{t,h})$. Ker je $\frac{\partial f}{\partial x}$ zvezna na kompaktni množici $[a, b] \times K$, kjer je $K \subset J$ poljuben kompakten interval, ki vsebuje $x$, je tam tudi enakomerno zvezna. Zato za vsak $\varepsilon > 0$ obstaja $\delta > 0$, da za $|h| < \delta$ velja $|\frac{\partial f}{\partial x}(t, \xi_{t,h}) - \frac{\partial f}{\partial x}(t, x)| < \varepsilon$ za vse $t \in [a, b]$. Sledi, da lahko zamenjamo vrstni red limite in integrala:
+> > $$
+> > F'(x) = \int_a^b \lim_{h \to 0} \frac{\partial f}{\partial x}(t, \xi_{t,h}) dt = \int_a^b \frac{\partial f}{\partial x}(t, x) dt.
+> > $$
+> > Zveznost odvoda $F'$ sledi iz zveznosti $\frac{\partial f}{\partial x}$ in zgornje integralske zveze.
+> > 
+> > Za dokaz drugega dela vpeljimo pomožno funkcijo $\Phi(u, v, x) = \int_u^v f(t, x) dt$. Potem je $G(x) = \Phi(\alpha(x), \beta(x), x)$. Po verižnem pravilu za odvajanje funkcij več spremenljivk velja
+> > $$
+> > G'(x) = \frac{\partial \Phi}{\partial u} \alpha'(x) + \frac{\partial \Phi}{\partial v} \beta'(x) + \frac{\partial \Phi}{\partial x}.
+> > $$
+> > Uporabimo osnovni izrek integralskega računa za parcialna odvoda po mejah:
+> > $$
+> > \frac{\partial \Phi}{\partial v} = f(v, x) = f(\beta(x), x), \quad \frac{\partial \Phi}{\partial u} = -f(u, x) = -f(\alpha(x), x).
+> > $$
+> > Parcialni odvod po $x$ je po že dokazanem prvem delu izreka enak
+> > $$
+> > \frac{\partial \Phi}{\partial x} = \int_u^v \frac{\partial f}{\partial x}(t, x) dt = \int_{\alpha(x)}^{\beta(x)} \frac{\partial f}{\partial x}(t, x) dt.
+> > $$
+> > Z združitvijo vseh delov dobimo
+> > $$
+> > G'(x) = f(\beta(x), x) \beta'(x) - f(\alpha(x), x) \alpha'(x) + \int_{\alpha(x)}^{\beta(x)} \frac{\partial f}{\partial x}(t, x) dt.
+> > $$
 

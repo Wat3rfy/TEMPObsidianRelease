@@ -91,12 +91,12 @@ Za kombinatoriko pa so pomembne naslednje oznake
   Za $n=0 \implies \emptyset$. 
 * $\mathbb{N} = \{0,1,2, \dots\}$.
 *   $2^A$: **Potenčna množica** $\{X ; X \subseteq A\}$.
-*   $\binom{A}{k} = \{B \in 2^A ; |B|=k\}$ (množica vseh podmnožic velikosti $k$).
+*   $\binom{A}{k} = \{B \in 2^A ; |B|=k\}$ (podmnožice s $k$ elementi).
 *   $B^A :=$ množica vseh preslikav iz $A \vee B$.
 
 ***
 
-Pomembno povezavo z injektivnostjo in močjo domene in kodomene imenujemo **Dirichletovo načelo**.
+ **Dirichletovo načelo**
 
 
 $$f: A \to B \text{ je injektivna } \Rightarrow |A| \le |B|$$
@@ -210,6 +210,27 @@ $$|N^N| = n! = n \cdot (n-1) \dots 2 \cdot 1$$
 
 
 **Stirlingova aproksimacija**: $n! \sim \sqrt{2\pi n}(\frac{n}{e})^n$
+
+>[!|hide]- 
+>
+> $$
+> \ln(n!) = \ln(n) + \dots + \ln(1)
+> $$
+> $$
+> \sum_{1}^{n} \ln(x) \approx \int_{1}^{n} \ln(x) dx
+> $$
+> $$
+> \Big[ x\ln(x) - x \Big]_1^n \approx n\ln(n) - n
+> $$
+> $$
+> \implies \ln(n!) \approx n \ln(n) - n
+> $$
+> $$
+> n! \approx e^{n \ln(n) - n} = e^{\ln(n^n) - n}
+> $$
+> $$
+> \approx n^n \cdot e^{-n} = \left(\frac{n}{e}\right)^n
+> $$
 ***
 > **Asimptotična enakost**: $a_{n}\sim b_{n}  := \lim \frac{a_n}{b_n} = 1$.
 ***
@@ -218,7 +239,7 @@ Posebni primeri (iz definicije preslikav med praznimi množicami):
 *   $0^0 = 1$ (ena funkcija $\emptyset \to \emptyset$).
   
 >[!|dokaz]- Dokaz:
-> Odlično – preidimo na podrobnejšo razlago, ki temelji na definiciji funkcije kot specifične matematične relacije. Funkcija $f: X \to Y$ je relacija $f \subseteq X \times Y$, ki mora izpolnjevati pogoj, da za vsak element $x \in X$ obstaja natanko en element $y \in Y$, na katerega ga funkcija preslika ($\forall x \in X, \exists ! y \in Y: (x, y) \in f$). Oglejmo si primer, kjer sta tako domena kot kodomena prazni množici, torej $X = \emptyset$ in $Y = \emptyset$. V tem primeru je njun kartezični produkt $X \times Y$ prav tako prazen, $\emptyset \times \emptyset = \emptyset$.
+> Funkcija $f: X \to Y$ je relacija $f \subseteq X \times Y$, ki mora izpolnjevati pogoj, da za vsak element $x \in X$ obstaja natanko en element $y \in Y$, na katerega ga funkcija preslika ($\forall x \in X, \exists ! y \in Y: (x, y) \in f$). $X = \emptyset$ in $Y = \emptyset$. V tem primeru je njun kartezični produkt $X \times Y$ prav tako prazen, $\emptyset \times \emptyset = \emptyset$.
 > 
 > Vsaka funkcija $f: \emptyset \to \emptyset$ mora biti podmnožica praznega produkta, torej $f \subseteq \emptyset$. Ker je edina podmnožica prazne množice sama prazna množica, obstaja samo ena takšna relacija: $f = \emptyset$. Sedaj moramo preveriti, ali ta prazna relacija ustreza strogim pogojem za funkcijo. Pogoj obstoja slike (totalnost), ki zahteva, da za vsak $x \in X$ obstaja slika, je trivialno resničen, saj ker je $X = \emptyset$, ne obstaja noben $x$. Ta univerzalna trditev o elementih prazne množice je avtomatično izpolnjena, saj ni nobenega nasprotnega primera, ki bi jo lahko ovrgel. Podobno je z enoličnostjo slike za vsak $x$: tudi ta pogoj je trivialno izpolnjen, ker ni nobenega elementa v domeni. Torej, funkcija $f: \emptyset \to \emptyset$ izpolnjuje vse zahteve in obstaja natanko ena – prazna funkcija $f = \emptyset$.
 > 
@@ -229,8 +250,10 @@ Posebni primeri (iz definicije preslikav med praznimi množicami):
 ## Permutacije
 
 Bijekcija $A \to A$ je **permutacija** $A$. 
+
 Množica vseh permutacij $A$ v $A$ je $S_A$.
 Velikost: $|S_A| = |A|!$.
+
 Za $[n]$ označimo $S_{[n]} = S_n$.
 
 Notacije:
@@ -251,7 +274,7 @@ Cikel zapišemo: $(i, \pi(i), \pi^2(i), \dots, \pi^{k-1}(i))$, kjer $\pi^k(i) = 
 ## Načelo dvojnega štetja
 
 Recimo da imamo $A$ in $B$ in relacijo $S \subseteq A \times B$.
-Predstavljamo si lahko tabelo kjer imamo vrstico po $b$-jih in stolpec po $b$-jih.
+Predstavljamo si lahko tabelo kjer imamo vrstico po $b$-jih in stolpec po $a$-jih.
 
 $$\begin{bmatrix}(a_{1},b_{1}) & (a_{1},b_{2}) & ... &(a_{1},b_{n}) \\ (a_{2},b_{1}) & (a_{2},b_{2}) & ... &(a_{2},b_{n}) \\ ... & ...&...&...\\(a_{n},b_{1}) & (a_{n},b_{2}) & ...& (a_{n},b_{n})  \end{bmatrix}$$
 
@@ -268,15 +291,31 @@ Načelo dvojnega štetja pravi, da je skupno število kljukic enako, ne glede na
 $$\sum_{i=1}^{n} v_{i} = \sum_{j=1}^{n} s_{j} = |S| $$
 
 >[!|hide]- Glaven primer
-> $$\sum_{k=1}^{n} k \cdot \binom{n}{k} = n \cdot 2^{n-1}$$
->Definiramo množico $S$ kot zbirko vseh urejenih parov $(A, x)$, kjer je $A$ podmnožica množice $\{1, 2, \dots, n\}$ in $x$ je element, ki pripada tej podmnožici $A$. Množica $A$ je torej nujno neprazna.
 > 
-> Prvi način štetja velikosti množice $S$ je, da fiksiramo velikost podmnožice $A$. Če ima $A$ velikost $k$ (kjer $k$ teče od 1 do $n$), obstaja $\binom{n}{k}$ načinov za izbiro te podmnožice. Ko je $A$ izbrana, imamo $k$ možnosti za izbiro elementa $x$ iz te podmnožice. Velikost $S$, prešteta po velikosti podmnožice $A$, je vsota vseh teh možnosti: $\sum_{k=1}^{n} k \cdot \binom{n}{k}$.
+> $$
+> \sum_{1}^{n} k \binom{n}{k}
+> $$
 > 
-> Drugi način štetja je, da fiksiramo, kateri element $x$ je izbran. Element $x$ lahko izberemo na $n$ načinov. Ko je $x$ izbran, mora ta element nujno biti vsebovan v podmnožici $A$. Preostali elementi podmnožice $A$ so lahko katerakoli podmnožica preostalih $n-1$ elementov iz prvotne množice. Število takšnih podmnožic je $2^{n-1}$. Skupno število parov $(A, x)$, prešteto glede na izbiro $x$, je $n \cdot 2^{n-1}$.
+> Iščemo kako bi lahko sešteli število podmožic velikosti $k$
+> pomnoženih s številom elementov
 > 
-> Ker oba izraza predstavljata natančno velikost iste množice $S$, morata biti enaka:
-> $$\sum_{k=1}^{n} k \cdot \binom{n}{k} = n \cdot 2^{n-1}$$
+> $k \binom{n}{k}$ je lahko predsatvljen na naslednji način $\qquad \qquad\quad \{1,2\}, \{2,3\}, \{1,3\}$
+> $\qquad \qquad 1 \quad \checkmark \quad\quad\quad\qquad \quad \checkmark$
+> $\qquad \qquad 2 \quad \checkmark \quad\quad\quad \checkmark \quad \qquad$
+> $\qquad \qquad 3 \quad \quad\quad\quad \quad \checkmark \quad\quad \checkmark$
+> kjer vidimo da če tvorimo tabelo kjer so  
+> 
+> podmnožce $\to$
+> št. $[n] \downarrow$
+> 
+> potem naj bo relacija $(A, x)$ tako da velja $A R x$ če je $x \in A$.
+> $\implies \sum_{1}^{n} \binom{n}{k} k$ sešteva po stolpcih
+> 
+> za $n 2^{n-1}$ pa seštevamo vrstice torej za vsako vrstico velja da je relacija tam kjer je element v podmnožici. $\implies$ recimo vrstica $2$ $-$ to pomeni da gledamo koliko je vseh podmnožic ki vsebujejo $2$. $\implies$ imamo $n-1$ el. ki so še lahko podmnožici
+> $\implies 2^{n-1}$, ker je $n$ vrstic $\implies n 2^{n-1}$
+> $$
+> \implies \sum_{1}^{n} \binom{n}{k} k = n 2^{n-1}
+> $$
 
 >[!|hide]- Primeri:
 > 
@@ -303,3 +342,25 @@ $$\sum_{i=1}^{n} v_{i} = \sum_{j=1}^{n} s_{j} = |S| $$
 > *   Povprečje:
 >     $$\frac{1}{n} \sum_{i=1}^n s_i = \frac{1}{n} \sum_{d=1}^n \lfloor \frac{n}{d} \rfloor \approx \frac{1}{n} \sum_{d=1}^n \frac{n}{d} = \sum_{d=1}^n \frac{1}{d} = H_n$$
 >     $H_n$ (harmonično število) asimptotično raste kot $\ln n$.
+> 
+> (4) Dokaz
+> $$
+> \sum_{k=0}^{n} \binom{n}{k} = 2^n
+> $$
+> 
+> $\text{el. } [n] \downarrow$ 
+> podmnožice $\rightarrow$
+> 
+> 
+> 
+> $i \ R \ A \Leftrightarrow |A| = i$
+> 
+> Po stolpcih velja $2^n$ saj imamo v vsakem stolpcu eno relacijo - podmnožica ima eno velikost.
+> 
+> Po vrsticah velja da imamo toliko kljukic  v vrstici kolikor je podmnožic velikosti $i$.
+> $$
+> 1 + \binom{n}{1} + \binom{n}{2} + \dots + \binom{n}{n-1} + 1
+> $$
+> $$
+> \Rightarrow \sum_{k=0}^{n} \binom{n}{k} = 2^n
+> $$
