@@ -369,14 +369,15 @@ $$\sum_{i=1}^{n} v_{i} = \sum_{j=1}^{n} s_{j} = |S| $$
 
 ### Podmnožice in načrti
 
-**Binomski koeficient
+**Binomski koeficient**
 
-$$2Â = \{ >>B \subset A\}$$**
+$$2^A = \{B \subset A\}$$
 
 $$\binom{\,A\,}{\,k\,} = \{ B \subset A : |B| = k\}$$
 
 Def:
-$$\binom{\,n\,}{\,k\,} = | \binom{\,[n]\,}{\,k\,}|$$
+
+$$\binom{\,n\,}{\,k\,} = \left| \binom{\,[n]\,}{\,k\,}\right|$$
 
 oz. število k-elementnih podmnožic množice z $n$ elementi; število načinov da izberemo $k$ elementov iz množice z $n$ elementi.
 
@@ -386,7 +387,7 @@ $$\binom{\,[n]\,}{\,n\,} = \{ [n]\}$$
 
 $$\binom{\,n\,}{\,k\,}=0 \,;\; k < 0 \lor k > n$$
 
-Binomskikoeficient je simetričen
+Binomski koeficient je simetričen
 
 $$\binom{\,n\,}{\,k\,} = \binom{\,n\,}{\,n-k\,}$$
 $$ $$
