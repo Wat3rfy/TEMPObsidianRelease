@@ -114,30 +114,33 @@ zvezna.
 > G'(x) = f(\beta(x), x) \beta'(x) - f(\alpha(x), x) \alpha'(x) + \int_{\alpha(x)}^{\beta(x)} \frac{\partial f}{\partial x}(t, x) dt.
 > $$
 > >[!|dokaz]- Dokaz:
-> > Po definiciji odvoda zapišemo
+> > Dokažimo najprej prvo trditev. Izberimo poljuben $x \in J$ in tak $h \in \mathbb{R}$, da je tudi $x+h \in J$. Zapišimo diferenčno količino za funkcijo $F$:
 > > $$
-> > F'(x) = \lim_{h \to 0} \frac{F(x+h) - F(x)}{h} = \lim_{h \to 0} \int_a^b \frac{f(t, x+h) - f(t, x)}{h} dt.
+> > \frac{F(x+h) - F(x)}{h} = \int_a^b \frac{f(t, x+h) - f(t, x)}{h} dt.
 > > $$
-> > Po Lagrangeovem izreku o povprečni vrednosti za funkcijo $x \mapsto f(t, x)$ obstaja za vsak $t \in [a, b]$ med $x$ in $x+h$ število $\xi_{t,h}$, da je $\frac{f(t, x+h) - f(t, x)}{h} = \frac{\partial f}{\partial x}(t, \xi_{t,h})$. Ker je $\frac{\partial f}{\partial x}$ zvezna na kompaktni množici $[a, b] \times K$, kjer je $K \subset J$ poljuben kompakten interval, ki vsebuje $x$, je tam tudi enakomerno zvezna. Zato za vsak $\varepsilon > 0$ obstaja $\delta > 0$, da za $|h| < \delta$ velja $|\frac{\partial f}{\partial x}(t, \xi_{t,h}) - \frac{\partial f}{\partial x}(t, x)| < \varepsilon$ za vse $t \in [a, b]$. Sledi, da lahko zamenjamo vrstni red limite in integrala:
+> > Po predpostavki za vsak $t \in [a, b]$ obstaja parcialni odvod funkcije $f$ na drugo spremenljivko. Po Lagrangeovem izreku o srednji vrednosti za funkcijo $y \mapsto f(t, y)$ na intervalu $[x, x+h]$ obstaja število $\theta_{t,h} \in (0, 1)$, odvisno od $t$ in $h$, tako da velja:
 > > $$
-> > F'(x) = \int_a^b \lim_{h \to 0} \frac{\partial f}{\partial x}(t, \xi_{t,h}) dt = \int_a^b \frac{\partial f}{\partial x}(t, x) dt.
+> > f(t, x+h) - f(t, x) = h \cdot \frac{\partial f}{\partial x}(t, x + \theta_{t,h} h).
 > > $$
-> > Zveznost odvoda $F'$ sledi iz zveznosti $\frac{\partial f}{\partial x}$ in zgornje integralske zveze.
+> > Izraz za diferenčno količino se tako preoblikuje v:
+> > $$
+> > \frac{F(x+h) - F(x)}{h} = \int_a^b \frac{\partial f}{\partial x}(t, x + \theta_{t,h} h) dt.
+> > $$
+> > Ker je po predpostavki **parcialni odvod $\frac{\partial f}{\partial x}$ zvezen** na $[a, b] \times J$, je na vsaki kompaktni podmnožici oblike $[a, b] \times [x-\delta, x+\delta] \subset [a, b] \times J$ enakomerno zvezen. To pomeni, da ko gre $h \to 0$, vrednosti $\frac{\partial f}{\partial x}(t, x + \theta_{t,h} h)$ enakomerno po $t \in [a,b]$ konvergirajo k $\frac{\partial f}{\partial x}(t, x)$. Zaradi enakomerne konvergence smemo zamenjati limito in integral:
+> > $$
+> > F'(x) = \lim_{h \to 0} \frac{F(x+h) - F(x)}{h} = \lim_{h \to 0} \int_a^b \frac{\partial f}{\partial x}(t, x + \theta_{t,h} h) dt = \int_a^b \lim_{h \to 0} \frac{\partial f}{\partial x}(t, x + \theta_{t,h} h) dt = \int_a^b \frac{\partial f}{\partial x}(t, x) dt.
+> > $$
+> > Zveznost odvoda $F'$ sledi neposredno iz zveznosti parcialnega odvoda $\frac{\partial f}{\partial x}$ in lastnosti integrala.
 > > 
-> > Za dokaz drugega dela vpeljimo pomožno funkcijo $\Phi(u, v, x) = \int_u^v f(t, x) dt$. Potem je $G(x) = \Phi(\alpha(x), \beta(x), x)$. Po verižnem pravilu za odvajanje funkcij več spremenljivk velja
+> > Za dokaz druge trditve definirajmo pomožno funkcijo $H(x, y, z) = \int_y^z f(t, x) dt$, kjer je $x \in J$ in $y, z \in [a, b]$. Funkcija $G$ je tedaj kompozicija $G(x) = H(x, \alpha(x), \beta(x))$. Po totalnem odvodu je:
 > > $$
-> > G'(x) = \frac{\partial \Phi}{\partial u} \alpha'(x) + \frac{\partial \Phi}{\partial v} \beta'(x) + \frac{\partial \Phi}{\partial x}.
+> > G'(x) = \frac{\partial H}{\partial x}(x, \alpha(x), \beta(x)) + \frac{\partial H}{\partial y}(x, \alpha(x), \beta(x)) \alpha'(x) + \frac{\partial H}{\partial z}(x, \alpha(x), \beta(x)) \beta'(x).
 > > $$
-> > Uporabimo osnovni izrek integralskega računa za parcialna odvoda po mejah:
-> > $$
-> > \frac{\partial \Phi}{\partial v} = f(v, x) = f(\beta(x), x), \quad \frac{\partial \Phi}{\partial u} = -f(u, x) = -f(\alpha(x), x).
-> > $$
-> > Parcialni odvod po $x$ je po že dokazanem prvem delu izreka enak
-> > $$
-> > \frac{\partial \Phi}{\partial x} = \int_u^v \frac{\partial f}{\partial x}(t, x) dt = \int_{\alpha(x)}^{\beta(x)} \frac{\partial f}{\partial x}(t, x) dt.
-> > $$
-> > Z združitvijo vseh delov dobimo
+> > Parcialne odvode funkcije $H$ izračunamo:
+> > *   Po pravkar dokazani prvi točki izreka je $\frac{\partial H}{\partial x}(x, y, z) = \int_y^z \frac{\partial f}{\partial x}(t, x) dt$.
+> > *   Po osnovnem izreku integralskega računa, za katerega je ključna **zveznost funkcije $f$**, velja $\frac{\partial H}{\partial z}(x, y, z) = f(z, x)$ in $\frac{\partial H}{\partial y}(x, y, z) = -f(y, x)$.
+> > 
+> > Uporaba zgornjih izrazov v formuli za totalni odvod, kjer upoštevamo predpostavko o **zvezni odvedljivosti** funkcij $\alpha$ in $\beta$, nam da končni rezultat:
 > > $$
 > > G'(x) = f(\beta(x), x) \beta'(x) - f(\alpha(x), x) \alpha'(x) + \int_{\alpha(x)}^{\beta(x)} \frac{\partial f}{\partial x}(t, x) dt.
 > > $$
-
