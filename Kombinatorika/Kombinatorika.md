@@ -592,4 +592,3 @@ Imamo $5!$ načinov ampak se znebimo permutacij enk in dvojk, torej
 
 $$\frac{5!}{2!2!}$$
 
-ASDJASDHJKASDHJASDHJKASDHJKASDHJKASDHJKKASDHJASDHJK
