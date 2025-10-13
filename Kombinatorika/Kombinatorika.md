@@ -364,3 +364,228 @@ $$\sum_{i=1}^{n} v_{i} = \sum_{j=1}^{n} s_{j} = |S| $$
 > $$
 > \Rightarrow \sum_{k=0}^{n} \binom{n}{k} = 2^n
 > $$
+
+
+
+### Podmnožice in načrti
+
+**Binomski koeficient
+
+$$2Â = \{ >>B \subset A\}$$**
+
+$$\binom{\,A\,}{\,k\,} = \{ B \subset A : |B| = k\}$$
+
+Def:
+$$\binom{\,n\,}{\,k\,} = | \binom{\,[n]\,}{\,k\,}|$$
+
+oz. število k-elementnih podmnožic množice z $n$ elementi; število načinov da izberemo $k$ elementov iz množice z $n$ elementi.
+
+$$\binom{\,[n]\,}{\,0\,} = \{ \emptyset\}$$
+$$\binom{\,[n]\,}{\,1\,} = \{ \{ 1\},\{ 2\},...,\{ n\}\}$$
+$$\binom{\,[n]\,}{\,n\,} = \{ [n]\}$$
+
+$$\binom{\,n\,}{\,k\,}=0 \,;\; k < 0 \lor k > n$$
+
+Binomskikoeficient je simetričen
+
+$$\binom{\,n\,}{\,k\,} = \binom{\,n\,}{\,n-k\,}$$
+$$ $$
+$$\phi: \binom{\,[n]\,}{\,k\,} \rightarrow \binom{\,[n]\,}{\,n-k\,}$$
+$$\phi (A) = A^{C}$$
+$$ $$
+
+Rekurzivna zveza
+
+$$ \binom{\,n\,}{\,k\,} = \binom{\,n-1\,}{\,k-1\,} + \binom{\,n-1\,}{\,k\,}$$
+
+>[!|dokaz]- Dokaz:
+> 
+> Intuitiven dokaz Pascalove identitete temelji na **kombinatoričnem argumentu** ali **dokazu s štetjem na dva načina**.
+> 
+> Identiteta, ki jo dokazujemo, je:
+> $$\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}$$
+> 
+> 
+> Da bi izračunali skupno število komitejev, bomo celotno množico $n$ ljudi razdelili na dva med seboj izključujoča se primera (ki pokrivata vse možnosti), s čimer bo vsota njunih možnosti enaka skupnemu številu.
+> 
+> *   Izberimo enega specifičnega člana izmed $n$ ljudi, recimo mu "Peter".
+> 
+> **Peter JE v izbranem komiteju ($k$ ljudi).**
+> *   Če je Peter že izbran, moramo izbrati še $k-1$ oseb, da komite doseže želeno velikost $k$.
+> *   Teh $k-1$ oseb moramo izbrati iz preostalih $n-1$ oseb (vsi, razen Petra).
+> *   Število načinov za to izbiro je torej: $$\binom{n-1}{k-1}$$
+> 
+> **Peter NI v izbranem komiteju ($k$ ljudi).**
+> *   Če Peter ni v komiteju, moramo še vedno izbrati celotno kvoto $k$ oseb.
+> *   Teh $k$ oseb moramo izbrati iz preostalih $n-1$ oseb (vsi, razen Petra).
+> *   Število načinov za to izbiro je torej: $$\binom{n-1}{k}$$
+> 
+> 
+> Ker je vsak možen komite z $k$ člani bodisi **vključuje** Petra (Primer 1) bodisi ga **izključuje** (Primer 2), je skupno število vseh možnih komitejev vsota možnosti v teh dveh primerih.
+> 
+> Torej:
+> $$\begin{pmatrix} \text{Skupno št. komitejev} \\ \text{velikosti } k \text{ iz } n \end{pmatrix} = \begin{pmatrix} \text{Št. komitejev, ki} \\ \text{vključujejo Petra} \end{pmatrix} + \begin{pmatrix} \text{Št. komitejev, ki} \\ \text{izključujejo Petra} \end{pmatrix}$$
+> $$\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}$$
+
+
+> **Formula za binomski koeficient**
+> 
+> $$\binom{\,n\,}{\,k\,} = \frac{n^{\underline{k}}}{k!}$$
+> 
+> >[!|dokaz]- Dokaz:
+> >Izberemo zaporedja $k$ elementov iz množice $n$ ampak ker smo šteli vse permutacije $k$ elementov moramo za vsako množico zaporedij z istimi elementi izločiti vse permutacije teh elementov - torej jih lahko damo po skupinah velikosti $k!$ - to pomeni da delimo s $k!$.
+
+
+
+> $$1+2+...+n = \binom{\,n+1\,}{\,2\,}$$
+> 
+> >[!|dokaz]- Dokaz:
+> > Z indukcijo in rekurzivno zvezo
+
+
+**Pascalov trikotnik**
+
+
+$$
+\begin{array}{ccccccccccccc}
+&&&&&& 1 &&&&&& \\
+&&&&& 1 && 1 &&&&& \\
+&&&& 1 && 2 && 1 &&&& \\
+&&& 1 && 3 && 3 && 1 &&& \\
+&& 1 && 4 && 6 && 4 && 1 && \\
+& 1 && 5 && 10 && 10 && 5 && 1 & \\
+1 && 6 && 15 && 20 && 15 && 6 && 1
+\end{array}
+$$
+
+Kjer vsaka $i$-ta vrstica zaznamuje množico z $i$ elementi.
+Vsak $j$-ti stolpec pa število $j$-elementnih podmnožic.
+
+**Binomski izrek**
+
+$$(x+y)^{n} = \sum_{0}^{n}\binom{\,n\,}{\,i\,}a^{i}b^{n-i}$$
+
+Za to potrebujemo komutativni kolobar oz. da $a$ in $b$ komutirata in enoto če definiramo še $(a+b)^{0}$
+
+>[!|dokaz]- Dokaz:
+>1\. Način - indukcija po $n$-ju
+>2\. Način - krajša ampak z idejo indukcije
+>$$(a+b)^{n}=\sum_{k}^{}\binom{\,n\,}{\,k\,}a^{n-k}b^{k}$$
+>$$(a+b)^{n} = (a+b)^{n-1}(a+b)$$
+>$$= (\sum_{k}^{}\binom{\,n-1\,}{\,k\,}a^{n-1-k}b^{k})(a+b)$$
+>$$\sum_{k}^{}\binom{\,n-1\,}{\,k\,}a^{n-k}b^{k} + \sum_{k}^{} \binom{\,n-1\,}{\,k\,}a^{n-1-k}b^{k+1}$$
+>$$\sum_{k}^{}\binom{\,n-1\,}{\,k\,}a^{n-k}b_{k}+\sum_{k}^{}\binom{\,n-1\,}{\,k-1\,}a^{n-k}b^{k}$$
+>$$\sum_{k}^{}(\binom{\,n-1\,}{\,k\,} + \binom{\,n-1\,}{\,k-1\,})a^{n-k}b^{k}$$
+>3\. Način kombinatorični dokaz
+>
+>Kombinatorični dokaz Binomskega izreka, ki trdi, da je $(x+y)^n = \sum_{k=0}^{n} \binom{n}{k} x^{n-k} y^k$, se osredotoča na razumevanje, kako nastanejo posamezni členi v razširitvi produkta. Izraz $(x+y)^n$ predstavlja produkt $n$ enakih faktorjev $(x+y)$, torej $\underbrace{(x+y)(x+y)\cdots(x+y)}_{n \text{ faktorjev}}$. Ko ta produkt razširimo, vsak posamezni člen nastane z izbiro bodisi $x$ ali $y$ iz vsakega od $n$ oklepajev in nato pomnožitvijo teh izbranih elementov.
+> 
+> Oglejmo si splošni člen $x^{n-k}y^k$ v tej razširitvi, kjer $k$ predstavlja število faktorjev $y$ in $n-k$ število faktorjev $x$. Da bi dobili ta člen, moramo izbrati $y$ iz natanko $k$ oklepajev, medtem ko moramo iz preostalih $n-k$ oklepajev izbrati $x$. Ker je vrstni red izbire nepomemben, je ključno vprašanje, na koliko različnih načinov lahko izberemo teh $k$ oklepajev izmed vseh $n$ razpoložljivih oklepajev, iz katerih bomo vzeli $y$.
+> 
+> Število načinov za izbiro $k$ oklepajev iz množice $n$ oklepajev je natanko binomski koeficient $\binom{n}{k}$, kar je po definiciji število kombinacij brez ponavljanja. Vsak od teh $\binom{n}{k}$ načinov ustvari natanko en primerek člena $x^{n-k}y^k$. Ko se vsi ti primerki v končni vsoti seštejejo, je skupni koeficient pri členu $x^{n-k}y^k$ enak $\binom{n}{k}$. Ker ta logični argument velja za vsako vrednost $k$ od $0$ do $n$, s tem dokažemo, da je Binomski izrek resničen in da je celotna razširitev enaka vsoti teh členov: $(x+y)^n = \sum_{k=0}^{n} \binom{n}{k} x^{n-k} y^k$.
+
+
+Pogosto pišemo tudi 
+
+$$(1+x)^{n} = \sum_{0}^{n}\binom{\,n\,}{\,k\,}x^{k}$$
+
+***
+### Izbori
+
+Imamo $n$ oštevilčenih kroglic in izberemo $k$ kroglic.
+
+Razlikujemo med tem ali je **vrstni red pomemben** ali ne in ali lahko izbiro vračamo nazaj oz. so **dovoljene ponovitve**.
+
+
+| | **Ponovitve so Dovoljene (DA)** | **Ponovitve niso Dovoljene (NE)** |
+| :---: | :---: | :---: |
+| **Vrstni red je Pomemben (DA)** | **Variacije s ponavljanjem** | **Variacije (Permutacije) brez ponavljanja** |
+| | $$n^k$$ | $$\frac{n!}{(n-k)!}$$ |
+| **Vrstni red ni Pomemben (NE)** | **Kombinacije s ponavljanjem** | **Kombinacije brez ponavljanja** |
+| | $$\binom{n+k-1}{k}$$ | $$\binom{n}{k} = \frac{n!}{k!(n-k)!}$$ |
+
+***
+Kombinacije s ponavljanjem moram pogledati še
+***
+
+### Kompozicije
+
+**Kompozicija** števila $n$ je nek $\lambda = (\lambda_1,...,\lambda_{l})$ kjer je $\lambda_{i} \geq 1$ kjer je njihova vsota enaka $n$.
+
+$\lambda_{i}$ so členi kompozicije
+$l$ je dolžina kompozicije
+$n$ je velikost kompozicije
+
+Velja da je število kompozicij enako
+
+$$2^{n-1}$$
+
+Za 0 velja da ima eno kompozicijo - prazno kompozicijo.
+
+Št kompozicij števila $n$ dolžine $k$
+
+$$\binom{\,n-1\,}{\,k-1\,}$$
+*Tukej je neka povezava z zvezdivami in palicami oz. kombinacijami s ponavljanjem*
+
+Kompozicijo lahko predstavmo s kroglicamiin pregradami
+
+$$4+2+1+3 = 10$$
+$$**** | ** | * | ***$$
+
+$2^{n-1}$ : pregrado lahko damo ali ne in imamo $n-1$ možnosti za pregrado.
+
+Za $k$ členov pa poterbeujemo $k-1$ pregrad. Torej med $n-1$ mesti izberemo $k-1$ mest : $\binom{\,n-1\,}{\,k-1\,}$
+
+**Šibka kompozicija** števila $n$ je $\lambda = (\lambda_{1},...,\lambda_{n}) \,;\; \lambda_{i}\geq 0$.
+
+Koliko je šibkih kompozicijnekega števila $n$ dolžine $k$.
+
+>[!|dokaz]- Dokaz:
+> 1\. Način
+> Imamo neko šibko kompozicijo $0+0+3+1+0+2+0+0+1$ kar je 7.
+> 
+> $$||***|*||**|||*$$
+> 
+> Imamo $n+k-1$ objektov in jih dajemo na $k-1$ mest kamor damo pregrade.
+> 
+> $$\binom{\,n+k-1\,}{\,k-1\,}$$
+> 
+> 2\. Način
+> 
+> $$\lambda_{1}+...+\lambda_{k} = n \,;\; \lambda_{i} \geq 0$$
+> 
+> $$\mu_{i}= \lambda_{i}+1$$
+> $$\mu_{1}+...+\mu_{k}=n+k$$
+> $$\binom{\,n+k-1\,}{\,k-1\,}$$
+
+Kombinacije s ponavljanjem je natnako šibka kompozicija št $k$ dolžine $n$.
+
+***
+
+### Multinomski koeficienti
+
+Imamo multimnožico, kjer se elementi lahko ponavljajo.
+
+$$A = \{ 1,1,1,2,2,3,3,\} = \{ 1^{3}, 2^{2}, 3^{2}\}$$
+
+$$M = (S, \varphi)$$
+
+$S$ je množica, $\varphi: S \rightarrow \mathbb{N}$
+
+$$A = (S, \varphi)$$
+$$S = [4], \varphi(1)=3, \varphi(2)=1,...$$
+
+Permutacija multimnožice : "premešamo" elemente, ne ločimo istih elementov.
+
+Primer
+
+11223, 11232
+
+Za enke imamo $\binom{\,5\,}{\,2\,}$ za dvojek $\binom{\,3\,}{\,2\,}$ za trojek $\binom{\,1\,}{\,1\,}$.
+
+$$\binom{\,5\,}{\,2\,} \binom{\,3\,}{\,2\,} \binom{\,1\,}{\,1\,} = 30$$
+
+Drugi način
+
+Imamo $5!$ načinov ampak se znebimo permutacij enk in dvojk, torej
+$$\frac{5!}{2!2!}$$
