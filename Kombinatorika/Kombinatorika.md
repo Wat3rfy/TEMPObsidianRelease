@@ -588,5 +588,8 @@ $$\binom{\,5\,}{\,2\,} \binom{\,3\,}{\,2\,} \binom{\,1\,}{\,1\,} = 30$$
 
 Drugi način
 
-Imamo $5!$ načinov ampak se znebimo permutacij enk in dvojk, torej
+Imamo $5!$ načinov ampak se znebimo permutacij enk in dvojk, torej 
+
 $$\frac{5!}{2!2!}$$
+
+ASDJASDHJKASDHJASDHJKASDHJKASDHJKASDHJKKASDHJASDHJK
