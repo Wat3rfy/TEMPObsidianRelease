@@ -420,11 +420,188 @@ Poznamo $\text{COUNT, SUM, AVG, MIN, MAX}$
 
 **Zruževalne operacije**
 
-$$_{GA}\Gamma_{AL}(R) = $$
+$$\text{GA }\Gamma_{AL}(R) = $$
 
-Relacijo ko jo dobimo vsebuje atribute $GA$ ter vrednosti ki jih dobim z agregati $AL$ nad vsako skupino iz $GA$.
+Relacijo ko jo dobimo vsebuje atribute $GA$ ter vrednosti ki jih dobim z agregati $AL$ kjer se združijo po istih vrednostih atributov iz $GA$.
 ***
 
 **Preimenovanje** je operacije ki poeimenuje atributi ki ga dobimo z operacijami $\text{Op}$ nad relacijo $R$ z imenom $\text{Ime}$.
 
 $$\rho_{R}(\text{AvgCena})\Gamma_{\text{AVG}Cena} (\sigma_{\text{Zaloga}>0}(R))$$
+
+***
+
+### SQL
+
+Imamo operacije vrste **DML** oz. **Data manipulation langauge**, in **DDL** oz. **Data definition language**.
+
+Pod DML spadajo **select, insert, update, delete**, namanjeni neposrednemu delu s podatki znotraj tabel. medtem ko pod DDL spadajo create, alter, set transaction, ki služijo definiranju in upravljanju strukture baze in njenih objektov.
+
+**SQL**je enostaven, nepostopkoven, večnamenski, in je uveljaven kot standardni jezik za delo z relacijskimi bazami.
+***
+**DML skupine**
+
+- SELECT, 
+- UPDATE, 
+- INSERT, 
+- DELETE
+***
+**SELECT**
+
+```sql
+SELECT [DISTINCT|ALL]
+{*|[columnExpression[AS newName]][,...]}
+FROM table-name [alias][,...]
+[WHERE condition]
+[GROUP BY columnList] 
+[HAVING condition]
+[ORDER BY columnList]
+```
+
+`SELECT` določa stolpce ki naj se pojavijo v izhodni relaciji.
+`FROM` določa tabele za poizvedbo
+`WHERE` filtrira vrstice
+`GROUP BY` Združuje vrstice po vrednostih izbranih stolpcev
+`HAVING` Filtrira skupine glede na določene pogoje
+`ORDER BY` Določa vrstni red vrstic na izhodu
+
+Vrstnega reda sklopov ni možno spreminjati, obvezna pa sta le `SELECT` in `FROM` sklopa.
+
+SQL izrazi so **neobčutljivi** na velikost črk.
+
+Rezervirane besede SQL ne smemo uporabljati za definicije.
+
+```sql
+select * from table-name;
+//Izbere vse stolpce iz tabele.
+
+select col1, col2 from table-name;
+//Izbere stolpca col1 in col2 iz tabele.
+
+select distinct atr-name from table-name;
+//Izpiše vse distinktne vrednosti ki nastopajo v stolpcu.
+
+select first_name, last_name, birth_date, hire_date, DATEDIFF(hire_date, birth_date)/365 as 'Starost ob zaposlitvi' from employees;
+//ali
+select first_name, last_name, YEAR(hire_date)-YEAR(birth_date) as 'Starost ob zaposlitvi' from employees;
+//Izpiše starost ob zaposlitvi
+```
+
+Primeri funkcij v mySQL SUPB
+
+
+| Name | Description | Example SQL Usage | Example Result (Based on hypothetical input) |
+| :--- | :--- | :--- | :--- |
+| **ADDDATE()** | Add time values (intervals) to a date value | `SELECT ADDDATE('2024-06-01', INTERVAL 5 DAY);` | `2024-06-06` |
+| **ADDTIME()** | Add time | `SELECT ADDTIME('10:00:00', '01:30:00');` | `11:30:00` |
+| **CONVERT\_TZ()** | Convert from one timezone to another | `SELECT CONVERT_TZ('2024-06-01 10:00:00', 'UTC', 'EST');` | `2024-06-01 06:00:00` |
+| **CURDATE()** | Return the current date | `SELECT CURDATE();` | `2024-10-27` (Current Date) |
+| **CURRENT\_DATE(),** | Synonyms for CURDATE() | `SELECT CURRENT_DATE;` | `2024-10-27` (Current Date) |
+| **CURRENT\_TIME(),** | Synonyms for CURTIME() | `SELECT CURRENT_TIME();` | `14:35:50` (Current Time) |
+| **CURRENT\_TIMESTAMP()** | Synonyms for NOW() | `SELECT CURRENT_TIMESTAMP;` | `2024-10-27 14:35:50` (Current Datetime) |
+| **CURTIME()** | Return the current time | `SELECT CURTIME();` | `14:35:50` (Current Time) |
+| **DATE\_ADD()** | Add time values (intervals) to a date value | `SELECT DATE_ADD('2024-01-01', INTERVAL 3 MONTH);` | `2024-04-01` |
+| **DATE\_FORMAT()** | Format date as specified | `SELECT DATE_FORMAT(NOW(), '%W, %M %D, %Y');` | `Sunday, October 27th, 2024` |
+| **DATE\_SUB()** | Subtract a time value (interval) from a date | `SELECT DATE_SUB('2024-06-30', INTERVAL 1 WEEK);` | `2024-06-23` |
+| **DATE()** | Extract the date part of a date or datetime expression | `SELECT DATE('2024-10-27 15:45:00');` | `2024-10-27` |
+| **DATEDIFF()** | Subtract two dates (returns difference in days) | `SELECT DATEDIFF('2024-07-01', '2024-06-01');` | `30` |
+| **DAY()** | Synonym for DAYOFMONTH() | `SELECT DAY('2024-11-15');` | `15` |
+| **DAYNAME()** | Return the name of the weekday | `SELECT DAYNAME('2024-11-15');` | `Friday` |
+
+
+**Iskalni kriteriji**
+
+Izpiši vse zaposlene, ki so moškega spola in so rojeni pred 1953. 
+
+```sql
+select * from employees 
+where YEAR(birth_date)<1953 and gender = 'M';
+```
+
+Uporaba logičnih operatorjev kot so and, or, not, =, <, <=, != pri `where`.
+
+Posebnejši: 
+- between (preverja vrednosti v intervalu), 
+- like(preverja po nekeme vzorcu npr. `A%`), 
+- in (preverja vrednosti v podanem seznamu), 
+- is null, 
+- is not null, 
+- **all**, 
+- **any**, 
+- **exists**
+
+kjer so all, any in exists uporabljeni pri poizvedbi na drugi tabeli.
+
+**All** - gledamo ali je cena večja od vseh v drugi tabeli.
+
+```sql
+SELECT ime_izdelka, cena FROM Izdelki 
+WHERE cena > ALL ( 
+SELECT cena FROM Izdelki 
+WHERE oddelek = 'Oblačila' );
+```
+
+**Any** - gledamo ali je cena večja od vsaj ene v drugi tabeli
+
+**Exsists** - gledamo če je 
+
+```sql
+SELECT id_izdelka, ime_izdelka FROM Izdelki I WHERE EXISTS ( SELECT 1 FROM Narocila N WHERE N.id_izdelka = I.id_izdelka );
+```
+
+*Select 1 je sintaksa kjer pri njeni uporabi preverjamo le obstoj vrstice in ne zaravljamo časa z branjem in prenašanjem dejanskih podatkov ampak preverjam le obstoj vrstice; 1 je le standardna konstanta, lahko bi pisalo tudi selet NULL, select  'A'...*
+
+**Leta** so shranjena po `YYYY-MM-DD`, **čas** je srhanjen kot `HH:MM:SS`, **datetime** pa kot `YYYY-MM-DD HH:MM:SS`.
+
+Obstaja tudi `CAST`: 
+```sql 
+SELECT CAST('2025-10-27' AS DATE);
+```
+
+Primer iskanja po članstvu v množici
+
+```sql
+select * from titles 
+where title in ('Staff', 'Senior Staff');
+```
+
+
+Primer iskanja z vzorcem
+
+```sql
+select * from employees 
+where last_name like 'B%' and birth_date like '__6_____01';
+//Imena ki se začnenjo na B in rojeni prvega v mesecu v šestedesetih
+```
+
+Iskanje z NULL
+
+```sql
+select * from employees 
+where hire_date is null;
+```
+
+**Sortiranje vrstic**
+
+```sql
+select emp_no, last_name, birth_date from employees 
+order by last_name, birth_date desc;
+```
+
+**Agregiranje podatkov**
+
+ISO standard definira pet agregarnih operacij
+- `COUNT` - število vrednosti
+- `SUM` - seštevek vrednosti
+- `AVG` - povprečje vrednosti
+- `MIN` - minimalna vrednost
+- `MAX` - največja vrednost
+
+Vse delujejo samo na enem stolpcu.
+`COUNT, MIN, MAX` se uporabljajo z numeričnimi in nenumeričnimi vrednostmi,
+`SUM, AVG` zahtevata na numerične vrednosti
+
+Vse operacije razen `COUNT(*)` najprej odstranijo vrstice `NULL`  po katerem agregirajo.
+
+
+
