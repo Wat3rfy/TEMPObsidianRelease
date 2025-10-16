@@ -113,26 +113,37 @@ zvezna.
 > $$
 > G'(x) = f(\beta(x), x) \beta'(x) - f(\alpha(x), x) \alpha'(x) + \int_{\alpha(x)}^{\beta(x)} \frac{\partial f}{\partial x}(t, x) dt.
 > $$
-> >[!|dokaz]- Dokaz:
+> >[!|dokaz]+ Dokaz:
 > > Dokažimo najprej prvo trditev. Izberimo poljuben $x \in J$ in tak $h \in \mathbb{R}$, da je tudi $x+h \in J$. Zapišimo diferenčno količino za funkcijo $F$:
 > > $$
 > > \frac{F(x+h) - F(x)}{h} = \int_a^b \frac{f(t, x+h) - f(t, x)}{h} dt.
 > > $$
-> > Po predpostavki za vsak $t \in [a, b]$ obstaja parcialni odvod funkcije $f$ na drugo spremenljivko. Po Lagrangeovem izreku o srednji vrednosti za funkcijo $y \mapsto f(t, y)$ na intervalu $[x, x+h]$ obstaja število $\theta_{t,h} \in (0, 1)$, odvisno od $t$ in $h$, tako da velja:
+> > Po predpostavki za vsak $t \in [a, b]$ obstaja parcialni odvod funkcije $f$ na drugo spremenljivko. 
+> > Po Lagrangeovem izreku o srednji vrednosti za funkcijo $y \mapsto f(t, y)$ na intervalu med $x$ in $x+h$ obstaja število $\xi_{t,h}$, odvisno od $t$ in $h$, tako da $\xi_{t,h}$ leži med $x$ in $x+h$, in velja:
 > > $$
-> > f(t, x+h) - f(t, x) = h \cdot \frac{\partial f}{\partial x}(t, x + \theta_{t,h} h).
+> > f(t, x+h) - f(t, x) = h \cdot \frac{\partial f}{\partial x}(t, \xi_{t,h}).
 > > $$
 > > Izraz za diferenčno količino se tako preoblikuje v:
 > > $$
-> > \frac{F(x+h) - F(x)}{h} = \int_a^b \frac{\partial f}{\partial x}(t, x + \theta_{t,h} h) dt.
+> > \frac{F(x+h) - F(x)}{h} = \int_a^b \frac{\partial f}{\partial x}(t, \xi_{t,h}) dt.
 > > $$
-> > Ker je po predpostavki **parcialni odvod $\frac{\partial f}{\partial x}$ zvezen** na $[a, b] \times J$, je na vsaki kompaktni podmnožici oblike $[a, b] \times [x-\delta, x+\delta] \subset [a, b] \times J$ enakomerno zvezen. To pomeni, da ko gre $h \to 0$, vrednosti $\frac{\partial f}{\partial x}(t, x + \theta_{t,h} h)$ enakomerno po $t \in [a,b]$ konvergirajo k $\frac{\partial f}{\partial x}(t, x)$. Zaradi enakomerne konvergence smemo zamenjati limito in integral:
+> > Ker je po predpostavki **parcialni odvod $\frac{\partial f}{\partial x}$ zvezen** na $[a, b] \times J$, je na vsaki kompaktni podmnožici oblike $K_\delta =[a, b] \times [x-\delta, x+\delta] \subset [a, b] \times J$ enakomerno zvezen. 
+> > 
+> > Ker imamo kompaktno množico $K$ velja da lahko za vsak $\varepsilon$ najdemo $\delta_{0}$ tako da za vsak $(t,x)$ in $(t',x')$ v $K_{\delta_{0} }$ velja $|\int_{a}^{b}\frac{\partial f}{\partial x}(x,t)dt -\int_{a}^{b}\frac{\partial f}{\partial x}(x',t')| <\varepsilon$. Torej je **enakomerno zvezna**.
+> >  
+> > V našem primeru je $x' = \xi_{t,h}$. Ko gre $h \rightarrow 0$ bo zaradi enakomerne zveznosti funkcija $\int_{a}^{b}\frac{\partial f}{\partial x}(\xi_{h,t},t)dt$ enakomerno konvergirala k $\int_{a}^{b}\frac{\partial f}{\partial x}(x,t)dt$.
+> > 
+> > 
+> > Zaradi enakomerne konvergence smemo zamenjati limito in integral:
+> > *Izrek analogen menjavi limite pri integralih funkcijskih zaporedij ki enakomerno konvergirajo gl. Analiza 2/Funkcijska zaporedja in vrste*  
 > > $$
-> > F'(x) = \lim_{h \to 0} \frac{F(x+h) - F(x)}{h} = \lim_{h \to 0} \int_a^b \frac{\partial f}{\partial x}(t, x + \theta_{t,h} h) dt = \int_a^b \lim_{h \to 0} \frac{\partial f}{\partial x}(t, x + \theta_{t,h} h) dt = \int_a^b \frac{\partial f}{\partial x}(t, x) dt.
+> > F'(x) = \lim_{h \to 0} \frac{F(x+h) - F(x)}{h} = $$ 
+> > $$=\lim_{h \to 0} \int_{a}^{b} \frac{\partial f}{\partial x}(t, \xi_{t,h}) dt = \int_{a}^{b} \lim_{h \to 0} \frac{\partial f}{\partial x}(t, \xi_{t,h}) dt = $$ 
+> > $$= \int_a^b \frac{\partial f}{\partial x}(t, x) dt.
 > > $$
 > > Zveznost odvoda $F'$ sledi neposredno iz zveznosti parcialnega odvoda $\frac{\partial f}{\partial x}$ in lastnosti integrala.
 > > 
-> > Za dokaz druge trditve definirajmo pomožno funkcijo $H(x, y, z) = \int_y^z f(t, x) dt$, kjer je $x \in J$ in $y, z \in [a, b]$. Funkcija $G$ je tedaj kompozicija $G(x) = H(x, \alpha(x), \beta(x))$. Po totalnem odvodu je:
+> > Za dokaz **druge trditve** definirajmo pomožno funkcijo $H(x, y, z) = \int_y^z f(t, x) dt$, kjer je $x \in J$ in $y, z \in [a, b]$. Funkcija $G$ je tedaj kompozicija $G(x) = H(x, \alpha(x), \beta(x))$. Po totalnem odvodu je:
 > > $$
 > > G'(x) = \frac{\partial H}{\partial x}(x, \alpha(x), \beta(x)) + \frac{\partial H}{\partial y}(x, \alpha(x), \beta(x)) \alpha'(x) + \frac{\partial H}{\partial z}(x, \alpha(x), \beta(x)) \beta'(x).
 > > $$
@@ -144,3 +155,122 @@ zvezna.
 > > $$
 > > G'(x) = f(\beta(x), x) \beta'(x) - f(\alpha(x), x) \alpha'(x) + \int_{\alpha(x)}^{\beta(x)} \frac{\partial f}{\partial x}(t, x) dt.
 > > $$
+
+>[!|hide]-  **Posledica** 
+>Naj bo $G \subset \mathbb{R}^n$ odprta in $f : [a, b] \times G \to \mathbb{R}$ funkcija. Naj za vsak $(t, x) \in [a, b] \times G$ obstajajo
+> $$
+> \frac{\partial f}{\partial x_j}(t, x), \quad j \in \{1, 2, \dots, n\},
+> $$
+> ki naj bodo zvezne funkcije na $[a, b] \times G$. Tedaj je funkcija $F$ dana s predpisom
+> $$
+> F(x) = \int_{a}^{b} f(t, x) dt
+> $$
+> razreda $C^1$ na $G$ in velja
+> $$
+> \frac{\partial F}{\partial x_j}(x) = \int_{a}^{b} \frac{\partial f}{\partial x_j}(t, x) dt, \quad j \in \{1, 2, \dots, n\}.
+> $$
+
+
+**Izrek o integraciji integrala s parametrom**
+Naj bo $f$ zvezna funkcija na $[a, b] \times [c, d]$ in $F(x) = \int_{a}^{b} f(t, x) dt$. *Vemo že, da je $F : [c, d] \to \mathbb{R}$ zvezna*
+
+Tedaj velja
+$$
+\int_{c}^{d}  \left(\int_{a}^{b} f(t, x) dt\right) dx = \int_{a}^{b} \left(\int_{c}^{d} f(t, x) dx\right) dt,
+$$
+oziroma lahko zapišemo tudi kot
+$$
+\int_{c}^{d} dx \int_{a}^{b} f(t, x) dt = \int_{a}^{b} dt \int_{c}^{d} f(t, x) dx.
+$$
+
+
+*Pripomnimo še, da integrala*
+
+$$\color{light}\int_{c}^{d} \left(\int_{a}^{b} f(t, x) dt\right) dx = \int_{c}^{d} dx \int_{a}^{b} f(t, x) dt$$
+
+*in*
+$$\color{light}
+\int_{a}^{b} \left(\int_{c}^{d} f(t, x) dx\right) dt = \int_{a}^{b} dt \int_{c}^{d} f(t, x) dx
+$$
+*imenujemo dvakratna integrala (in ne dvojna integrala). Izrek torej reče, da sta oba dvakratna integrala enaka.*
+>[!|dokaz]- Dokaz:
+
+Naj bo $f: [a, b] \times [c, d] \to \mathbb{R}$ zvezna funkcija. Želimo dokazati, da je
+$$
+I_1 = \int_{c}^{d} \left( \int_{a}^{b} f(t, x) dt \right) dx = \int_{a}^{b} \left( \int_{c}^{d} f(t, x) dx \right) dt = I_2.
+$$
+
+Dokaz bomo izvedli tako, da definiramo pomožni funkciji, ki predstavljata oba dvakratna integrala, vendar z zgornjo mejo $y$ namesto $d$. Nato bomo pokazali, da imata ti funkciji enake odvode in enako vrednost v začetni točki, kar pomeni, da sta enaki povsod.
+
+
+Definirajmo dve funkciji $J: [c, d] \to \mathbb{R}$ in $K: [c, d] \to \mathbb{R}$:
+
+$J({\color{green}y}) = \int_{c}^{{\color{green}y}} \left( \int_{a}^{b} f(t, x) dt \right) dx$
+ $K({\color{green}y}) = \int_{a}^{b} \left( \int_{c}^{{\color{green}y}} f(t, x) dx \right) dt$
+
+Naš cilj je dokazati, da je $J(y) = K(y)$ za vsak $y \in [c, d]$. Ker je $I_1 = J(d)$ in $I_2 = K(d)$, bo enakost dokazana.
+
+**Odvod funkcije $J(y)$**
+
+Funkcija $F(x) = \int_{a}^{b} f(t, x) dt$ je zvezna funkcija spremenljivke $x$. S pomočjo **osnovnega integralsekga izreka** dobimo:
+$$
+J'(y) = \frac{d}{dy} \left[ \int_{c}^{y} F(x) dx \right] = F(y) = \int_{a}^{b} f(t, y) dt.
+$$
+
+*Po izreku ki pravi*
+
+$$\color{light}G(x) = \int_{a}^{x}f(t)dt \Rightarrow G'(x) = f(x)$$
+
+**Odvod funkcije $K(y)$**
+
+Za odvod funkcije $K(y)$ uporabimo izrek o **diferenciranju pod integralskim znakom** *Prejšnji dokaz o odvedljivost integrala s parametrom*, ki se v tem primeru uporablja, ker je $f(t, x)$ zvezna funkcija in so parcialni odvodi zvezni (v tem koraku potrebujemo samo zveznost funkcije $f$).
+
+$$
+K'(y) = \frac{d}{dy} \left[ \int_{a}^{b} \left( \int_{c}^{y} f(t, x) dx \right) dt \right]
+$$
+$$
+K'(y) = \frac{d}{dy} \left[ \int_{a}^{b} G(y,t)dt \right]
+$$
+
+Ker so funkcije lepo zvezne, lahko zamenjamo vrstni red odvoda in zunanjega integrala:
+$$
+K'(y) = \int_{a}^{b} \left( \frac{\partial}{\partial y} \left[ \int_{c}^{y} f(t, x) dx \right] \right) dt
+$$
+Sedaj uporabimo **Osnovni izrek integralskega računa** na notranjem delu:
+$$
+\frac{\partial}{\partial y} \left[ \int_{c}^{y} f(t, x) dx \right] = f(t, y).
+$$
+To velja, ker integriramo glede na $x$ in odvajamo glede na zgornjo mejo $y$.
+
+Vstavimo to nazaj v izraz za $K'(y)$:
+$$
+K'(y) = \int_{a}^{b} f(t, y) dt.
+$$
+
+#### 3. Zaključek
+
+Ugotovili smo, da velja:
+$$
+J'(y) = \int_{a}^{b} f(t, y) dt \quad \text{in} \quad K'(y) = \int_{a}^{b} f(t, y) dt.
+$$
+Torej, $J'(y) = K'(y)$ za vsak $y \in [c, d]$.
+
+Po posledici OII (če imata dve zvezno odvedljivi funkciji enak odvod na intervalu, se razlikujeta za konstanto) velja:
+$$
+J(y) - K(y) = C.
+$$
+
+Preverimo še začetno točko $y=c$:
+$$
+J(c) = \int_{c}^{c} \left( \dots \right) dx = 0.
+$$
+$$
+K(c) = \int_{a}^{b} \left( \int_{c}^{c} f(t, x) dx \right) dt = \int_{a}^{b} 0 dt = 0.
+$$
+Ker $J(c) = K(c) = 0$, je konstanta $C = 0$.
+
+Sledi, da je $J(y) = K(y)$ za vse $y \in [c, d]$. Z nastavitvijo $y=d$ dobimo:
+$$
+I_1 = J(d) = K(d) = I_2.
+$$
+S tem je izrek dokazan.
