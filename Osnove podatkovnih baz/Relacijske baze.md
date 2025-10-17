@@ -603,5 +603,92 @@ Vse delujejo samo na enem stolpcu.
 
 Vse operacije razen `COUNT(*)` najprej odstranijo vrstice `NULL`  po katerem agregirajo.
 
+`COUNT(*)` prešteje vse vrstice ne glede na `NULL` vrednosti ali duplikate.
+
+Če se želimo znebiti duplikatov uporabimo `DISTINCT` pred imenom stolpca.
+
+Agregatne operacije lahko uporabljamo le v `SELECT` ali `HAVING` sklopu.
+
+Če `SELECT` sklop vsebuje agregatno operacij potem mora obstajati tudi `GROUP BY` sklop, sicer ni mogoče dodeliti agregirane vrednosti.
+
+```sql
+select emp_no, avg(salaray)
+from salaries
+group by emp_no;
+```
+
+Primer uporabe distinct s count.
+
+```sql
+select count(distinct title) from titles;
+```
+
+Lahko izpišeš več agregatnih operacij
+
+```sql
+select avg(salary), max(salary), min(salary) from salaries
+```
+
+**Združevanje podatkov**
+
+`GROUP BY` združuje podatke v skupine kjer se ponovi isti podatek.
+
+```sql
+select emp_no, avg(salary) from salaries
+group by emp_no;
+```
+
+Pogleda vse vrednosti v stolpcu `emp_no` in agregiramo po vrsticah le če sta `emp_no` enaki.
+
+**Pravila**
+
+1\. Če v select stavku dodamo stolpec ki ni del agragatne funkcije potem moramo na koncu grupirati po njemu.
+
+2\. Vedno se najprej izvede WHERE združevanje pa na preostalih vrsticah.
+
+3\. Vrstice ki so `NULL` se grupirajo v svojo grupo oz. so obravnavane kot vrednost po kateri se grupira.
+
+**Omejitve skupin**
+
+`HAVING` sklop postavlja pogoje katerim morajo zadoščati skupine v rezultatu. *Stolpci v `HAVING` sklopu morajo biti tudi v select sklopu ali agregatih.*
+
+Vgnezdeni `SELECT` stavki se lahko uporabljajo v `WHERE` ali `HAVING` sklopih drugega `SELECT` stavka. *subselect*
+
+*Izpiši imena in priimke zaposlenih, ki so delali na vsaj treh delovnih mestih.*
+
+```sql
+select first_name, last_name from employees 
+where emp_no in ( 
+select emp_no from titles 
+group by emp_no 
+having count(*) > 2 );
+```
+
+Primer uporabe aliasov za gnezdene poizvedbe
+
+```sql
+select P.product_serial, P.model_name, P.customer_id from Products P where P.product_serial in ( select S.product_serial from Service_Logs S where P.warranty_end_date >= S.service_date );
+```
+
+Primer uporabe select vgnezdenja pri where in z logičnim operatorjem
+
+```sql
+select first_name, last_name from employees where emp_no in ( select emp_no from salaries where (select max(salary) from salaries) = salary);
+```
+
+Primer uporabe kot operanda
+
+```sql
+select emp_no,  
+avg(salary) - (select avg(salary) from salaries)  
+from salaries  
+group by emp_no;
+```
+
+**Pravilav SQL ki se jih v mySQL ne upoštevajo**
+- select vgnezdeega stavka lahko zajema le en stolpec
+- ko je vgnezden select stavek operand v primerjavi se mora nahajati na desni strani enačbe
+- vgenzdeni select stavek nemore biti operand v izrazu
 
 
+**Uporaba ANY, ALL**
