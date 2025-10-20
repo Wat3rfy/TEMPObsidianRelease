@@ -570,3 +570,304 @@ Imamo $5!$ načinov ampak se znebimo permutacij enk in dvojk, torej
 
 $$\frac{5!}{2!2!}$$
 
+Imamo $M = \{ 1^{a}, 2^{a_{2}},...,k^{a_{k}}\}$
+
+Načini da premešamo elemente:
+
+1\. Način: naprej izberemomesta za enke $\binom{\,n\,}{\,a_{1}\,}$
+potem izberemo mesta za dvojke $\binom{\,n-a_{1}\,}{\,a_{2}\,}$, potem trojke ...$\binom{\,n-a_{1}-a_{2}\,}{\,a_{3}\,}$...$\binom{\,a_{k}\,}{\,a_{k}\,}$
+
+$$\binom{\,n\,}{\,a_{1}\,}\binom{\,n-a_{1}\,}{\,a_{2}\,}...\binom{\,a_{k}\,}{\,a_{k}\,}$$
+$$\frac{n!}{a_{1}(n-a_{1})!}\frac{(n-a_{1})!}{a_{2}!(n-a_{1}-a_{2})!}...$$
+
+Vse se pokrajša in dobimo $$\frac{n!}{a_{1}!...a_{k}!}$$
+
+2\. Način 
+$1_{1},...,1_{a_{1}},2_{1},...,2_{a_{2}},...,k_{1},...,k_{a_{k}}$
+
+$n!$ permutacij, izbrišemo vsako permutacijo multimnožice dobimo
+
+$a_{1}!a_{2}!...a_{k!}$-krat
+
+$$\binom{\,n\,}{\,a_1,...,a_{k}\,}:=\frac{n!}{a_{1}!...a_{k}!}$$
+
+kjer je 
+
+$$a_{1}+...+a_{k} = n$$
+
+Temu pravimo **multinomski koeficient**.
+
+$$\binom{\,a_{1}+a_{2}\,}{\,a_{1},a_{2}\,} = \binom{\,a_{1}+a_{2}\,}{\,a_{1}\,} = \binom{\,a_{1}+a_{2}\,}{\,a_{2}\,}$$
+
+Lahko gledamo na to tudi kot
+$n$ objektov razvrstimo v $k$ kateogrij v $i$-ti jih je $a_{i}$.
+
+**Multinomski izrek**
+
+$$(x_{1}+...+x_{k})^{n} = \sum_{a_{1}+...+a_{k} = n} \binom{\,n\,}{\,a_{1},...,a_{k}\,} x_{1}^{k_{1}}...x_{k}^{k_{k}}$$
+
+***
+
+Načelo vključitev izključitev
+
+$$\left|A \cup B \right| = |A| + |B| - |A\cap B|$$
+$$ $$
+$$|A \cup B \cup C| = |A| + |B| + |C| - $$ $$(|A \cap B| + |A \cap C| + |B \cap C|) + |A \cap B \cap C|$$
+
+**Načelo vključitev izključitev** *Principle of inclusion and exclusion*
+
+$$
+\left| \bigcup_{i=1}^{n} A_i \right| = $$ 
+$$ \sum_{i} |A_i| - \sum_{i < j} |A_i \cap A_j| + \sum_{i < j < k} |A_i \cap A_j \cap A_k| - \cdots + (-1)^{n-1} \left| \bigcap_{i=1}^{n} A_i \right|$$
+
+https://aistudio.google.com/prompts/1_tI_cY1hgozCJT7XoQ8mtMBjY7MXHGk6 **
+
+$$ \left| \bigcup_{i=1}^{n} A_i \right| = \sum_{\emptyset \ne I \subseteq \{1, \dots, n\}} (-1)^{|I|-1} \left| \bigcap_{i \in I} A_i \right| $$
+
+
+**Ekvivalentno**
+
+Vedno predpostavljamo da je $A_{1},...,A_{n} \subset A$.
+
+$$A_{I}=\{ a \in A:a \in A_{i} \forall i \in I\}$$
+
+$$A_{\emptyset}= \{ a \in A:a \in A, \forall i \in \emptyset\} ... = A$$
+
+$$\left|\bigcap_{i=1}^{n} A^{C}_{i}\right| = \sum_{I \subset [n]}^{}(-1)^{|I|}\left|\bigcap_{i \in I} A_{i} \right| $$
+
+*Še kle rabm dokaz*
+
+**Kronickerjeva delta**
+
+$$\delta_{ij} = \begin{cases}
+1: i = j \\
+0: i \neq j \\
+\end{cases}$$
+
+Primer uporabe
+
+$$0^{n} = \delta_{0n}$$
+
+*Vedno je enaka 0 raze $0^{0} = 1$.*
+
+$$\delta_{0m} = \sum_{k=0}^{m}\binom{\,m\,}{\,k\,}(-1)^{k}$$
+
+>[!|dokaz]- Dokaz:
+> 
+> $$ \left| \bigcup_{i=1}^{n} A_i \right| = \sum_{i} |A_i| - \sum_{i < j} |A_i \cap A_j| + \sum_{i < j < k} |A_i \cap A_j \cap A_k| - \cdots + (-1)^{n-1} \left| \bigcap_{i=1}^{n} A_i \right| $$
+> 
+> ---
+> 
+> ## Dokaz Principa Vključevanja in Izključevanja (PVII) za $n$ Množic
+> 
+> Dokaz temelji na preštevanju, kolikokrat je poljuben element $x$, ki pripada uniji, prispeval k vsoti na desni strani enačbe (DSE).
+> 
+> **Cilj dokaza:** Pokazati, da vsak element $x$, ki pripada vsaj eni množici $A_i$ (tj. $x \in \bigcup_{i=1}^{n} A_i$), prispeva k DSE natanko **enkrat**.
+> 
+> ### 1. Definicija elementa in število njegovih pojavitev
+> 
+> Vzemimo poljuben element $x$ iz unije $\bigcup_{i=1}^{n} A_i$.
+> 
+> Naj bo $m$ **število množic $A_i$, ki vsebujejo element $x$**. Ker je $x$ v uniji, vemo, da je $m \ge 1$.
+> $$1 \le m \le n$$
+> 
+> ### 2. Prispevek elementa $x$ k desni strani enačbe (DSE)
+> 
+> Preštejmo, kolikokrat $x$ prispeva k posameznim vsotam v PVII:
+> 
+> #### Korak 1: Vsota enojnih množic (Sum $\sum |A_i|$)
+> Element $x$ je vključen v $m$ množic. Zato prispeva k prvi vsoti $m$-krat.
+> $$\text{Prispevek: } \binom{m}{1}$$
+> 
+> #### Korak 2: Vsota dvojnih presekov (Sum $\sum |A_i \cap A_j|$)
+> Element $x$ se pojavi v preseku dveh množic $A_i \cap A_j$ samo, če sta $A_i$ in $A_j$ med tistimi $m$ množicami, ki vsebujejo $x$.
+> Število parov množic, izbranih iz $m$ množic, je $\binom{m}{2}$.
+> $$\text{Prispevek: } \binom{m}{2}$$
+> 
+> #### Korak $k$: Vsota $k$-terih presekov (Sum $\sum |A_{i_1} \cap \dots \cap A_{i_k}|$)
+> Element $x$ prispeva k vsoti $k$-terih presekov, če je izbran $k$-terice množic, ki vsebujejo $x$. To je mogoče le, če izberemo $k$ množic izmed tistih $m$ množic, ki element $x$ vsebujejo.
+> $$\text{Prispevek: } \binom{m}{k}$$
+> 
+> #### Korak $n$: $n$-kratni presek
+> Ker je $x$ prisoten v le $m$ množicah, in $m \le n$, prispeva k $n$-kratnemu preseku le, če je $m=n$, torej $\binom{n}{n}$. Na splošno je prispevek $\binom{m}{n}$ (kar je 0, če je $m < n$).
+> 
+> ### 3. Skupni prispevek elementa $x$
+> 
+> Skupni prispevek elementa $x$ k desni strani enačbe (DSE) je alternirajoča vsota teh prispevkov (upoštevajoč predznake v PVII):
+> 
+> $$\text{DSE prispevek}(x) = \binom{m}{1} - \binom{m}{2} + \binom{m}{3} - \cdots + (-1)^{m-1} \binom{m}{m} + \cdots + (-1)^{n-1} \binom{m}{n}$$
+> 
+> Ker je $\binom{m}{k} = 0$, če je $k > m$, se vsota ustavi pri $k=m$:
+> 
+> $$\text{DSE prispevek}(x) = \binom{m}{1} - \binom{m}{2} + \binom{m}{3} - \cdots + (-1)^{m-1} \binom{m}{m}$$
+> 
+> ### 4. Uporaba Binomske formule
+> 
+> Zdaj uporabimo splošno znano identiteto, ki izhaja iz razvoja $(1-1)^m = 0$. Iz binomskega izreka vemo:
+> 
+> $$(1 + y)^m = \sum_{k=0}^{m} \binom{m}{k} y^k$$
+> 
+> Vstavimo $y = -1$:
+> 
+> $$(1 + (-1))^m = \sum_{k=0}^{m} \binom{m}{k} (-1)^k$$
+> 
+> $$0 = \binom{m}{0} (-1)^0 + \binom{m}{1} (-1)^1 + \binom{m}{2} (-1)^2 + \cdots + \binom{m}{m} (-1)^m$$
+> 
+> $$0 = \binom{m}{0} - \binom{m}{1} + \binom{m}{2} - \binom{m}{3} + \cdots + (-1)^m \binom{m}{m}$$
+> 
+> Ker vemo, da je $\binom{m}{0} = 1$, lahko preuredimo enačbo:
+> 
+> $$1 = \binom{m}{1} - \binom{m}{2} + \binom{m}{3} - \cdots + (-1)^{m-1} \binom{m}{m}$$
+> 
+> ### 5. Zaključek
+> 
+> Ugotovili smo, da je skupni prispevek poljubnega elementa $x$ k desni strani enačbe (DSE) natanko:
+> 
+> $$\text{DSE prispevek}(x) = 1$$
+> 
+> Ker vsak element $x$ v uniji prispeva k DSE natanko 1-krat, je vsota na DSE natanko enaka številu elementov v uniji.
+> 
+> $$\left| \bigcup_{i=1}^{n} A_i \right| = \text{Število elementov } x \text{ v uniji} \times 1$$
+> 
+> To dokazuje Princip vključevanja in izključevanja za $n$ množic.
+
+
+*Računanje vseh surjekcij iz $A$ v $B$*
+
+
+Število surjekcij $N_{\text{sur}}$ je:
+
+$$ N_{\text{sur}} = \sum_{k=0}^{m} (-1)^k \binom{m}{k} (m-k)^n $$
+
+**Razlaga formule:**
+1. **$k=0$ (Vsi):** $\binom{m}{0} m^n$. To je skupno število vseh funkcij.
+2. **$k=1$ (Odštejemo, kjer manjka 1 element):** $\binom{m}{1} (m-1)^n$. Izberemo $k=1$ element, ki ga funkcija ne doseže, in preštejemo vse funkcije, ki preslikajo $A$ v preostalih $m-1$ elementov.
+3. **$k=2$ (Prištejemo nazaj, kjer manjkata 2 elementa):** $\binom{m}{2} (m-2)^n$. To so funkcije, ki ne dosežejo dveh izbranih elementov. Te so bile dvakrat odštete prej, zato jih moramo prišteti nazaj.
+4. **... do $k=m$:** $\binom{m}{m} (m-m)^n = 1 \cdot 0^n$ (če je $n \ge 1$; če je $n=0$, je 1).
+
+### Končna formula za število surjekcij
+
+$$ \text{Število surjekcij } (n \to m) = m! \cdot S(n, m) = \sum_{k=0}^{m} (-1)^k \binom{m}{k} (m-k)^n $$
+
+
+***
+**Preštevanje premestitev**: premutacije brez negibne točke : torej $\pi(i) \neq i$.
+>[!|hide]-  
+> Predstavljeni izpisek natančno opisuje prve korake uporabe **Principa vključitve in izključitve (PIE)** za izračun števila **deranžmajev** ($D_n$).
+> 
+> Deranžma je posebna vrsta permutacije, pri kateri noben element ni preslikan sam vase (tj. nima fiksne točke).
+> 
+> Spodaj je podrobna razlaga posameznih korakov in izpeljave formule.
+> 
+> ---
+> 
+> ## B) Preštevanje deranžmajev (Permutacije brez fiksne točke)
+> 
+> **Cilj:** Izračunati število permutacij $D_n$ množice $\{1, 2, \dots, n\}$, za katere velja, da je $\pi(i) \neq i$ za vsak $i \in \{1, \dots, n\}$.
+> 
+> Za izračun uporabimo Princip vključitve in izključitve.
+> 
+> ### 1. Določitev Univerzalne Množice ($U$)
+> 
+> **Naj bo $U$ množica vseh permutacij.**
+> *   Velikost univerzalne množice je:
+>     $$|U| = n!$$
+> *   To je celotno število možnih razporeditev $n$ elementov.
+> 
+> ### 2. Določitev "Slabih" Lastnosti (Množice $A_i$)
+> 
+> **Naj bo $A_i$ množica vseh permutacij, ki imajo fiksno točko $i$.**
+> *   To pomeni, da je za $\pi \in A_i$ izpolnjeno: $\pi(i) = i$.
+> *   $A_i$ predstavlja "slabe" permutacije, saj kršijo pogoj, da noben element ni fiksna točka.
+> *   Cilj je izračunati: $$D_n = |U| - |\bigcup_{i=1}^n A_i|$$
+>     (Število deranžmajev je število vseh permutacij minus število tistih, ki imajo vsaj eno fiksno točko).
+> 
+> ### 3. Izračun Velikosti Posameznega Preseka
+> 
+> Po Principu vključitve in izključitve moramo izračunati vsote velikosti presekov $k$ množic, imenovanih $S_k$. Najprej določimo velikost posameznega preseka $k$ množic.
+> 
+> **Obravnavamo presek $A_{i_1} \cap A_{i_2} \cap \dots \cap A_{i_k}$:**
+> *   Ta presek predstavlja množico permutacij, ki imajo fiksne točke na *natančno določenih* $k$ mestih: $i_1, i_2, \dots, i_k$.
+> *   Ker so ta mesta fiksirana ($\pi(i_j) = i_j$), preostalih $n - k$ elementov lahko poljubno preuredimo med preostalimi $n - k$ mesti.
+> *   Število načinov preureditve $n-k$ elementov je **$(n-k)!$**.
+> *   Torej, velikost katerega koli določenega preseka $k$ množic je:
+>     $$|A_{i_1} \cap \dots \cap A_{i_k}| = (n-k)!$$
+> 
+> ### 4. Izračun Vsote Presekov ($S_k$)
+> 
+> $S_k$ je vsota velikosti vseh možnih presekov, ki vključujejo *točno $k$* množic $A_i$.
+> 
+> *   **Število možnih presekov $k$ množic:** Ker nas ne zanimajo, kateri elementi so fiksne točke, temveč le koliko jih je ($k$), moramo izbrati $k$ indeksov izmed $n$ možnosti. To storimo na $\binom{n}{k}$ načinov.
+>     $$\text{Število presekov} = \binom{n}{k}$$
+> *   **Izračun $S_k$:** Ker je velikost vsakega takšnega preseka $(n-k)!$, je vsota vseh $k$-presekov produkt števila možnosti in velikosti posameznega preseka:
+>     $$S_k = \sum_{1 \le i_1 < \dots < i_k \le n} |A_{i_1} \cap \dots \cap A_{i_k}| = \binom{n}{k} (n-k)!$$
+> 
+> **Poenostavitev $S_k$:**
+> Uporabimo definicijo binomskega koeficienta $\binom{n}{k} = \frac{n!}{k!(n-k)!}$:
+> $$S_k = \frac{n!}{k!(n-k)!} \cdot (n-k)!$$
+> $$S_k = \frac{n!}{k!}$$
+> 
+> ---
+> 
+> ### Končna Formula za Deranžmaje ($D_n$)
+> 
+> S pomočjo $S_k$ in Principa vključitve in izključitve lahko sedaj izračunamo število deranžmajev ($D_n$).
+> 
+> Število permutacij, ki imajo vsaj eno fiksno točko, je:
+> $$|\bigcup_{i=1}^n A_i| = S_1 - S_2 + S_3 - \dots + (-1)^{n-1} S_n = \sum_{k=1}^n (-1)^{k-1} S_k$$
+> 
+> Število deranžmajev $D_n$ je torej:
+> $$D_n = |U| - |\bigcup_{i=1}^n A_i| = n! - \sum_{k=1}^n (-1)^{k-1} S_k$$
+> 
+> Če vstavimo izračun za $S_k = \frac{n!}{k!}$:
+> $$D_n = n! - \sum_{k=1}^n (-1)^{k-1} \frac{n!}{k!}$$
+> 
+> Lahko preoblikujemo tako, da vključimo $k=0$ člen (ki je $S_0 = |U| = n!$):
+> $$D_n = n! + \sum_{k=1}^n (-1)^{k} \frac{n!}{k!} = \sum_{k=0}^n (-1)^{k} \frac{n!}{k!}$$
+> 
+> **To je končna formula za število deranžmajev $D_n$.**
+
+
+***
+
+**Eulerjeva funkcija**
+
+$$\varphi(n) = |\{ i \in [n] \,;\;i \perp n\}|$$
+
+Razstavimo število na prafaktorje
+
+$$n = p_{1}^{e_{1}}...p_{k}^{e_{k}}$$
+
+Hočemo prešteti števila ki niso deljiva z nobenim od teh prafaktorjev, in njihovo število odštejemo od $n$.
+
+Imamo $[n] \Rightarrow |[n]| = n$
+
+Naj bo $A_{i}$ množica števil ki so deljiva z s prafaktorjem $p_{i}$.
+
+Če odštejemo presek vseh $A_{i}$ smo lahko na primer število $p_{1}p_{2} \leq n$ odšteli dvakrat zato uporabimo princip o vključitvi in izključitvi.
+
+Iščemo torej komplement unije $A_{i}$.
+
+$$A_{i}=\{ m \in [n]; p_{i}|m\}$$
+
+Velja da je $|A_{i}| = \frac{n}{p_{i}}$
+
+$$A_{i} \cap A_{j} = \{ m \in [n]; p_{i}p_{j}|m\}$$
+
+Kot tudi da je $|A_{i} \cap A_{j}| = \frac{n}{p_{i}p_{j}}$
+
+$$A_{I} = \{ m \in [k];  \prod_{i \in I} p_{i} |m\}$$
+
+Torej velja
+
+$$|A_{I}| = \frac{n}{\prod_{i \in I}\,p_{i}}$$
+
+Če vzamemo unijo vseh množic kjer so števila deljiva z nekim prafaktorskim razcepom $n$ in vzamem njen komplement potem dobim vse števila ki so si tuja.
+
+$$\left(\bigcup_{I \subset [n]} A_{I} \right)^{C}= \bigcap_{I \subset [n]} A_{I}^{C}$$
+
+$$\sum_{I \subset [k]}^{}(-1)^{|I|} \cdot  n \cdot  \frac{1}{\prod_{i \in I}p_{i}}$$
+
+
+$$= n \cdot \prod_{p|n}(1-\frac{1}{p})$$
+
