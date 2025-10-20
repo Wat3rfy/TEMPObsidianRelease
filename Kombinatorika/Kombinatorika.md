@@ -1,51 +1,51 @@
-## Ponovitev z gimnazije
-
-
-Če imamo $n$ predmetov in jih poskušamo razporediti na $n$ mest potem to lahko storimo na $n!$ načinov.
-Na prvo mesto lahko damo enega izmed $n$ predmetov, na drugo enega izmed $n-1$ in tako naprej. Temu pravimo permutacije.
-
-$$P_{n} = n!$$
-
-Če imamo $n$ predmetov in jih probamo postaviti na $k$ mest potem lahko število načinov izračunamo z
-
-$$p_{k,n} = \frac{n!}{(n-k)!}$$
-
-To lahko razložimo kot na vsako od k mest lahko damo $n, n-1, n-2,...,n-k+1$ elementov kar je natanko $\frac{n!}{(n-k)!}$, ker se preostalih znebimo tako da jih pokrajšamo.
-
-Oziroma če si predstavljamo vseh $n!$ razporeditev. Recimo da imamo razporeditev 5 elemtnov na 3 mesta. Imamo lahko 12345 in 12354, kjer imamo razporeditev na prvih 3 mestih ponovljeno, in ker nas zanimajo le te moramo vse možne ponovitve zbrisati. Ker sta ostali le 2 mesti se lahko elementi na teh mestih razporedijo na $2!$ načinov, to jih da v grupe velikosti $2!$, da dobimo število grup verlikosti $2!$ pa moramo deliti z $2!$. 
-
-Če imamo elemente ki se lahk ponovijo na $k$ mestih imamo
-
-$$n^{k}$$
-
-Če hočemo razporediti elemente kjer se nek elemente ki se ponovijo kjer se ponovijo $k_{1},...,k_m$ imamo
-
-$$p^{n}_{k_{1},...,k_{n}} = \frac{n!}{k_{1}!k_{2}!...k_{n}!}$$
-
-Spet delujemo po principu da dobimo $k_{1}!,...,k_{n}!$, kjer moramo deliti da dobimo pravilno število možnosti. Če imamo črke naprimer: $\text{BAN}_1\text{AN}_2$ in $\text{BAN}_2\text{AN}_1$ imamo spet $2!$ intako za vse možne črke.
-
-Nato pa imamo če kombinacije, kjer iščemo samo vse množice velikosti  $k$ v množici z $n$ elementi.
-
-$$_{n}C_{k} = \frac{n!}{k!(n-k)!}$$
-
-Kar se dogaja je da gledamo vse razporeditve $n$ elementov na $k$ mestih nato pa še delimo z $k!$ se hočemo znebiti vseh permutacij teh elementov na $k$ mestih oz. vse permutacije istih elementov združimo v eno skupino.
-
-Za kombinacije uporabljamo tudi binomski simbol.
-
-$$\binom{\,n\,}{\,k\,}$$
-
-Binomski simbol se pojavi tudi pri $n$-ti potenci dvočlenika kjer velja
-
-$$(x+y)^{n} = \sum_{k = 0}^{n}\binom{\,n\,}{\,k\,}x^{n-k}y^{k}$$
-
-Če pogledamo primer
-
-$$(x+y)^{3} = (x+y)(x+y)(x+y)$$
-$$x^{3}+3x^{2}y + 3xy^{2}+y^{3}$$
-
-je prva stvar ki jo opazimo da so vsi členi neka kombinacija $x$ in $y$. Nato pa je edina naslednja stvar še da opazimo da lahko do nekaterih kombinacij pridemo na več načinov kot do drugih saj vrstni red ni pomemben. Efektivno delamo računamo kombinacije obeh členov, kjer lahko do nekaterih členov pridemo na več načinov kot do drugih. Iz tega dobimo tudi Pascalov trikotnik.
-
-
+>[!|hide]- Snov gimnazije
+> 
+> Če imamo $n$ predmetov in jih poskušamo razporediti na $n$ mest potem to lahko storimo na $n!$ načinov.
+> Na prvo mesto lahko damo enega izmed $n$ predmetov, na drugo enega izmed $n-1$ in tako naprej. Temu pravimo permutacije.
+> 
+> $$P_{n} = n!$$
+> 
+> Če imamo $n$ predmetov in jih probamo postaviti na $k$ mest potem lahko število načinov izračunamo z
+> 
+> $$p_{k,n} = \frac{n!}{(n-k)!}$$
+> 
+> To lahko razložimo kot na vsako od k mest lahko damo $n, n-1, n-2,...,n-k+1$ elementov kar je natanko $\frac{n!}{(n-k)!}$, ker se preostalih znebimo tako da jih pokrajšamo.
+> 
+> Oziroma če si predstavljamo vseh $n!$ razporeditev. Recimo da imamo razporeditev 5 elemtnov na 3 mesta. Imamo lahko 12345 in 12354, kjer imamo razporeditev na prvih 3 mestih ponovljeno, in ker nas zanimajo le te moramo vse možne ponovitve zbrisati. Ker sta ostali le 2 mesti se lahko elementi na teh mestih razporedijo na $2!$ načinov, to jih da v grupe velikosti $2!$, da dobimo število grup verlikosti $2!$ pa moramo deliti z $2!$. 
+> 
+> Če imamo elemente ki se lahk ponovijo na $k$ mestih imamo
+> 
+> $$n^{k}$$
+> 
+> Če hočemo razporediti elemente kjer se nek elemente ki se ponovijo kjer se ponovijo $k_{1},...,k_m$ imamo
+> 
+> $$p^{n}_{k_{1},...,k_{n}} = \frac{n!}{k_{1}!k_{2}!...k_{n}!}$$
+> 
+> Spet delujemo po principu da dobimo $k_{1}!,...,k_{n}!$, kjer moramo deliti da dobimo pravilno število možnosti. Če imamo črke naprimer: $\text{BAN}_1\text{AN}_2$ in $\text{BAN}_2\text{AN}_1$ imamo spet $2!$ intako za vse možne črke.
+> 
+> Nato pa imamo če kombinacije, kjer iščemo samo vse množice velikosti  $k$ v množici z $n$ elementi.
+> 
+> $$_{n}C_{k} = \frac{n!}{k!(n-k)!}$$
+> 
+> Kar se dogaja je da gledamo vse razporeditve $n$ elementov na $k$ mestih nato pa še delimo z $k!$ se hočemo znebiti vseh permutacij teh elementov na $k$ mestih oz. vse permutacije istih elementov združimo v eno skupino.
+> 
+> Za kombinacije uporabljamo tudi binomski simbol.
+> 
+> $$\binom{\,n\,}{\,k\,}$$
+> 
+> Binomski simbol se pojavi tudi pri $n$-ti potenci dvočlenika kjer velja
+> 
+> $$(x+y)^{n} = \sum_{k = 0}^{n}\binom{\,n\,}{\,k\,}x^{n-k}y^{k}$$
+> 
+> Če pogledamo primer
+> 
+> $$(x+y)^{3} = (x+y)(x+y)(x+y)$$
+> $$x^{3}+3x^{2}y + 3xy^{2}+y^{3}$$
+> 
+> je prva stvar ki jo opazimo da so vsi členi neka kombinacija $x$ in $y$. Nato pa je edina naslednja stvar še da opazimo da lahko do nekaterih kombinacij pridemo na več načinov kot do drugih saj vrstni red ni pomemben. Efektivno delamo računamo kombinacije obeh členov, kjer lahko do nekaterih členov pridemo na več načinov kot do drugih. Iz tega dobimo tudi Pascalov trikotnik.
+> 
+> **Kombinacije lahko gledamo tudi kot najprej permutacije, potem se omejimo na mesta na začetku in jih damo v skupine kjer je prvih $k$ elementov v enakem vrstnem redu, to se elementi te skupine, da ugotovimo koliko teh skupin je oz. koliko je permuatcij elementov na $k$ mestih moramo deliti s številom elementov v tej skupini - $\frac{n!}{(n-k)!}$, kar so permutacije ostalih elementov.**
+> **Nato moramo še pogledati kje se elementi ponavljajo in dati vsa zaporedja ki vsebujejo iste elemente oz. so permutacije samih sebe v svojo skupino - in spet delimo s številom elementov v tej skupini da dobimo končno število kombinacij.**
 
 
 
@@ -85,7 +85,7 @@ Je injektivna in surjektivna hkrati.
 
 ***
 
-Za kombinatoriko pa so pomembne naslednje oznake
+Za kombinatoriko pa so pomembne oznake
 
 *   $[n] = \{1, \dots, n\}$; $|[n]| = n$. 
   Za $n=0 \implies \emptyset$. 
@@ -147,7 +147,7 @@ Za dokazovanje z **dirichletovim načelom** poskušamo najti neko karakterizacij
 
 ---
 
-Pri kombinatoričnih problemih poznamo načelo vsote in produkta ki opisujeta koliko načinov imamo izberemo nek element iz množic oz. koliko načinov imamo da tvorimo zaporedje izbir iz nekih množic.
+Pri kombinatoričnih problemih poznamo načelo vsote in produkta ki opisujeta koliko načinov imamo da izberemo nek element iz množic oz. koliko načinov imamo da tvorimo zaporedje izbir iz nekih množic.
 
 **Načelo vsote**:
 
@@ -299,7 +299,8 @@ $$\sum_{i=1}^{n} v_{i} = \sum_{j=1}^{n} s_{j} = |S| $$
 > Iščemo kako bi lahko sešteli število podmožic velikosti $k$
 > pomnoženih s številom elementov
 > 
-> $k \binom{n}{k}$ je lahko predsatvljen na naslednji način $\qquad \qquad\quad \{1,2\}, \{2,3\}, \{1,3\}$
+> $k \binom{n}{k}$ je lahko predsatvljen na naslednji način 
+> $\qquad \qquad\quad \{1,2\}, \{2,3\}, \{1,3\}$
 > $\qquad \qquad 1 \quad \checkmark \quad\quad\quad\qquad \quad \checkmark$
 > $\qquad \qquad 2 \quad \checkmark \quad\quad\quad \checkmark \quad \qquad$
 > $\qquad \qquad 3 \quad \quad\quad\quad \quad \checkmark \quad\quad \checkmark$
@@ -371,9 +372,14 @@ $$\sum_{i=1}^{n} v_{i} = \sum_{j=1}^{n} s_{j} = |S| $$
 
 **Binomski koeficient**
 
+
 $$2^A = \{B \subset A\}$$
 
 $$\binom{\,A\,}{\,k\,} = \{ B \subset A : |B| = k\}$$
+
+>[!|hide]- Neka perspektiva
+> *Recimo da imamo nekoga ki meče žogo v koš, in gledamo na koliko načinov lahko doseže 1 od 3 košev. Efektivno izbiramo iz množice 3 zadetkov a izberemo samo 2, kar definira tudi koliko zgrešitev bo.*
+> *Taka stvar je isto pri binomskem izreku, $(x+y)^{n}$, kjer izbiramo med množico $x_{n}$ in izbiramo koliko $x_{i}$ za $k$-to potenco.*
 
 Def:
 
@@ -401,33 +407,8 @@ $$ \binom{\,n\,}{\,k\,} = \binom{\,n-1\,}{\,k-1\,} + \binom{\,n-1\,}{\,k\,}$$
 
 >[!|dokaz]- Dokaz:
 > 
-> Intuitiven dokaz Pascalove identitete temelji na **kombinatoričnem argumentu** ali **dokazu s štetjem na dva načina**.
-> 
-> Identiteta, ki jo dokazujemo, je:
-> $$\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}$$
-> 
-> 
-> Da bi izračunali skupno število komitejev, bomo celotno množico $n$ ljudi razdelili na dva med seboj izključujoča se primera (ki pokrivata vse možnosti), s čimer bo vsota njunih možnosti enaka skupnemu številu.
-> 
-> *   Izberimo enega specifičnega člana izmed $n$ ljudi, recimo mu "Peter".
-> 
-> **Peter JE v izbranem komiteju ($k$ ljudi).**
-> *   Če je Peter že izbran, moramo izbrati še $k-1$ oseb, da komite doseže želeno velikost $k$.
-> *   Teh $k-1$ oseb moramo izbrati iz preostalih $n-1$ oseb (vsi, razen Petra).
-> *   Število načinov za to izbiro je torej: $$\binom{n-1}{k-1}$$
-> 
-> **Peter NI v izbranem komiteju ($k$ ljudi).**
-> *   Če Peter ni v komiteju, moramo še vedno izbrati celotno kvoto $k$ oseb.
-> *   Teh $k$ oseb moramo izbrati iz preostalih $n-1$ oseb (vsi, razen Petra).
-> *   Število načinov za to izbiro je torej: $$\binom{n-1}{k}$$
-> 
-> 
-> Ker je vsak možen komite z $k$ člani bodisi **vključuje** Petra (Primer 1) bodisi ga **izključuje** (Primer 2), je skupno število vseh možnih komitejev vsota možnosti v teh dveh primerih.
-> 
-> Torej:
-> $$\begin{pmatrix} \text{Skupno št. komitejev} \\ \text{velikosti } k \text{ iz } n \end{pmatrix} = \begin{pmatrix} \text{Št. komitejev, ki} \\ \text{vključujejo Petra} \end{pmatrix} + \begin{pmatrix} \text{Št. komitejev, ki} \\ \text{izključujejo Petra} \end{pmatrix}$$
-> $$\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}$$
-
+> Predpostavimo da damo nek element ven iz množice. Imamo $n-1$ elementov. Nato poiščemo vse podmnožice velikosti $k-1$ to so te ki bodo po dodajanju tega elementa vsebovale tudi le tega in bo velikost $k$.
+> Nato pa lahko poiščemo še vse množice velikosti $k$ ki ne vsebujejo odstranjenega elementa in dobimo torej množice ki tako ali tako nimajo odstranjenega elementa torej so velikosti $k$. Ko dodamo odstranjen element nazaj v množico pa ga lahok dodamo še vsem množicam velikosti $k-1$, in dobimo podmnožice velikosti $k$ kar so potem vse podmnožice velikosti $k$.
 
 > **Formula za binomski koeficient**
 > 
@@ -505,9 +486,6 @@ Razlikujemo med tem ali je **vrstni red pomemben** ali ne in ali lahko izbiro vr
 | **Vrstni red ni Pomemben (NE)** | **Kombinacije s ponavljanjem** | **Kombinacije brez ponavljanja** |
 | | $$\binom{n+k-1}{k}$$ | $$\binom{n}{k} = \frac{n!}{k!(n-k)!}$$ |
 
-***
-Kombinacije s ponavljanjem moram pogledati še
-***
 
 ### Kompozicije
 
@@ -567,7 +545,7 @@ Kombinacije s ponavljanjem je natnako šibka kompozicija št $k$ dolžine $n$.
 
 Imamo multimnožico, kjer se elementi lahko ponavljajo.
 
-$$A = \{ 1,1,1,2,2,3,3,\} = \{ 1^{3}, 2^{2}, 3^{2}\}$$
+$$A = \{ 1,1,1,2,2,3,3\} = \{ 1^{3}, 2^{2}, 3^{2}\}$$
 
 $$M = (S, \varphi)$$
 

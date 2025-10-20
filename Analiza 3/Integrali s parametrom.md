@@ -113,7 +113,7 @@ zvezna.
 > $$
 > G'(x) = f(\beta(x), x) \beta'(x) - f(\alpha(x), x) \alpha'(x) + \int_{\alpha(x)}^{\beta(x)} \frac{\partial f}{\partial x}(t, x) dt.
 > $$
-> >[!|dokaz]+ Dokaz:
+> >[!|dokaz]- Dokaz:
 > > Dokažimo najprej prvo trditev. Izberimo poljuben $x \in J$ in tak $h \in \mathbb{R}$, da je tudi $x+h \in J$. Zapišimo diferenčno količino za funkcijo $F$:
 > > $$
 > > \frac{F(x+h) - F(x)}{h} = \int_a^b \frac{f(t, x+h) - f(t, x)}{h} dt.
@@ -194,83 +194,145 @@ $$\color{light}
 $$
 *imenujemo dvakratna integrala (in ne dvojna integrala). Izrek torej reče, da sta oba dvakratna integrala enaka.*
 >[!|dokaz]- Dokaz:
+> 
+> Naj bo $f: [a, b] \times [c, d] \to \mathbb{R}$ zvezna funkcija. Želimo dokazati, da je
+> $$
+> I_1 = \int_{c}^{d} \left( \int_{a}^{b} f(t, x) dt \right) dx = \int_{a}^{b} \left( \int_{c}^{d} f(t, x) dx \right) dt = I_2.
+> $$
+> 
+> Dokaz bomo izvedli tako, da definiramo pomožni funkciji, ki predstavljata oba dvakratna integrala, vendar z zgornjo mejo $y$ namesto $d$. Nato bomo pokazali, da imata ti funkciji enake odvode in enako vrednost v začetni točki, kar pomeni, da sta enaki povsod.
+> 
+> 
+> Definirajmo dve funkciji $J: [c, d] \to \mathbb{R}$ in $K: [c, d] \to \mathbb{R}$:
+> 
+> $J({\color{green}y}) = \int_{c}^{{\color{green}y}} \left( \int_{a}^{b} f(t, x) dt \right) dx$
+>  $K({\color{green}y}) = \int_{a}^{b} \left( \int_{c}^{{\color{green}y}} f(t, x) dx \right) dt$
+> 
+> Naš cilj je dokazati, da je $J(y) = K(y)$ za vsak $y \in [c, d]$. Ker je $I_1 = J(d)$ in $I_2 = K(d)$, bo enakost dokazana.
+> 
+> **Odvod funkcije $J(y)$**
+> 
+> Funkcija $F(x) = \int_{a}^{b} f(t, x) dt$ je zvezna funkcija spremenljivke $x$. S pomočjo **osnovnega integralsekga izreka** dobimo:
+> $$
+> J'(y) = \frac{d}{dy} \left[ \int_{c}^{y} F(x) dx \right] = F(y) = \int_{a}^{b} f(t, y) dt.
+> $$
+> 
+> *Po izreku ki pravi*
+> 
+> $$\color{light}G(x) = \int_{a}^{x}f(t)dt \Rightarrow G'(x) = f(x)$$
+> 
+> **Odvod funkcije $K(y)$**
+> 
+> Za odvod funkcije $K(y)$ uporabimo izrek o **diferenciranju pod integralskim znakom** *Prejšnji dokaz o odvedljivost integrala s parametrom*, ki se v tem primeru uporablja, ker je $f(t, x)$ zvezna funkcija in so parcialni odvodi zvezni (v tem koraku potrebujemo samo zveznost funkcije $f$).
+> 
+> $$
+> K'(y) = \frac{d}{dy} \left[ \int_{a}^{b} \left( \int_{c}^{y} f(t, x) dx \right) dt \right]
+> $$
+> $$
+> K'(y) = \frac{d}{dy} \left[ \int_{a}^{b} G(y,t)dt \right]
+> $$
+> 
+> Ker so funkcije lepo zvezne, lahko zamenjamo vrstni red odvoda in zunanjega integrala:
+> $$
+> K'(y) = \int_{a}^{b} \left( \frac{\partial}{\partial y} \left[ \int_{c}^{y} f(t, x) dx \right] \right) dt
+> $$
+> Sedaj uporabimo **Osnovni izrek integralskega računa** na notranjem delu:
+> $$
+> \frac{\partial}{\partial y} \left[ \int_{c}^{y} f(t, x) dx \right] = f(t, y).
+> $$
+> To velja, ker integriramo glede na $x$ in odvajamo glede na zgornjo mejo $y$.
+> 
+> Vstavimo to nazaj v izraz za $K'(y)$:
+> $$
+> K'(y) = \int_{a}^{b} f(t, y) dt.
+> $$
+> 
+> 
+> 
+> Ugotovili smo, da velja:
+> $$
+> J'(y) = \int_{a}^{b} f(t, y) dt \quad \text{in} \quad K'(y) = \int_{a}^{b} f(t, y) dt.
+> $$
+> Torej, $J'(y) = K'(y)$ za vsak $y \in [c, d]$.
+> 
+> Po posledici OII (če imata dve zvezno odvedljivi funkciji enak odvod na intervalu, se razlikujeta za konstanto) velja:
+> $$
+> J(y) - K(y) = C.
+> $$
+> 
+> Preverimo še začetno točko $y=c$:
+> $$
+> J(c) = \int_{c}^{c} \left( \dots \right) dx = 0.
+> $$
+> $$
+> K(c) = \int_{a}^{b} \left( \int_{c}^{c} f(t, x) dx \right) dt = \int_{a}^{b} 0 dt = 0.
+> $$
+> Ker $J(c) = K(c) = 0$, je konstanta $C = 0$.
+> 
+> Sledi, da je $J(y) = K(y)$ za vse $y \in [c, d]$. Z nastavitvijo $y=d$ dobimo:
+> $$
+> I_1 = J(d) = K(d) = I_2.
+> $$
+> S tem je izrek dokazan.
 
-Naj bo $f: [a, b] \times [c, d] \to \mathbb{R}$ zvezna funkcija. Želimo dokazati, da je
-$$
-I_1 = \int_{c}^{d} \left( \int_{a}^{b} f(t, x) dt \right) dx = \int_{a}^{b} \left( \int_{c}^{d} f(t, x) dx \right) dt = I_2.
-$$
 
-Dokaz bomo izvedli tako, da definiramo pomožni funkciji, ki predstavljata oba dvakratna integrala, vendar z zgornjo mejo $y$ namesto $d$. Nato bomo pokazali, da imata ti funkciji enake odvode in enako vrednost v začetni točki, kar pomeni, da sta enaki povsod.
+***
+**Posplošeni oz. izlimitirani integral**
 
+Integral tipa
 
-Definirajmo dve funkciji $J: [c, d] \to \mathbb{R}$ in $K: [c, d] \to \mathbb{R}$:
+$$\lim_{T \to \infty}\int_{a}^{T}f(x,t) dt$$
 
-$J({\color{green}y}) = \int_{c}^{{\color{green}y}} \left( \int_{a}^{b} f(t, x) dt \right) dx$
- $K({\color{green}y}) = \int_{a}^{b} \left( \int_{c}^{{\color{green}y}} f(t, x) dx \right) dt$
+oz. ekvivalentno zapisano 
 
-Naš cilj je dokazati, da je $J(y) = K(y)$ za vsak $y \in [c, d]$. Ker je $I_1 = J(d)$ in $I_2 = K(d)$, bo enakost dokazana.
+$$\int_{a}^{\infty}f(x,t)dt$$
 
-**Odvod funkcije $J(y)$**
+imenujemo izlimitiran integral. Temu pravimo integral po neskončnem intervalu.
 
-Funkcija $F(x) = \int_{a}^{b} f(t, x) dt$ je zvezna funkcija spremenljivke $x$. S pomočjo **osnovnega integralsekga izreka** dobimo:
-$$
-J'(y) = \frac{d}{dy} \left[ \int_{c}^{y} F(x) dx \right] = F(y) = \int_{a}^{b} f(t, y) dt.
-$$
+Poznamo še integral z **neomejenim integrandom** oz. **polom**. Če ima funkcija $f(x,t)$ pol (je neomejena) v točki $t = a$, potem integral definiramo kot
 
-*Po izreku ki pravi*
+$$\int_{a}^{b}f(x,t)dt :=\lim_{\varepsilon \to 0^{+}}\int_{a+\varepsilon}^{b}f(x,t)dt$$
 
-$$\color{light}G(x) = \int_{a}^{x}f(t)dt \Rightarrow G'(x) = f(x)$$
+Ta pomemben je **izlimtiran integral.** Delali bomo z integrali tipa $\int_{a}^{\infty}$ in analogno sklepali tudi za posplošene integrale drugih tipov. 
 
-**Odvod funkcije $K(y)$**
+***
 
-Za odvod funkcije $K(y)$ uporabimo izrek o **diferenciranju pod integralskim znakom** *Prejšnji dokaz o odvedljivost integrala s parametrom*, ki se v tem primeru uporablja, ker je $f(t, x)$ zvezna funkcija in so parcialni odvodi zvezni (v tem koraku potrebujemo samo zveznost funkcije $f$).
+**Konvergenca integrala**
+Naj bo $D$ neka množica. $f: D \times [a,\infty)$. Predpostavimo da je $f$ **integrabilna** $\forall x \in D$ na vsakem $[a,T]$.
 
-$$
-K'(y) = \frac{d}{dy} \left[ \int_{a}^{b} \left( \int_{c}^{y} f(t, x) dx \right) dt \right]
-$$
-$$
-K'(y) = \frac{d}{dy} \left[ \int_{a}^{b} G(y,t)dt \right]
-$$
+Integral $I(x) = \int_{a}^{\infty}f(x,t)dt$ **konvergira točkovno** na intervalu $D$, če za **vsak $x \in D$ obstaja $\lim_{T \to \infty}\int_{a}^{\infty}f(x,t)dt$**.
 
-Ker so funkcije lepo zvezne, lahko zamenjamo vrstni red odvoda in zunanjega integrala:
-$$
-K'(y) = \int_{a}^{b} \left( \frac{\partial}{\partial y} \left[ \int_{c}^{y} f(t, x) dx \right] \right) dt
-$$
-Sedaj uporabimo **Osnovni izrek integralskega računa** na notranjem delu:
-$$
-\frac{\partial}{\partial y} \left[ \int_{c}^{y} f(t, x) dx \right] = f(t, y).
-$$
-To velja, ker integriramo glede na $x$ in odvajamo glede na zgornjo mejo $y$.
+$$\forall x \in D, \forall \varepsilon > 0, \exists T_{0} \ni: \forall T > T_{0} : \left|\int_{T}^{\infty} f(t,x)dt \right| < \varepsilon$$
+$$ \color{light} \text{ekvivalentno:}\; ...  \forall T>T_{0}:\left| \int_{a}^{T}f(x,t)dt - \int_{a}^{\infty}f(x,t)dt \right| <\varepsilon$$
 
-Vstavimo to nazaj v izraz za $K'(y)$:
-$$
-K'(y) = \int_{a}^{b} f(t, y) dt.
-$$
+**$T_{0}$ je odvisna od $x$.**
 
-#### 3. Zaključek
+***
+Naj velja da $\int_{a}^{\infty}f(x,t)dt$ konvergira točkovno. Če velja da obstaja $T_{0}$ tak da $\forall  x \in D,\, \forall T : T > T_{0}$ velja $\left|\int_{T}^{\infty} f(t,x)dt\right| <\varepsilon$ potem **enakomerno konvergira**.
 
-Ugotovili smo, da velja:
-$$
-J'(y) = \int_{a}^{b} f(t, y) dt \quad \text{in} \quad K'(y) = \int_{a}^{b} f(t, y) dt.
-$$
-Torej, $J'(y) = K'(y)$ za vsak $y \in [c, d]$.
+$$\forall \varepsilon > 0, \forall x \in D, \forall T \ni:  T>T_{0} : \left|\int_{T}^{\infty} f(x,t)dt \right|$$
 
-Po posledici OII (če imata dve zvezno odvedljivi funkciji enak odvod na intervalu, se razlikujeta za konstanto) velja:
-$$
-J(y) - K(y) = C.
-$$
-
-Preverimo še začetno točko $y=c$:
-$$
-J(c) = \int_{c}^{c} \left( \dots \right) dx = 0.
-$$
-$$
-K(c) = \int_{a}^{b} \left( \int_{c}^{c} f(t, x) dx \right) dt = \int_{a}^{b} 0 dt = 0.
-$$
-Ker $J(c) = K(c) = 0$, je konstanta $C = 0$.
-
-Sledi, da je $J(y) = K(y)$ za vse $y \in [c, d]$. Z nastavitvijo $y=d$ dobimo:
-$$
-I_1 = J(d) = K(d) = I_2.
-$$
-S tem je izrek dokazan.
+**$T_{0}$ ni odvisna od $x$.**
+***
+> **Weierstrassov $M$-test za integrale**
+> Naj bo $f : [a,\infty) \times X \rightarrow \mathbb{R}$.
+> Naj bo za vsak $x \in X$ funkcija $t \mapsto f(t,x)$ **integrabilna** na $[a, \infty)$. 
+> Naj obstaja taka integrabilna funkcija $\varphi:[a,\infty) \rightarrow \mathbb{R}^{+}$, da velja:
+> 
+> 1.  $|f(t,x)| \leq \varphi(t)$ za vse $t \in [a, \infty)$ in za vse $x \in X$.
+> 2.  Posplošeni integral $\int_{a}^{\infty}\varphi(t)dt$ konvergira.
+> 
+> Potem integral $\int_{a}^{\infty}f(t,x)dt$ **konvergira enakomerno** na množici $X$.
+> 
+> >[!|dokaz]- Dokaz:
+> > Izberimo poljuben $\epsilon > 0$.
+> > 
+> > Uporabimo predpostavko, da integral **$\int_{a}^{\infty}\varphi(t)dt$ konvergira**. 
+> > Obstaja $b$ tako da $\forall c >b$ velja 
+> > $$\left|\int_{c}^{\infty} \varphi(t)dt  \right| <\varepsilon$$
+> > 
+> > Sedaj lahko izpeljemo
+> > 
+> > $$\left|\int_{c}^{\infty} f(x,t)dt\right| \leq \int_{c }^{\infty}\left|f(x,t) \right|dt \leq \int_{c}^{\infty}\varphi(t)dt < \varepsilon$$
+> > 
+> > Ker je bil naš $b$ odvisen le od $\epsilon$ in ne od $x$, in ker ocena velja za *vse* $x \in X$, integral $\int_{a}^{\infty}f(t,x)dt$ konvergira enakomerno na $X$.
