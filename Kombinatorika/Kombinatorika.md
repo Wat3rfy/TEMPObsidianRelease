@@ -486,35 +486,55 @@ Razlikujemo med tem ali je **vrstni red pomemben** ali ne in ali lahko izbiro vr
 | **Vrstni red ni Pomemben (NE)** | **Kombinacije s ponavljanjem** | **Kombinacije brez ponavljanja** |
 | | $$\binom{n+k-1}{k}$$ | $$\binom{n}{k} = \frac{n!}{k!(n-k)!}$$ |
 
+**Kombinacije s ponavljanjem**
+
+Če imamo $n$ elementov ki se lahko ponavljajo in jih hočemo razporediti na $k$ mest.
+
+Ker vrstni red ni pomemben lahko vse kombinacije kjer ponavljamo elemente preuredimo v zaporedje kjer so vsi elementi ki so se ponovili skupaj. To naj bo predstavnik te kombinacije - torej lahko vse kombinacije s ponavljanjem predstavimo z zaporedjem kjer so vsi ponovljeni elementi drug za drugim.
+
+Sedaj lahko vpeljemo element pregrade ki stojijo med skupinami. Torej če imamo neke $x,y,z$ elemente ki se lahko ponavljajo na $k$ mestih jih lahko grupiramo in vidimo da jih lahko ločimo z $2$ pregradama oz. če imamo $n$ različnih elementov jih lahko ločimo z $n-1$ pregradami.
+
+Če dodamo našim $k$ prostim mestom še mesta za pregrade dobimo $k + n-1$ mest. Opazimo da je s postavitvijo pregrad že definirana kombinacija saj ostane $k$ mest kjer so po skupinah ločeni elementi.
+
+Vidimo da je v resnici izbira $n-1$ mest za pregrade iz $k+n-1$ vseh mest - za pregrade  in elemente $n-1 + k$.
+
+Torej je enačba
+
+$$\binom{\,k+n-1\,}{\,n-1\,}$$
+
+Kar je enako
+
+$$\binom{\,k+n-1\,}{\,k\,}$$
+
+***
 
 ### Kompozicije
 
-**Kompozicija** števila $n$ je nek $\lambda = (\lambda_1,...,\lambda_{l})$ kjer je $\lambda_{i} \geq 1$ kjer je njihova vsota enaka $n$.
+Kompozicija števila $n$ je $k$-terica $\lambda_{i}$, kjer velja $\lambda_{i} \in [n]$
+
+$$\sum_{i}^{}\lambda _{i} = n$$
 
 $\lambda_{i}$ so členi kompozicije
 $l$ je dolžina kompozicije
 $n$ je velikost kompozicije
 
-Velja da je število kompozicij enako
+Za $n = 9$:
+Kompozicije si lahko predstavljamo kot kombinacije s ponavljanjem 9 elementov na 9 mestih. Predstavljamo si 9 različnih enk kjer če se neka enka ponavlja tvori večje število. To pomeni da imamo 8 pregrad torej 17 mest iz katerih izbiramo 8 mest za pregrado.
+
+Posplošeno imamo kombinacije s ponavljanjem $n$ elementov na $n$ mestih - $n$ različnih enk. Imamo $n-1$ pregrad oz. $n-1$ mest za pregrado kjer jo lahko postavimo ali ne.
+
+*Mest je $n-1$ ker mora biti vsako število večje ali enako 1, kar pomeni da vsilimo med vsako enko mesto za pregrado potem pa se odločimo ali jo postaivmo ali ne.*
+
+Tako imamo skupno število kompozicij enako
 
 $$2^{n-1}$$
 
 Za 0 velja da ima eno kompozicijo - prazno kompozicijo.
 
-Št kompozicij števila $n$ dolžine $k$
+Št kompozicij števila $n$ dolžine $k$ da imamo $n-1$ aktivnih mest a lahko izberemo le $k-1$ mest za pregrado.
 
 $$\binom{\,n-1\,}{\,k-1\,}$$
-*Tukej je neka povezava z zvezdivami in palicami oz. kombinacijami s ponavljanjem*
-
-Kompozicijo lahko predstavmo s kroglicamiin pregradami
-
-$$4+2+1+3 = 10$$
-$$**** | ** | * | ***$$
-
-$2^{n-1}$ : pregrado lahko damo ali ne in imamo $n-1$ možnosti za pregrado.
-
-Za $k$ členov pa poterbeujemo $k-1$ pregrad. Torej med $n-1$ mesti izberemo $k-1$ mest : $\binom{\,n-1\,}{\,k-1\,}$
-
+***
 **Šibka kompozicija** števila $n$ je $\lambda = (\lambda_{1},...,\lambda_{n}) \,;\; \lambda_{i}\geq 0$.
 
 Koliko je šibkih kompozicijnekega števila $n$ dolžine $k$.
@@ -537,15 +557,20 @@ Koliko je šibkih kompozicijnekega števila $n$ dolžine $k$.
 > $$\mu_{1}+...+\mu_{k}=n+k$$
 > $$\binom{\,n+k-1\,}{\,k-1\,}$$
 
-Kombinacije s ponavljanjem je natnako šibka kompozicija št $k$ dolžine $n$.
+Šibke kompozicije so spet določene s pregradami in različnimi enkami ki jih lahko grupiramo.
+Razlika je da ne določimo vnaprej $n-1$ mest kjer so lahko pregrade ali ne. Mi imamo $n$ tipov enk ki sestavijo število $n$ ki jih lahko ponavljamo in grupiramo. Postavljamo pregrade. Ker imamo $n$ elementov jih razdelimo z $n-1$ pregradami. Če imamo $k$ mest pomeni da imamo $k+n-1$ prostih mest kjer definiramo šibko kompozicijo s postavitvijo pregrad nakar ostane $k$ mest kamor damo ostale enke. To pomeni da med $k+n-1$ mesti izbiramo $n-1$ mest za pregrade.
+
+Kombinacije s ponavljanjem je natanko šibka kompozicija št $n$ dolžine $k$.
 
 ***
 
 ### Multinomski koeficienti
 
-Imamo multimnožico, kjer se elementi lahko ponavljajo.
+**Multimnožica** je množica kjer se elementi lahko ponavljajo.
 
 $$A = \{ 1,1,1,2,2,3,3\} = \{ 1^{3}, 2^{2}, 3^{2}\}$$
+
+Multimnžica $M$ je definirana kot par množice elementov $S$ in preslikave ki slika vsak element množice $S$ v število ponovitev v multimnožici.
 
 $$M = (S, \varphi)$$
 
@@ -554,35 +579,38 @@ $S$ je množica, $\varphi: S \rightarrow \mathbb{N}$
 $$A = (S, \varphi)$$
 $$S = [4], \varphi(1)=3, \varphi(2)=1,...$$
 
-Permutacija multimnožice : "premešamo" elemente, ne ločimo istih elementov.
+Naj bo permutacija multimnožice mešanje elementov, kjer ne ločimo med istimi elementi.
+To pomeni da ko imamo $a_{1}a_{2}b_{1}$ je enako kot $a_{2}a_{1}b_{1}$.
 
-Primer
+**Primer**
 
-11223, 11232
+$$11223,12123,11322,...$$ 
+
+Dobimo jih lahko z izbiranjem mest za iste elemente torej 2 mesti izberemo od 5 za enke, 2 za dvojke in 1 za trojke:
 
 Za enke imamo $\binom{\,5\,}{\,2\,}$ za dvojek $\binom{\,3\,}{\,2\,}$ za trojek $\binom{\,1\,}{\,1\,}$.
 
 $$\binom{\,5\,}{\,2\,} \binom{\,3\,}{\,2\,} \binom{\,1\,}{\,1\,} = 30$$
 
-Drugi način
+Lahko pa ugotovimo da so to vse permutacije ki jih lahko grupiramo po temu da ugotovimo koliko elementov je v skupini kjer so elementi med katerimi ne razlikujemo pomešani, kar so njegove permutacije. V taki skupini jih je natanko $k!$, kjer je element ponovljen $k$-krat. Torej delimo s številom členov v tej skupini da dobimo število dejanskih različnih skupin.
 
 Imamo $5!$ načinov ampak se znebimo permutacij enk in dvojk, torej 
 
 $$\frac{5!}{2!2!}$$
-
+***
 Imamo $M = \{ 1^{a}, 2^{a_{2}},...,k^{a_{k}}\}$
 
-Načini da premešamo elemente:
+Elemente lahko premešamo na več načinov
 
-1\. Način: naprej izberemomesta za enke $\binom{\,n\,}{\,a_{1}\,}$
-potem izberemo mesta za dvojke $\binom{\,n-a_{1}\,}{\,a_{2}\,}$, potem trojke ...$\binom{\,n-a_{1}-a_{2}\,}{\,a_{3}\,}$...$\binom{\,a_{k}\,}{\,a_{k}\,}$
+**1\. Način:** 
+Naprej izberemo mesta za enke $\binom{\,n\,}{\,a_{1}\,}$ potem izberemo mesta za dvojke $\binom{\,n-a_{1}\,}{\,a_{2}\,}$, potem trojke $\binom{\,n-a_{1}-a_{2}\,}{\,a_{3}\,}$ in tako naprej do$\binom{\,a_{k}\,}{\,a_{k}\,}$
 
 $$\binom{\,n\,}{\,a_{1}\,}\binom{\,n-a_{1}\,}{\,a_{2}\,}...\binom{\,a_{k}\,}{\,a_{k}\,}$$
 $$\frac{n!}{a_{1}(n-a_{1})!}\frac{(n-a_{1})!}{a_{2}!(n-a_{1}-a_{2})!}...$$
 
 Vse se pokrajša in dobimo $$\frac{n!}{a_{1}!...a_{k}!}$$
 
-2\. Način 
+**2\. Način** 
 $1_{1},...,1_{a_{1}},2_{1},...,2_{a_{2}},...,k_{1},...,k_{a_{k}}$
 
 $n!$ permutacij, izbrišemo vsako permutacijo multimnožice dobimo
@@ -598,21 +626,17 @@ $$a_{1}+...+a_{k} = n$$
 Temu pravimo **multinomski koeficient**.
 
 $$\binom{\,a_{1}+a_{2}\,}{\,a_{1},a_{2}\,} = \binom{\,a_{1}+a_{2}\,}{\,a_{1}\,} = \binom{\,a_{1}+a_{2}\,}{\,a_{2}\,}$$
-
-Lahko gledamo na to tudi kot
-$n$ objektov razvrstimo v $k$ kateogrij v $i$-ti jih je $a_{i}$.
+$$\binom{\,n\,}{\,k\,} = \binom{\,n\,}{\,k,n-k\,}$$
 
 **Multinomski izrek**
 
 $$(x_{1}+...+x_{k})^{n} = \sum_{a_{1}+...+a_{k} = n} \binom{\,n\,}{\,a_{1},...,a_{k}\,} x_{1}^{k_{1}}...x_{k}^{k_{k}}$$
 
+
 ***
 
-Načelo vključitev izključitev
 
-$$\left|A \cup B \right| = |A| + |B| - |A\cap B|$$
-$$ $$
-$$|A \cup B \cup C| = |A| + |B| + |C| - $$ $$(|A \cap B| + |A \cap C| + |B \cap C|) + |A \cap B \cap C|$$
+
 
 **Načelo vključitev izključitev** *Principle of inclusion and exclusion*
 
@@ -620,20 +644,68 @@ $$
 \left| \bigcup_{i=1}^{n} A_i \right| = $$ 
 $$ \sum_{i} |A_i| - \sum_{i < j} |A_i \cap A_j| + \sum_{i < j < k} |A_i \cap A_j \cap A_k| - \cdots + (-1)^{n-1} \left| \bigcap_{i=1}^{n} A_i \right|$$
 
-https://aistudio.google.com/prompts/1_tI_cY1hgozCJT7XoQ8mtMBjY7MXHGk6 **
+Kot vidimo seštevamo in odštevamo vedno večje preseke množic. Indeksi zaznamujejo vse kombinacije množic $A_{i}$ ki jih imamo. Torej če imamo $n$ množic - $A_{1,...,n}$ bomo seštevali moči množic katerih indeksi bojo neka podmnožica indeksov. Torej pri odštevanju preseka 2 množic bomo imeli $A_{i}\cap A_{j} \,;\; \{ i,j\}\subset [n]$ torej $\sum_{I \subset [n], |I| = 2}^{}|A_{i}\cap A_{j}|$. 
+
+To bomo počeli za za vsako podmnožico indeksov vseh velikosti, vse kar se spremnija je le predznak zato lahko zapišemo
+
+
+
 
 $$ \left| \bigcup_{i=1}^{n} A_i \right| = \sum_{\emptyset \ne I \subseteq \{1, \dots, n\}} (-1)^{|I|-1} \left| \bigcap_{i \in I} A_i \right| $$
 
+Če definiramo presek 
 
-**Ekvivalentno**
+$$A_{I}:=\{ a \in A:a \in A_{i} , \forall i \in I\}$$
+
+Dobimo formulo
+
+$$ \left| \bigcup_{i=1}^{n} A_i \right| = \sum_{\emptyset \ne I \subseteq \{1, \dots, n\}} (-1)^{|I|-1} \left| A_{I} \right| $$
+
+**Dokaz: todon**
+
+
+
+**Ekvivalentno lahko uporabimo deMorganove zakone**
 
 Vedno predpostavljamo da je $A_{1},...,A_{n} \subset A$.
 
 $$A_{I}=\{ a \in A:a \in A_{i} \forall i \in I\}$$
 
-$$A_{\emptyset}= \{ a \in A:a \in A, \forall i \in \emptyset\} ... = A$$
+$$A_{\emptyset}= \{ a \in A:a \in A, \forall i \in \emptyset\} = A$$
+$$|A_{\emptyset}| = A$$
+$$|\emptyset| = 0$$
 
+Velja
+
+$$
+\left|\bigcup A_{i}\right| = \left|\left(\bigcap A_{i}^{c}\right)^{c}\right|
+$$
+$$
+\left|\bigcup A_{i}\right| = |A| - \left|\bigcap A_{i}^{c}\right|
+$$
+$$
+\left|\bigcap A_{i}^{c}\right| = |A| - \left|\bigcup A_{i}\right|
+$$
+$$
+= |A| - \sum_{\emptyset \neq I \subseteq [n]} (-1)^{|I|-1} |A_{I}|
+$$
+
+Ker je $|A|$ definiran kot $|A_\emptyset|$ ga lahko vključimo v vsoto in razširimo mejo $I \subset [n]$.
+
+
+$$
+= |A| + \sum_{\emptyset \neq I \subseteq [n]} (-1)^{|I|} |A_{I}|
+$$
+$$
+= \sum_{I \subseteq [n]} (-1)^{|I|} |A_{I}|
+$$
+
+$$\Rightarrow$$
 $$\left|\bigcap_{i=1}^{n} A^{C}_{i}\right| = \sum_{I \subset [n]}^{}(-1)^{|I|}\left|\bigcap_{i \in I} A_{i} \right| $$
+
+Velja da je torej komplement unije enak preseku komplementov $A_{i}$ kar je enako vsoti kombinacij presekov.
+
+$$ \left|\left(\bigcup A_{i}\right)^{C} \right| = \left|\bigcap_{i=1}^{n} A^{C}_{i}\right| = \sum_{I \subset [n]}^{}(-1)^{|I|}\left|\bigcap_{i \in I} A_{i} \right|$$
 
 *Še kle rabm dokaz*
 
@@ -648,7 +720,7 @@ Primer uporabe
 
 $$0^{n} = \delta_{0n}$$
 
-*Vedno je enaka 0 raze $0^{0} = 1$.*
+*Vedno je enaka 0 razen pri $0^{0} = 1$.*
 
 $$\delta_{0m} = \sum_{k=0}^{m}\binom{\,m\,}{\,k\,}(-1)^{k}$$
 
