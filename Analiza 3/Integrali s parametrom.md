@@ -69,13 +69,6 @@ zvezna.
 > > $$|G(x,u,w) - G(x_0,u_0,w_0)| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.$$
 > > Torej je $G$ zvezna funkcija.
 
->**Posplošitev**
->Če je $f$ zvezna funkcija spremenljivk $x$ in $t$ posebej, je $G$, dana s predpisom
-> 
-> $$G(x,u,w) = \int_u^w f(t,x)dt,$$
-> 
-> tudi zvezna funkcija spremenljivk $(x,u,w)$.
-
 
 > **Posledica**
 > Naj bo $X \subset \mathbb{R}^n$ lokalno zaprta množica in $f : [a, b] \times X \to \mathbb{R}$
