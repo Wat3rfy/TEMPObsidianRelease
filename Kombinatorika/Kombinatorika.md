@@ -871,3 +871,11 @@ $$\sum_{I \subset [k]}^{}(-1)^{|I|} \cdot  n \cdot  \frac{1}{\prod_{i \in I}p_{i
 
 $$= n \cdot \prod_{p|n}(1-\frac{1}{p})$$
 
+***
+
+### Načrti in t-načrti
+
+*Neka motivacija
+Podjetje izdeluje več inačic nekega produtka
+Radi bi jih testirali na strankah.
+hočemo da je vsaka enačica enakokrat testiranaa in da ima vsaka stranka enako števil oenačic za preizkusitw*
