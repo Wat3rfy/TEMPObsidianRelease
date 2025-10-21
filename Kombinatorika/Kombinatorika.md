@@ -667,7 +667,7 @@ $$ \left| \bigcup_{i=1}^{n} A_i \right| = \sum_{\emptyset \ne I \subseteq \{1, \
 
 **Ekvivalentno lahko uporabimo deMorganove zakone**
 
-Vedno predpostavljamo da je $A_{1},...,A_{n} \subset A$.
+Vedno predpostavljamo da je $A_{1},...,A_{n} \subset A$, da lahko definiramo komplement $A_{i}^{C}$ kot $A - A_{i}$.
 
 $$A_{I}=\{ a \in A:a \in A_{i} \forall i \in I\}$$
 
@@ -690,7 +690,7 @@ $$
 = |A| - \sum_{\emptyset \neq I \subseteq [n]} (-1)^{|I|-1} |A_{I}|
 $$
 
-Ker je $|A|$ definiran kot $|A_\emptyset|$ ga lahko vključimo v vsoto in razširimo mejo $I \subset [n]$.
+Ker je $|A|$ definiran kot $|A_\emptyset|$ ga lahko vključimo v vsoto in razširimo mejo $I \subset [n]$. Prej pa še minus izpred vsote damo v vsoto in dobimo $(-1)^{|I|}$.
 
 
 $$

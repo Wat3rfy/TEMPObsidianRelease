@@ -29,18 +29,11 @@
 > $$G(a,b,t) = \int_{a}^{b}g(x,t)dt$$
 > 
 > ker lahko spreminjamo meji integrala.
-***
-Množica  $A \in \mathbb{R}^n$ je **lokalno zaprta** če velja da za vsako točko v množici velja da obstaja zaprt interval okoli nje ki je popolnoma vsebovan v $\mathbb{R}$.
-
-> Če je monžica odprta ali zaprta je lokalno zaprta.
-> Če je neka množica presek odprte in zaprte je lokalno zaprta
-
-Racionalna števila $\mathbb{Q}$ so primer ne lokalno zaprte množice.
 
 ***
 
 >**Izrek o zveznosti integrala s parametrom**
->1. Naj bo **$I = [a,b]$** in **$X \subset \mathbb{R}^n$ lokalno zaprta množica**. 
+>1. Naj bo **$I = [a,b]$** in **$X \subset \mathbb{R}^n$ **. 
 >2. Naj bo **$f: I \times X \to \mathbb{R}$ zvezna funkcija**. 
 >
 >Potem je funkcija $G: X \times I \times I \to \mathbb{R}$, definirana s formulo
@@ -50,7 +43,7 @@ zvezna.
 >>[!|dokaz]- Dokaz:
 > > Naj bo $(x_0, u_0, w_0) \in X \times I \times I$ poljubna točka in naj bo $\varepsilon>0$.
 > >
-> > Ker je $X$ lokalno zaprta, obstaja kompaktna okolica $K \subset X$ točke $x_0$. Ker je tudi interval $I$ kompakten, je produkt $I \times K$ kompaktna množica. Zvezna funkcija $f$ je na kompaktni množici $I \times K$ **enakomerno zvezna**. Zato obstaja $\delta_1>0$, da za vsak $x \in K$ z $\|x - x_0\| < \delta_1$ velja $|f(t, x) - f(t, x_0)| < \frac{\varepsilon}{2(b-a)}$ za vse $t \in I$.
+> > Ker je $X$ podmnožica metričnega prostora, obstaja kompaktna okolica $K \subset X$ točke $x_0$. Ker je tudi interval $I$ kompakten, je produkt $I \times K$ kompaktna množica. Zvezna funkcija $f$ je na kompaktni množici $I \times K$ **enakomerno zvezna**. Zato obstaja $\delta_1>0$, da za vsak $x \in K$ z $\|x - x_0\| < \delta_1$ velja $|f(t, x) - f(t, x_0)| < \frac{\varepsilon}{2(b-a)}$ za vse $t \in I$.
 > >
 > > Razliko ocenimo z uporabo trikotniške neenakosti:
 > > $$|G(x, u, w) - G(x_0, u_0, w_0)| = \left|\int_{u}^{w} f(t, x) d t - \int_{u_0}^{w_0} f(t, x_0) d t\right|$$
@@ -71,7 +64,7 @@ zvezna.
 
 
 > **Posledica**
-> Naj bo $X \subset \mathbb{R}^n$ lokalno zaprta množica in $f : [a, b] \times X \to \mathbb{R}$
+> Naj bo $X \subset \mathbb{R}^n$ in $f : [a, b] \times X \to \mathbb{R}$
 > zvezna. 
 > 
 > Tedaj je $F$, dana s predpisom
@@ -329,3 +322,106 @@ $$\forall \varepsilon > 0, \forall x \in D, \forall T \ni:  T>T_{0} : \left|\int
 > > $$\left|\int_{c}^{\infty} f(x,t)dt\right| \leq \int_{c }^{\infty}\left|f(x,t) \right|dt \leq \int_{c}^{\infty}\varphi(t)dt < \varepsilon$$
 > > 
 > > Ker je bil naš $b$ odvisen le od $\epsilon$ in ne od $x$, in ker ocena velja za *vse* $x \in X$, integral $\int_{a}^{\infty}f(t,x)dt$ konvergira enakomerno na $X$.
+
+> **Zveznost posplošenega integrala s parametrom**
+> Naj bo $X \subset \mathbb{R}^{n}$.
+> Naj bo $f: [a,\infty) \times X \rightarrow \mathbb{R}$ **zvezna** funkcija in naj 
+> $$\int_{a}^{\infty}f(t,x)dt$$
+> **lokalno enakomerno** konvergira na $X$ t.j. da za vsak $\varepsilon > 0$ obstaja $c>a$ in $r > 0$ tako da $\forall x,y \in X$ če je $\|x-y\| < r$ potem velja da je $|\int_{c}^{\infty}f(x,t)dt|<\varepsilon$.
+>
+>Potem je
+>$$x \mapsto \int_{a}^{\infty}f(t,x)dt$$
+>zvezna funkcija. 
+>*Lokalna enakomerna konvergenca namesto da obstaja $c$ za vsak $x$, obstaja $c$ za vsako dovolj majhno okolico. Torej za vsako točko obstaja dovolj majhna okolica kjer enakomerno konvergira.*
+>>[!|dokaz]- Dokaz:
+> > 
+> > Naj bo $x_0 \in X$ poljubna točka. 
+> > 
+> > $$F(x) = \int_{a}^{\infty}f(t,x)dt$$
+> > 
+> > *Hočemo pokazati da za vsak $\varepsilon > 0$ obstaja okolica $x_{0}$ da če je $x$ v tej okolici potem velja $|F(x) - F(x_0)| < \varepsilon$*
+> > 
+> > Vzemimo poljuben $\varepsilon > 0$. Dokaz razdelimo na tri korake z uporab $\varepsilon/3$.
+> > 
+> > 
+> > Uporabimo predpostavko **lokalne enakomerne konvergence**.
+> > 
+> > Za izbrani $x_0$ in za $\varepsilon_{0} = \varepsilon/3$, lok. enak. kon. zagotavlja, da obstaja okolica $U(x_0) \subset X$ točke $x_0$ in obstaja realno število $c > a$ takšno, da za vsak $x \in U(x_0)$ velja:
+> > 
+> > $$ \left| \int_{c}^{\infty} f(t, x) dt \right| < \frac{\varepsilon}{3}$$
+> > 
+> > Ker $x_0$ pripada $U(x_0)$, mora tudi veljati:
+> > 
+> > $$ \left| \int_{c}^{\infty} f(t, x_0) dt \right| < \frac{\varepsilon}{3}$$
+> > 
+> > Ocenimo razliko integralov.
+> > 
+> > Razliko $|F(x) - F(x_0)|$ razdelimo na končni del (od $a$ do $c$) in rep (od $c$ do $\infty$):
+> > 
+> > $$|F(x) - F(x_0)| = $$ 
+> > $$\left| \left( \int_{a}^{c} f(t, x) dt + \int_{c}^{\infty} f(t, x) dt \right) - \left( \int_{a}^{c} f(t, x_0) dt + \int_{c}^{\infty} f(t, x_0) dt \right) \right|$$
+> > 
+> > Po trikotni neenakosti dobimo:
+> > 
+> > $$|F(x) - F(x_0)| \leq $$ 
+> > $$\underbrace{\left| \int_{a}^{c} [f(t, x) - f(t, x_0)] dt \right|}_{\text{I}} + \underbrace{\left| \int_{c}^{\infty} f(t, x) dt \right|}_{\text{II}} + \underbrace{\left| \int_{c}^{\infty} f(t, x_0) dt \right|}_{\text{III}}$$
+> > 
+> > Obravnavamo repa $\text{II}, \text{III}$
+> > 
+> > Za vsak $x \in U(x_0)$ smo že na začetku ugotovili, da sta člena II in III ustrezno majhna z izbiro $c$:
+> > 
+> > $$ \text{II} < \frac{\varepsilon}{3} \quad \text{in} \quad \text{III} < \frac{\varepsilon}{3} $$
+> > 
+> > Obravnavamo končni del $\text{I}$
+> > 
+> > Definirajmo funkcijo $G(x)$ kot integral na končnem intervalu:
+> > $$G(x) = \int_{a}^{c} f(t, x) dt$$
+> > 
+> > Uporabimo **Izrek o zveznosti integralov s parametrom na končnem intervalu**.
+> > Ker je **integrand $f(t, x)$ zvezna funkcija** na kompaktnem območju $[a, c] \times U(x_0)$, sledi, da je funkcija $G(x)$ zvezna na $U(x_0)$.
+> > 
+> > Iz zveznosti sledi da obstaja okolica $x_{0}$ recimo $V(x_{0})\subset U(x_{0})$ tako da če je $x \in V(x_{0})$ potem je 
+> > 
+> > $$|G(x) - G(x_0)| = \left| \int_{a}^{c} [f(t, x) - f(t, x_0)] dt \right| < \frac{\varepsilon}{3}$$
+> > $$ \text{I} < \frac{\varepsilon}{3} $$
+> > 
+> > Če združimo vse skupaj lahko izberemo $x \in V(x_{0})$.
+> > 
+> > Ker je $V(x_{0})\subset U(x_{0})$ veljajo vse ocene hkrati.
+> > $$|F(x) - F(x_0)| \leq \text{I} + \text{II} + \text{III} < \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon$$
+> > 
+> > Ker smo dokazali, da za poljuben $\varepsilon > 0$ obstaja okolica $V(x_0)$ takšna, da je $|F(x) - F(x_0)| < \varepsilon$, je funkcija $F(x)$ zvezna v točki $x_0$. Ker je bila $x_0$ poljubna, je $F(x)$ zvezna na celotnem $X$.
+> > 
+> > 
+> > | Predpostavka/Izrek | Kje se uporabi v dokazu? | Zakaj je potrebna? |
+> > | :--- | :--- | :--- |
+> > | **Premisa 1: Zveznost integranda $f(t, x)$** | Korak 3 (Obravnava I) | Da lahko uporabimo klasični **Izrek o zveznosti integralov na končnem intervalu**. Brez zveznosti $f$ ne moremo zagotoviti zveznosti $G_C(x)$. |
+> > | **Premisa 2: Lokalna Enakomerna Konvergenca (LEK)** | Korak 1 in Korak 3 (Obravnava II in III) | Omogoča izbiro fiksne meje $C$ in okolice $U(x_0)$, tako da so repi integrala $|\int_C^\infty f(t, x) dt|$ majhni in omejeni, **neodvisno od $x$** znotraj te okolice. To je ključni prehod iz neskončnega na končni interval. |
+> > | **Izrek o zveznosti integralov na končnem intervalu** | Korak 3 (Obravnava I) | Zagotavlja, da je funkcija $G_C(x) = \int_a^C f(t, x) dt$ zvezna, saj je njen integrand zvezna funkcija na kompaktnem območju. To nam omogoča, da najdemo okolico $V(x_0)$, kjer je tudi končni del razlike majhen. |
+> > | **Trikotna neenakost** | Korak 2 | Za razdelitev celotne razlike v tri obvladljive dele. |
+
+
+> **Integriranje izlimitiranega integrala**
+> Naj bo $f:[c,d] \times [a,\infty)$ zvezna funkcija.
+> Naj bo
+> $$F(x) = \int_{a}^{\infty}f(x,t)dt$$
+> enakomerno konvergentna na $[c,d]$ *$\Rightarrow$ F je zvezna.*
+>Potem velja
+>$$\int_{a}^{\infty}dt\int_{c}^{d}f(x,t)dx = \int_{c}^{d}dx \int_{a}^{\infty}f(x,t)dt$$
+
+Za dokaz izreka hočemo priti na izrek o integriranju integralov s parametrom *Funibijev izrek*.
+
+Definiramo 
+
+$$R(x,b) = \int_{a}^{b}f(x,t)dt$$
+
+ker je $f$ zvezna na $[c,d] \times [a,b]$ lahko po Funibijevem izreku zamenjamo vrstni red.
+
+$$\int_{c}^{d}dx \int_{a}^{b}f(x,t)dt = \int_{a}^{b}dt \int_{c}^{d}f(x,t)dx$$
+
+Vzamemo limito $b \rightarrow \infty$ na obeh straneh.
+
+$$L: \lim_{b \to \infty} \int_{c}^{d}dx \int_{a}^{b}f(x,t)dt$$
+$$D: \lim_{b \to \infty}\int_{a}^{b}dt \int_{c}^{d}f(x,t)dx$$
+
+https://aistudio.google.com/prompts/1On27KqFGpvtlSjEvhwlEF9VelM0hfZKi
