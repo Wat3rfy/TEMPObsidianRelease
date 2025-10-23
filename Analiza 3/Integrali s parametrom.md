@@ -408,20 +408,46 @@ $$\forall \varepsilon > 0, \forall x \in D, \forall T \ni:  T>T_{0} : \left|\int
 > enakomerno konvergentna na $[c,d]$ *$\Rightarrow$ F je zvezna.*
 >Potem velja
 >$$\int_{a}^{\infty}dt\int_{c}^{d}f(x,t)dx = \int_{c}^{d}dx \int_{a}^{\infty}f(x,t)dt$$
+> >[!|dokaz]- Dokaz:
+> >
+> > 
+> > Za dokaz izreka hočemo priti na izrek o integriranju integralov s parametrom *Funibijev izrek*.
+> > 
+> > ker je $f$ zvezna na $[c,d] \times [a,b]$ lahko po Funibijevem izreku zamenjamo vrstni red.
+> > 
+> > $$\int_{c}^{d}dx \int_{a}^{b}f(x,t)dt = \int_{a}^{b}dt \int_{c}^{d}f(x,t)dx$$
+> > 
+> > Vzamemo limito $b \rightarrow \infty$ na obeh straneh.
+> > 
+> > $$L: \lim_{b \to \infty} \int_{c}^{d}dx \int_{a}^{b}f(x,t)dt$$
+> > $$D: \lim_{b \to \infty}\int_{a}^{b}dt \int_{c}^{d}f(x,t)dx$$
+> > 
+> > Ker je $f$ zvezna in enakomerno konvergira na $[c,d]$ lahko limito prenesemo v integral in dobimo
+> > 
+> > $$L:\int_{c}^{d}dx \lim_{b \to \infty}\int_{a}^{b}f(x,t)dt$$
+> > $$L:\int_{c}^{d}dx \int_{a}^{\infty}f(x,t)dt$$
+> > 
+> > Kar pomeni da je
+> > 
+> > $L = D$.
 
-Za dokaz izreka hočemo priti na izrek o integriranju integralov s parametrom *Funibijev izrek*.
 
-Definiramo 
 
-$$R(x,b) = \int_{a}^{b}f(x,t)dt$$
+>**Izrek o odvedljivost zlimitiranega integrala**
+> Naj bo $J$ **odprt interval** in $f : [a, \infty) \times J \to \mathbb{R}$ **zvezna funkcija**. 
+> Naj bo $f$ **zvezno parcialno odvedljiva** na $J\;\, \forall t \in [a, \infty) \times J$. 
+> Naj za nek $x_{0} \in J$ integral
+> $$F(x_{0}) = \int_a^\infty f(t, x_{0}) \, dt$$
+> konvergira in naj integral iz odvodov
+> $$\int_a^\infty \frac{\partial f}{\partial x}(t, x) \, dt$$
+> enakomerno konvergira na $J$.
+> 
+> Tedaj je $F$ zvezno odvedljiva in
+> $$F'(x) = \int_a^\infty \frac{\partial f}{\partial x}(t, x) \, dt.$$
+> 
+>In velja da je $\int_{a}^{\infty}f(t,x)$ enakomerno konvergentna na $J$.
 
-ker je $f$ zvezna na $[c,d] \times [a,b]$ lahko po Funibijevem izreku zamenjamo vrstni red.
 
-$$\int_{c}^{d}dx \int_{a}^{b}f(x,t)dt = \int_{a}^{b}dt \int_{c}^{d}f(x,t)dx$$
 
-Vzamemo limito $b \rightarrow \infty$ na obeh straneh.
 
-$$L: \lim_{b \to \infty} \int_{c}^{d}dx \int_{a}^{b}f(x,t)dt$$
-$$D: \lim_{b \to \infty}\int_{a}^{b}dt \int_{c}^{d}f(x,t)dx$$
 
-https://aistudio.google.com/prompts/1On27KqFGpvtlSjEvhwlEF9VelM0hfZKi

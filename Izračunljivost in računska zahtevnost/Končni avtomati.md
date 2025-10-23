@@ -230,3 +230,7 @@ $$L(M) = \{ w \in \Sigma^{*} \,;\;\delta'(q_{0} ,w) \cap F \neq \emptyset\}$$
 **Primer 1**
 
 $$L = \{ aab, abb,aaaa\}$$
+
+
+**Eno uro sm spustu kle ampak mislm da je blo o avtomatih naprej al neki**
+
