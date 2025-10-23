@@ -692,3 +692,480 @@ group by emp_no;
 
 
 **Uporaba ANY, ALL**
+
+**`ANY/SOME`** bo izpolnjen če bo izpolnjen pogoj za vsaj eno vrednost poizvedbe.
+`ALL` bo izpolnjen če velja za vse vrednosti poizvedbe.
+
+Če je rezultat poizvedbe prazen bo `ALL` vrnil `true`, `ANY/SOME` pa `false`.
+
+*Primer uporabe any*
+
+**Uporaba `EXISTS`**
+
+`EXSITS` lahko uporabljamo le v vgnezdenih poizvedbah in vrača true če obstaja vrstica v tabeli vgnezdene poizvedbe, false pa če vgnezdena poizvedba vrača prazno množico.
+
+Lahko uporabljamo tudi `NOT EXISTS`
+
+**Pozvedbe po več tabelah**
+
+Po več tabelah lahko izvajamo poizvedbe z vgnezdenimi `SELECT` stavki, kjer so stolpc v rezultatu lahko le iz ene tabele.
+
+V poizvedbah ki vračaji stolpce različnih tabel moramo uporabljati stik.
+
+Za ločevanje istoimenskih stolpcev uporabljamo sinonime
+
+```sql
+select E.emp_no, E.first_name, E.last_name
+from employees E, dept_manager DM, departments D
+where
+E.emp_no = DM.emp_no AND
+DM.dept_no = D.dept_no;
+```
+
+Alternativni načini stika med več tabelami: 
+
+```sql
+FROM employees E JOIN titles T ON E.emp_no = T.emp_no
+FROM employees JOIN titles USING emp_noFROM employees NATURAL JOIN titles
+```
+ 
+
+Zgornji zapisi nadomestijo sklopa `FROM` in `WHERE` 
+V prvem primeru rezultat vsebuje dva identična stolpca
+
+**Operacije nad množicami**
+
+Rezultate dveh ali več poizvedb lahko združujemo z ukazi:
+- UNION 
+- INTERSECITON 
+- DIFFERENCE
+
+Da lahko izvajamo te operacije morata tabeli `A` in `B` biti skladni - domene atributov morata biti enake.
+
+```sql
+op [ALL] [CORRESPONDING [BY {column1 [,...]}]] 
+```
+
+Če uporabmo `CORRESPONDING BY` se operacije izvede samo nad poimenovanimi stolpci.
+
+Če uporabimo samo `CORRESPONDING` brez `BY` člena, se operacija izvede na skupnimi stolpci.
+
+Če uporabimo `ALL` lahko rezultat vključuje tudi dvojnike.
+
+Primer unije
+
+```sql
+select EM.first_name, EM.last_name, 'Moški' from (
+	select * from employees 
+	where gender = 'M' 
+	order by hire_date desc limit 3
+) EM 
+union select EF.first_name, EF.last_name, 'Ženske' from (
+	select * from employees 
+	where gender = 'F' 
+	order by hire_date desc limit 3
+) EF;
+```
+
+**Insert stavek**
+
+```sql
+INSERT INTO ime-tabele [ (columnList) ] VALUES (dataValueList)
+```
+
+Seznam `columnList` ni obvezen.
+Pri vnosu moramo vpisati najmanj vse obvezne vrednosti (tiste ki so not null) razen za stolpce s privzeto vrednostjo
+Seznam `dataValueList` mora ustrezati seznamu `columnList`
+
+```sql
+insert into departments (dept_no, dept_name) values ('d010', 'Education');
+```
+
+Vnos več vrstic iz ene ali več drugih tabel
+
+```sql
+INSERT INTO TableName [ (columnList) ] 
+SELECT ...
+```
+
+**UPDATE stavek**
+
+```sql
+UPDATE TableName SET columnName1 = dataValue1 [, columnName2 = dataValue2...] [WHERE searchCondition] 
+```
+
+`tableName` se lahko nanaša na ime osnovne tabele ali ime pogleda.
+
+Sklop `SET` določa nazive enega ali več stolpcev ter nove vrednosti teh stolpcev
+
+`WHERE` sklop neobvezen
+
+```sql
+update salaries set salary = salary * 1.1 where to_date = '9999-01-01'
+```
+
+**DELETE stavek**
+
+```sql
+DELETE FROM tableName
+WHERE searchCondition
+```
+
+`tableName` se lahko nanaša na ime osnovne tabele ali ime pogleda.
+
+`WHERE` sklop ni obvezen. Če ga spustimo, zbrišemo vse vrstice v tabeli, tabela pa ostane.
+
+```sql
+delete from salaries where emp_no not in ( select emp_no from salaries where to_date = '9999-01-01' );
+```
+
+***
+
+**Stavki skupine DDL**
+
+DDL (data definition language) zajema SQL stavke za manipulacijo s strukturo podatkovne baze.
+
+Poznamo podatkovne tipe v sql
+
+| Data type | Declarations |
+|---|---|
+| boolean | BOOLEAN |
+| character | CHAR, VARCHAR |
+| bit | BIT, BIT VARYING |
+| exact numeric | NUMERIC, DECIMAL, INTEGER, SMALLINT |
+| approximate numeric | FLOAT, REAL, DOUBLE PRECISION |
+| datetime | DATE, TIME, TIMESTAMP |
+| interval | INTERVAL |
+| large objects | CHARACTER LARGE OBJECT, BINARY LARGE OBJECT |
+
+V mysql pa
+
+| Category | Data Types |
+|---|---|
+| **Numeric** (Integer Types) | TINYINT, SMALLINT, MEDIUMINT, INT, BIGINT |
+| **Numeric** (Fixed-Point Types) | DECIMAL, NUMERIC |
+| **Numeric** (Floating-Point Types) | FLOAT, DOUBLE |
+| **Numeric** (Bit-Value Type) | BIT |
+| **String** | CHAR, VARCHAR, BINARY, VARBINARY, BLOB, TEXT, ENUM, SET |
+| **Date & Time** | DATE, TIME, DATETIME, TIMESTAMP, YEAR |
+
+
+**Zagotavljanje kakovosti podatkov**
+
+SQL standard ponuja več vrst omejitev kot so
+- obveznost podatkov (not null)
+- omejitve domene (value has to be)
+- pravila za celovitost podatkov (identifikacijski stolpec oz. ključ)
+	- celovitost entitet (primarni ključ)
+	- celovitost povezav (veljavne povezave za tuji ključ)
+- števnost
+- splošne omejitve
+
+Omejitve so lahko definirane v `CREATE` in `ALTER TABLE`.
+
+Obveznost podatkov
+```sql
+emp_no numeric(5) NOT NULL
+```
+
+Omejitve domene
+```sql
+gender CHAR NOT NULL CHECK (gender in ('M', 'F'))
+```
+
+Lahko ustvarimo domeno
+
+```sql
+CREATE DOMAIN DomainName [AS] dataType
+[DEFAULT defaultOption]
+[CHECK (searchCondition)]
+```
+
+Primer
+```sql
+CREATE DOMAIN Tgender AS CHAR
+CHECK (VALUE IN ('M', 'Ž'));
+```
+
+Uopraba domene v definiciji stolpca
+```sql
+gender Tgender NOT NULL
+```
+
+**Zagotovaljanje kakovosti podatkov**
+
+`searchCondition` lahko vsebuje iskalno tabelo:
+
+```sql
+CRETE DOMAIN TempID AS numeric(5)
+CHECK (VALUE IN (SELECT emp_no FROM employees));
+```
+
+Domeno lahko ukinemo z uporabo stavka `DROP DOMAIN`:
+
+```sql
+DROP DOMAIN DomainName
+[RESTRICT | CASCADE]
+```
+
+`RESTRICT | CASCADE` povesta kako ravnati če je domena trenutno v uporabi.
+
+ISO standard podpira kreiranje primarnih ključev in tujih ključev v okviru `CREATE`in `ALTER TABLE` stavkov.
+
+```sql
+PRIMARY KEY(dept_no, emp_no)
+FOREIGN KEY(emp_no) REFERENCES employees
+```
+
+Določimo lahko enolične stolpce ali kombinacije stolpcev
+
+```sql
+UNIQUE(last_name)
+UNIQUE(last_name, first_name)
+```
+
+**Celovitost povezav**
+
+če ima FK neko vrednost potem se mora ta vrednost nahajati v primarnem ključu povezane tabele
+
+Vsak `INSERT/UPDATE` stavek ki skuša kreirati FK vrednost v tabeli, brez da bi ta vrednost obstajala ko PK v povezani tabeli, je zavrnjen.
+
+Ob zavrnitvi so možne naslednje akcije
+- `CASCADE`
+- `SET NULL`
+- `SET DEFAULT`
+- `NO ACTION`
+
+Določimo z uporabo
+
+`ON UPDATE, ON DELETE, ON UPDATE SET NULL`
+
+npr.
+
+```sql
+FOREIGN KEY (emp_no) REFERENCES employees ON DELETE CASCADE
+```
+
+
+**IEF - splošne omejitve**
+
+SPlošne omejitve določimo z `CHECK/UNIQUE` opcijami v `CREATE` in `ALTER TABLE` stavkih.
+
+```sql
+CREATE ASSERTION AssertionName
+CHECK (searchCondition)
+```
+
+npr.
+
+```sql
+CREATE ASSERTION PrevecSprememb 
+CHECK not exists ( 
+	select count(*) from salaries 
+	group by emp_id, YEAR(date_from) 
+	having count(*) > 3 
+);
+```
+
+
+**Ustvarjanje podatkovnih objektov**
+
+SQL DDL omogoča kreranje in birsanje podatkovnih objektov kot so: **shema, domena, tabela, pogled, indeks**.
+
+```sql
+CREATE SCHEMA DROP SCHEMA 
+CREATE/ALTER DOMAIN DROP DOMAIN 
+CREATE/ALTER TABLE DROP TABLE 
+CREATE/ALTER VIEW DROP VIEW 
+CREATE INDEX DROP INDEX
+```
+
+Relacije in drugi podatkovni objekti obstajajo v nekem okolju.
+
+Vsako okolje vsebuje enega ali več katalogov, vsak **katalog** pa **množico shem**.
+**Shema** je pomenovana **kolekcija povezanih podatkovnih objektov**.
+Obejkti v shemi so lahko **tabele, pogledi, domene, trditve, dodelitve, pretvorbe** in **znakovni nizi**.
+
+Različne implementacije sql imajo razlike v poimenovanju.
+
+(SQL)
+Strežnik $\rightarrow$ Instanca $\rightarrow$ Katalog $\rightarrow$ Shema $\rightarrow$ Tabela
+
+(mySQL)
+Strežnik $\rightarrow$ Instanca $\rightarrow$ Katalog $\rightarrow$ Tabela
+
+**Ustvarjanje sheme**
+
+```sql
+CREATE SCHEMA [Name | AUTHORIZATION CreatorId ] 
+
+DROP SCHEMA Name [RESTRICT | CASCADE]
+```
+
+`RESTRICT` (privzeto): shema mora biti prazna, sicer brisanje ni možno.
+
+`CASCADE`: kaskadno se brišejo vsi objekti, povezani s shemo. Če katerokoli brisanje ne uspe, se zavrne celotna operacija.
+
+**Ustvarjanje tabele**
+
+```sql
+CREATE TABLE TableName 
+({colName dataType [NOT NULL] [UNIQUE]
+ [DEFAULT defaultOption] 
+ [CHECK searchCondition] [,...]} 
+ [PRIMARY KEY (listOfColumns),] 
+ {[UNIQUE (listOfColumns),] […,]} 
+ {[FOREIGN KEY (listOfFKColumns)
+	  REFERENCES ParentTableName [(listOfCKColumns)], 
+	  [ON UPDATE referentialAction] 
+	  [ON DELETE referentialAction ]] [,…]} {[CHECK (searchCondition)]
+```
+
+Primer
+
+```sql
+CREATE TABLE dept_manager ( dept_no CHAR(4) NOT NULL, emp_no INT(11) NOT NULL, from_date DATE NOT NULL, to_date DATE NOT NULL, PRIMARY KEY (emp_no, dept_no), CONSTRAINT dept_manager_ibfk_1 FOREIGN KEY (emp_no) REFERENCES employees(emp_no) ON DELETE CASCADE, CONSTRAINT dept_manager_ibfk_2 FOREIGN KEY (dept_no) REFERENCES departments (dept_no) ON DELETE RESTRICT)
+```
+
+**ALTER TABLE**
+
+S tem stavkom lahko
+- dodajamo ali ukinjamo stolpce v tabeli
+- dodajamo ali ukinjamo omejitve v tabeli
+- za stolpce v tabeli določamo ali ukinjamo privzete vrednosti
+- spreminjamo podatkovne tipe stolpcev v tabeli
+
+```sql
+ALTER TABLE dept_manager ALTER from_date DROP DEFAULT;
+```
+
+Spremeni tabelo `salaries` tako, da ukineš omejitev `prevecSPrememb`. Tabeli `employees` dodaj stolpec `retired` s privzeto vrednost `n`.
+
+```sql
+ALTER TABLE salaries DROP CONSTRAINT PrevecSprememb; 
+
+ALTER TABLE employees ADD retired CHAR(1) NOT NULL DEFAULT 'N';
+```
+
+Primeri
+
+```sql
+ALTER TABLE employees ADD nickname AFTER first_name; 
+ALTER TABLE employees CHANGE first_name fn;
+ALTER TABLE employees MODIFY birth_date date NULL; 
+ALTER TABLE employees ALTER gender SET DEFAULT ’M’; 
+ALTER TABLE employees DROP gender; DESCRIBE employees;
+```
+
+**DROP TABLE**
+
+Z `DROP TABLE` lahko ukinemo tabelo, hkrati pa izbrišemo vse zapise v tabeli.
+
+```sql
+DROP TABLE tableName [RESTRICT | CASCADE]
+```
+
+```sql
+DROP TABLE employees RESTRICT;
+```
+
+**Indeksi**
+
+Omogočajo urejanje tabel po različnihstolpcih. So ključnega pomena za hitro poizvedovanje.
+
+Sintaksa
+
+```sql
+CREATE [UNIQUE] INDEX index_name 
+ON table_name 
+	(column1 [ASC|DESC], 
+	column2 [ASC|DESC], 
+	...);
+```
+
+V mysql
+
+```sql
+CREATE [UNIQUE|FULLTEXT|SPATIAL] INDEX index_name [USING {BTREE|HASH}] ON tbl_name (index_col_name,...) [index_option][algorithm_option|lock_option]
+```
+
+Primer
+
+```sql
+CREATE INDEX idx_emp_fullname_gender ON employees (first_name ASC, last_name DESC, gender); 
+
+
+SHOW INDEX FROM employees;
+```
+
+
+**Pogledi**
+
+Predstavljajo navidezne tabele. Vsakokrat ko dostopamo do pogleda se v ozadju izvede SELECT stavek.
+
+```sql
+CREATE VIEW view_name [(column_list)] 
+AS select_statement 
+[WITH [CASCADED | LOCAL] CHECK OPTION]
+```
+
+Primer
+
+```sql
+CREATE VIEW Managers AS SELECT e.emp_no, e.first_name, e.last_name, d.dept_name, dm.from_date FROM employees e JOIN dept_manager dm ON e.emp_no = dm.emp_no JOIN departments d ON d.dept_no = dm.dept_no WHERE dm.to_date = '9999-01-01';
+```
+
+
+**Transakcije**
+
+SQL definira **transakcijski model** z ukazoma `COMMIT` in `ROLLBACK`.
+
+**Transakcija** je logična enota ki dela z enim ali več ukazi. Je **atomarna**.
+
+Spremembe znotraj transakcije praviloma drugim transakcijam skrite, dokler transakcija ni končana.
+
+Lahko se zaključi **eksplicitno** (`COMMIT/ROLLBACK`) ali **implicitno** (skupaj s programom  v katerem je klicana).
+
+Nova transakcija se začne z novim SQL stavkom, ki transakcijo inicira.
+
+SQL transakcij ne moremo gnezditi.
+
+Transakcijo nastavimo z `SET TRANSACTION`
+
+```sql
+SET TRANSACTION 
+[READ ONLY | READ WRITE] | 
+[ISOLATION LEVEL READ UNCOMMITTED | 
+READ COMMITTED|REPEATABLE READ |SERIALIZABLE ]
+```
+
+`READ ONLY` - pove, da transakcija vključuje samo operacije, ki iz baze berejo *SUPB bo dovolil insert, update, delete samo na začasnimi tabelami*
+
+`ISOLATION LEVEL` pove stopnjo interakcije ki so SUPB dovlo med to in drugimi transakcijami.
+- `READ UNCOMITTED`
+- `READ COMMITED`
+- `REPEATABLE READ`
+- `SERIALIZABLE`
+
+Varen je samo način `SERIALIZABLE`
+
+
+
+**Dirty read** ki se lahko zgodi pri izolaciji `READ UNCOMMITED`
+
+**Non-repeatable read** se lahko zgodi pri izolacijskih ravneh **Read Commited, Read Uncommited**
+
+**Phantom read** se lahko zgodi pri vseh izolacijskih ravenh razen pri **Serializable**.
+
+![[Pasted image 20251023164355.png]]
+
+**Delo s transakcijami v mySQL**
+
+```sql
+SET TRANSACTION [GLOBAL|SESSION] [READ ONLY | READ WRITE] | [ISOLATION LEVEL READ UNCOMMITTED | READ COMMITTED|REPEATABLE READ |SERIALIZABLE ]
+
+mysql> START TRANSACTION
+mysql> SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+```
+
+Inicializacija transakcije...
