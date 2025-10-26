@@ -8,6 +8,21 @@ Importanje headerjev
 #include "someLibrary"; // custom libraries
 ```
 
+Pomembni headerji:
+```
+<iostream> cout cin cerr clog
+
+<fstream> ifstream (inputfilestream) ofstream (output filestream)
+```
+
+```
+<vector> dynamic array
+<string> string
+<map> associative array
+<unordered_map> hash table
+```
+
+
 ***
 **Pisanje**
 

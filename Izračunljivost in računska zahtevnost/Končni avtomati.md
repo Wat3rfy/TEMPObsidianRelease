@@ -234,3 +234,138 @@ $$L = \{ aab, abb,aaaa\}$$
 
 **Eno uro sm spustu kle ampak mislm da je blo o avtomatih naprej al neki**
 
+*Poljuben reulgarni izraz lahko zapišemo s končnim avotmatom in obranto*
+
+***
+
+
+**Regularni izrazi in avtomati, neregularnost**
+
+
+**Posplošeni nedeterminirani končni avtomati (PNKA)** imajo namesto prehodnih simbolov, kar regularne izraze, torej so prehodi med stanji označeni z regulranimi izrazi.
+
+Sedaj bo vedno samo ena puščica med dvema stanjema.
+
+Obstaja neka **posebna oblika** - obstaja samo eno začetno stanje in samo eno končno stanje.
+Nimamo prehodov v začetno stanje, brz prehodov iz končnega stanja.
+Med vsakim ostalim parom stanj pa obstaja prehod - torej vsak je povezan z vsakim.
+
+Le-ta se uporablja za dokaz ekvivalence med reg. izrazi in končnimi avtomati.
+
+Če začnemo z nekim končnim avtomatom ga hočemo spremeniti v PNKA.
+
+Ker nočemo povezav vzačetno stanje naredimo novo začetno stanje in prehod v nasldnje označimo z $\varepsilon$, kot naredimo tudi novo končno stanje in povezavo $\varepsilon$ v njega.
+
+Med vsakima dvema stanjema $q_i$ in $q_j$ (razen iz $q_{accept}$ in v $q_{start}$) mora obstajati natančno en prehod, označen z regularnim izrazom. Če med $q_i$ in $q_j$ ni prehoda, ga označimo s praznim jezikom ($\emptyset$). Če med njima obstaja več prehodov, jih združimo z operacijo unije ($\cup$).
+
+PNKA definiramo z 
+
+$$M =\langle Q,\Sigma, \delta ,q_{s},q_{e} \rangle$$
+
+$$\delta: (Q\backslash \{ q_{e}\}) \times (Q\backslash \{ q_{s}\}) \rightarrow RI $$
+
+$RI$ so regulratni izrazi
+Funkcija delta slika med vsemi stanji razen začetnim in končnim, funkcija pa so regularn izrazi.
+
+Jezik PNKA
+
+$$L(M) = \{ w=w_{1}...w_{n} \,;\;\exists q_{s}q_{1}...q_{e},w_{i} \in L(\delta(q_{i-1},q_{i}))\}$$
+
+$$q_{0}= q_{s}$$
+
+$$ q_{n}= q_{e}$$
+
+$w$ je sprejemni niz če obstaja pot iz $q_s$ v $q_{e}$, del besede $w_{i}$ se mora ujemati z nekim izrazom na prehodu $\color{light}w_{i}\in L(\delta(q_{i-1},q_{i} ))$
+
+
+
+
+	
+Dokaz se nadaljuje z zmanjševanjem števila notranjih stanj. V vsakem koraku odstranimo eno notranje stanje $q_{x}$ in ustrezno posodobimo regularne izraze na vseh prehodih, ki so šli skozi $q_{x}$.
+
+**Za vsak par stanj $q_i$ in $q_j$ (ki nista $q_{x}$):**
+
+Prehod $q_i \to q_j$ se posodobi z regularnim izrazom, ki zajame poti, ki so prej šle:
+1.  **Direktno** iz $q_i$ v $q_j$
+2.  Iz $q_i$ v $q_{x}$, poljubno število zank v $q_{x}$, in nato iz $q_{x}$ v $q_j$.
+
+**Formalna posodobitev prehoda:**
+
+$$R'_{ij} = R_{ij} \cup (R_{i, x} (R_{x, x})^* R_{x, j})$$
+
+Kjer:
+*   $R'_{ij}$ je nov regularni izraz med $q_i$ in $q_j$.
+*   $R_{ij}$ je stari regularni izraz med $q_i$ in $q_j$.
+*   $R_{i, x}$ je izraz iz $q_i$ v $q_{x}$.
+*   $(R_{x, x})^*$ je Kleenejeva zvezda za zanko na $q_{x}$.
+*   $R_{x, j}$ je izraz iz $q_{x}$ v $q_j$.
+
+>Izrek
+>$$\forall G \in \text{PNKA} : L(G) = L(\text{convert}(G))$$
+>Hočemo da je jezik originalnega avtomata enak jeziku avtomata z eliminiranimi stanji.
+
+>[!|dokaz]- Dokaz:
+> Hočemo dokazati da če vzamemo poljubno stanje $q_{x}$ potem se ohranja jezik oz. je jezik novega $G'$ enak jeziku $G$.
+>Pri število stanj je $|Q| = 2$ je trivialno in drži.
+>Indukcijski korak:
+>Predpostavimo da izrek drži za $k-1$ stanj in pokažimo da držu tudi za $G$,
+> torej moramo pokazati
+>$$w \in L(G) \Leftrightarrow w \in L(G')$$
+>$\Rightarrow$
+>$q_{s}q_{1}...q_{e}$ je zaporedje ki sprejema $w$ v avtomatu $G$ in $w_{1}w_{2}...w_{n}$ je pripadajoče razbitje beede $w$.
+>*Predpostavljamo da je $L(G') = L(\text{convert}(L(G')))$*
+>a) $q_x$ ni v tem zaporedju, potem isto zaporedje sprejema $w$ v $G'$.
+>b) $q_x$ je v tem zaporedju, potem odstranimo vse pojavitve $q_x$ iz zaporedja (pripadajoče besede staknemo) in dobimo veljavno zaporedje stanj.
+>...
+>vrjetn lahko z ai
+
+
+
+**Lema o napihovanju**
+
+Za vsak regularni jezik $L$ obstaja konstanta $n$ da za vsako besedo $w \in L$ ki je daljša od $n$ lahko razbijemo na 3 komponente:
+
+$w = xyz$
+
+za katere velja
+
+$|y| > 0$
+$|xy| \leq n$
+$\forall i \geq 0 : xy^{i}z \in  L$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
