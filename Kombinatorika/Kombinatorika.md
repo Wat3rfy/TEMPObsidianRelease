@@ -951,3 +951,98 @@ $$= n \cdot \prod_{p|n}(1-\frac{1}{p})$$
 Podjetje izdeluje več inačic nekega produtka
 Radi bi jih testirali na strankah.
 hočemo da je vsaka enačica enakokrat testiranaa in da ima vsaka stranka enako števil oenačic za preizkusitw*
+
+**Incidenca** je relacija pripadnosti.
+
+Velja da je **struktura incidence** urejena trojica $S = (P,B,I)$ kjer velja
+
+$P$ je množica **točk**. $B$ je množica **blokov**.
+$I$ pa je **relacija incidence** oz. podmnožica $P \times B$.
+
+Relacija $I$ določa ali točka $p$ stoji v relaciji z blokom $b$.
+Če sta v relaciji rečemo da je točka $p$ incidienčna bloku $b$, oz. $p$ pripada $b$.
+
+Primer je evklidska geometrija kjer pravimo da je točka incidenčna neki premici če točka leži na premici.
+
+Primer je tudi graf kjer je točka incidenčna povezavi če je točka ena od končnih vozlišč povezave.
+
+Iz tega izhaja tudi incidenčna matrika kjer vrstice predstalvjajo točke, stolpci pa bloke in imamo 1 če imamo incidenčno relacijo drugače 0.
+***
+**Načrt** je  struktura kjer 
+- vsaka točka pripada enakemu številu blokov, 
+- vsak blok vsebuje enako število točk, 
+- vsak par točk pripada enakemu številu skupnih blokov.
+
+Pravimo da je **uniformna glede na točke, bloke in preseke**.
+
+*Na hitro si lahko predstalvjamo incidnečno matriko kjer vidimo da mora število enk v vrsticah biti enako, kot tudi v stolpcih in da seštevanje po vrsticah in po stolpcih daje isto vrednost.*
+
+**Uravnotežen nepopoln blokobni načrt** ali **načrt** je vrsta incidenčne strukture.
+
+Načrt naj bo določen s 5 parametri $(v,b,r,k,\lambda )$
+
+
+**$v$** je število točk (elementov). Velja da imamo $V$ kot množico elementov, $v =  |V|$.
+
+**$b$** je število blokov (podmnožic). Velja da imamo družino $\mathcal{B} = \{ B \subset V; |B| = k\}$ podmnožic. $|\mathcal{B}| = b$.
+
+**$k$** je velikost bloka (vsak blok vsebuje natančno $k$ točk).
+
+**$r$** je število ponovitev (vsaka točka je vsebovana v natančno $r$ blokih).
+
+ **$\lambda$** je parameter incidence (označuje v natanko koliko blokih je vsebovan vsak par različnih točk.).
+ 
+**Uravnoteženost** je zagotovljena z zahtevo da je $\lambda$ enak za vse pare točk. Vsi elementi so obravnavani enakovredno.
+
+**Nepopolnost** pomeni da je $k < v$. Če bi imeli $k=v$ potem je le en blok ki vsebuje vse točke, kar bi bil nek trivialen načrt.
+
+Parametri niso vsi neodvisni med sabo. Načrt je določen s tremi parametri $(v,k,\lambda )$, to izhaja iz naslednjih potrebnih pogojev.
+
+Če načrt obstaja mora veljati
+
+$$v \cdot r = b \cdot k$$
+
+oz. število točk pomnoženo s številom ponovitev mora biti enako številu vseh blokov krat velikost blokov. To sledi iz incidenčne matrike kjer je $v \cdot r$ seštevanje po stolpcih, $b \cdot k$ pa seštevanje po vrsticah.
+
+hkrati pa mora veljati tudi
+
+$$r \cdot (k-1) = \lambda  \cdot (v-1)$$
+
+Če vzamemo poljubno točko $x$, bo prisotna v $r$ blokih. V vsakem od $r$ blokov bo sedaj $k-1$ drugih točk. To pomeni da je $x$ ustvaril $r(k-1)$ novih parov $\{ x,y\}$.
+Po definiciji se vsak par pojavi natanko $\lambda$-krat. Ker je $v-1$ možnih točk ki so v paru z $x$ je skupno število pojavljanj parov enako $\lambda(v-1)$.
+
+To pomeni da morata biti za dano trojico $(v,k,\lambda )$, $b$ in $r$ določena kot
+
+$$r = \lambda \frac{v-1}{k-1}$$
+$$b = \frac{v \cdot r}{k}$$
+
+**Potrebna pogoja za obstoj načrta sta, da morata biti $r$ in $b$ celo število.**
+
+Kot morajo veljati tudi trivialni pogoji
+
+$$0 < \lambda < k < v$$
+$$\lambda < r$$
+
+*Izpeljano iz zgornjih enačb in $k < v \Rightarrow k-1 < v-1 \Rightarrow r > \lambda$.*
+
+// primer načrta
+
+Poznamo tudi **zadostne pogoje**.
+
+Simetrični načrt je tak kjer je število točk enako številu blokov. $v = b$. V tem primeru je tudi $k = r$.
+
+Za obstoj simetričnega načrta obstaja močen dodatni pogoj, **Fihserjev izrek**.
+
+Če je $v$ sodo število, potem mora biti $k-\lambda$ popoln kvadrat.
+
+***
+
+
+
+
+Kaj je to: Definirali smo t-načrte in dokazali, da je vsak t-načrt tudi (t-1)-načrt.
+
+Kaj so to 
+
+Potem smo se lotili poglavja o permutacijah, razdelitvah in razčlenitvah. Definirali smo Stirlingova števila 1. vrste kot število permutacij n elementov s k cikli. Dokazali smo rekurzivno zvezo in polinomsko enakost. Potem smo definirali še razdelitve, Stirlingova števila 2. vrste in Bellova števila. Povedali smo povezavo Stirlingovih števil 2. vrste z ekvivalenčnimi relacijami in surjekcijami. Povedali smo rekurzivno zvezo za Stirlingova števila 2. vrste.
+
