@@ -661,7 +661,7 @@ Dobimo formulo
 
 $$ \left| \bigcup_{i=1}^{n} A_i \right| = \sum_{\emptyset \ne I \subseteq \{1, \dots, n\}} (-1)^{|I|-1} \left| A_{I} \right| $$
 
-**Dokaz: todon**
+**Dokaz: to-do**
 
 
 
@@ -707,7 +707,7 @@ Velja da je torej komplement unije enak preseku komplementov $A_{i}$ kar je enak
 
 $$ \left|\left(\bigcup A_{i}\right)^{C} \right| = \left|\bigcap_{i=1}^{n} A^{C}_{i}\right| = \sum_{I \subset [n]}^{}(-1)^{|I|}\left|\bigcap_{i \in I} A_{i} \right|$$
 
-*Še kle rabm dokaz*
+*Še kle rabm dokaz* to-do
 
 **Kronickerjeva delta**
 
@@ -947,10 +947,6 @@ $$= n \cdot \prod_{p|n}(1-\frac{1}{p})$$
 
 ### Načrti in t-načrti
 
-*Neka motivacija
-Podjetje izdeluje več inačic nekega produtka
-Radi bi jih testirali na strankah.
-hočemo da je vsaka enačica enakokrat testiranaa in da ima vsaka stranka enako števil oenačic za preizkusitw*
 
 **Incidenca** je relacija pripadnosti.
 
@@ -966,83 +962,313 @@ Primer je evklidska geometrija kjer pravimo da je točka incidenčna neki premic
 
 Primer je tudi graf kjer je točka incidenčna povezavi če je točka ena od končnih vozlišč povezave.
 
-Iz tega izhaja tudi incidenčna matrika kjer vrstice predstalvjajo točke, stolpci pa bloke in imamo 1 če imamo incidenčno relacijo drugače 0.
-***
-**Načrt** je  struktura kjer 
-- vsaka točka pripada enakemu številu blokov, 
-- vsak blok vsebuje enako število točk, 
-- vsak par točk pripada enakemu številu skupnih blokov.
-
-Pravimo da je **uniformna glede na točke, bloke in preseke**.
-
-*Na hitro si lahko predstalvjamo incidnečno matriko kjer vidimo da mora število enk v vrsticah biti enako, kot tudi v stolpcih in da seštevanje po vrsticah in po stolpcih daje isto vrednost.*
-
-**Uravnotežen nepopoln blokobni načrt** ali **načrt** je vrsta incidenčne strukture.
-
-Načrt naj bo določen s 5 parametri $(v,b,r,k,\lambda )$
-
-
-**$v$** je število točk (elementov). Velja da imamo $V$ kot množico elementov, $v =  |V|$.
-
-**$b$** je število blokov (podmnožic). Velja da imamo družino $\mathcal{B} = \{ B \subset V; |B| = k\}$ podmnožic. $|\mathcal{B}| = b$.
-
-**$k$** je velikost bloka (vsak blok vsebuje natančno $k$ točk).
-
-**$r$** je število ponovitev (vsaka točka je vsebovana v natančno $r$ blokih).
-
- **$\lambda$** je parameter incidence (označuje v natanko koliko blokih je vsebovan vsak par različnih točk.).
- 
-**Uravnoteženost** je zagotovljena z zahtevo da je $\lambda$ enak za vse pare točk. Vsi elementi so obravnavani enakovredno.
-
-**Nepopolnost** pomeni da je $k < v$. Če bi imeli $k=v$ potem je le en blok ki vsebuje vse točke, kar bi bil nek trivialen načrt.
-
-Parametri niso vsi neodvisni med sabo. Načrt je določen s tremi parametri $(v,k,\lambda )$, to izhaja iz naslednjih potrebnih pogojev.
-
-Če načrt obstaja mora veljati
-
-$$v \cdot r = b \cdot k$$
-
-oz. število točk pomnoženo s številom ponovitev mora biti enako številu vseh blokov krat velikost blokov. To sledi iz incidenčne matrike kjer je $v \cdot r$ seštevanje po stolpcih, $b \cdot k$ pa seštevanje po vrsticah.
-
-hkrati pa mora veljati tudi
-
-$$r \cdot (k-1) = \lambda  \cdot (v-1)$$
-
-Če vzamemo poljubno točko $x$, bo prisotna v $r$ blokih. V vsakem od $r$ blokov bo sedaj $k-1$ drugih točk. To pomeni da je $x$ ustvaril $r(k-1)$ novih parov $\{ x,y\}$.
-Po definiciji se vsak par pojavi natanko $\lambda$-krat. Ker je $v-1$ možnih točk ki so v paru z $x$ je skupno število pojavljanj parov enako $\lambda(v-1)$.
-
-To pomeni da morata biti za dano trojico $(v,k,\lambda )$, $b$ in $r$ določena kot
-
-$$r = \lambda \frac{v-1}{k-1}$$
-$$b = \frac{v \cdot r}{k}$$
-
-**Potrebna pogoja za obstoj načrta sta, da morata biti $r$ in $b$ celo število.**
-
-Kot morajo veljati tudi trivialni pogoji
-
-$$0 < \lambda < k < v$$
-$$\lambda < r$$
-
-*Izpeljano iz zgornjih enačb in $k < v \Rightarrow k-1 < v-1 \Rightarrow r > \lambda$.*
-
-// primer načrta
-
-Poznamo tudi **zadostne pogoje**.
-
-Simetrični načrt je tak kjer je število točk enako številu blokov. $v = b$. V tem primeru je tudi $k = r$.
-
-Za obstoj simetričnega načrta obstaja močen dodatni pogoj, **Fihserjev izrek**.
-
-Če je $v$ sodo število, potem mora biti $k-\lambda$ popoln kvadrat.
+Iz tega izhaja tudi incidenčna matrika kjer vrstice predstavljajo točke, stolpci pa bloke in imamo 1 če imamo incidenčno relacijo drugače 0.
 
 ***
 
+**Načrt** je struktura definirana kot množica podmnožic množice $[v]$ - **blokov**, velikosti $k$, kjer velja da se vsaka točka pojavi v natanko $\lambda$ blokih.
+
+$$\mathcal{B} = \{ B_{1},...,B_{b}\}$$
+$$|\mathcal{B}| = b$$
+$$B_{i} \subset [v]$$
+$$|B_{i}| = k$$
+$$v' \in [v] \text{ je element natanko } \lambda \text{ množic } B_{i}$$
+
+Rečemo da sta $v' \text{ in } B_{i}$ v relaciji incidence če velja $v' \in B_{i}$.
+
+Lahko narišemo tabelo kjer so po stolpcih bloki po vrsticah pa elementi $[v]$ in damo kljukico tam kjer imamo incidenco.
+
+Iz tega dobimo da velja formula
+
+$$k \cdot b = \lambda \cdot v$$
+
+torej število blokov krat velikost blokov je enako številu elementov krat ponovitvi elementov v blokih.
+
+Iz enačbe lahko izpeljemo da je 
+
+$$b = \frac{\lambda \cdot v}{k}$$
+
+Torej mora **$k$ deliti $\lambda \cdot v$.**
+
+Velja tudi da je
+
+$$b \leq \binom{\,v\,}{\,k\,}$$
+
+To pomeni da je število blokov manjše ali enako številu $k$ velikih podmnožic.
+
+Iz česar lahko izpeljemo
+
+$$b = \frac{\lambda v}{k} \leq \binom{\,v\,}{\,k\,}$$
+$$\frac{\lambda v}{k} \leq \frac{(v-1)!}{k!(v-k)!}$$
+$$\lambda \leq \binom{\,v-1\,}{\,k-1\,}$$
+
+Izberemo točko $x$ in pogledamo strukturo blokov ki lahko vsebujejo $x$: $\{ x,...\}$, torej imamo $k-1$ veliko množico, izbiramo pa med $v-1$ elementi, to so vse možnosti blokov z elementom $x$, torej mora število blokov ki vsebuje $x$ : $\lambda$ biti manjše od $\binom{\,v-1\,}{\,k-1\,}$.
+
+Pogoja da je $k|v \cdot \lambda$ in da je $\lambda \leq \binom{\,v-1\,}{\,k-1\,}$ sta zadostna da načrt $(v,k,\lambda)$ obstaja.
+
+
+>[!|hide]- **Postopek konstrukcije načrta**:
+> 
+> #### 1. Definicija Problema
+> 
+> Dani so parametri $v, k, \lambda \in \mathbb{N}$. Cilj je konstruirati množico blokov $\mathcal{B}$, kjer je vsak blok $B \in \mathcal{B}$ $k$-elementna podmnožica množice točk $V = \{1, 2, \dots, v\}$, tako da vsaka točka $x \in V$ pripada natanko $\lambda$ blokom. Taka struktura $(V, \mathcal{B})$ se imenuje **1-$(v, k, \lambda)$-načrt**.
+> 
+> #### 2. Vhodni in Izhodni Podatki
+> 
+> *   **Vhod:**
+>     *   $v \in \mathbb{N}$: število točk.
+>     *   $k \in \mathbb{N}$: velikost blokov, $k \le v$.
+>     *   $\lambda \in \mathbb{N}$: ciljna ponovitvena stopnja.
+> *   **Izhod:**
+>     *   Množica blokov $\mathcal{B}$, ki tvori 1-$(v, k, \lambda)$-načrt.
+> 
+> #### 3. Predpogoji
+> 
+> Za obstoj 1-načrta mora veljati nujen pogoj deljivosti:
+> $$ k \mid v\lambda $$
+> Število blokov $b$ je določeno z $b = \frac{v\lambda}{k}$ in mora biti celo število.
+> 
+> #### 4. Algoritem
+> 
+> **Korak 1: Inicializacija**
+> 1.1. Izračunaj potrebno število blokov: $b := \frac{v\lambda}{k}$.
+> 1.2. Generiraj začetno množico $\mathcal{B}_0$, ki vsebuje $b$ poljubnih, med seboj različnih, $k$-elementnih podmnožic množice $V$.
+> 1.3. Postavi števec iteracij $t := 0$.
+> 
+> **Korak 2: Analiza Stanja in Pogoj za Ustavitev**
+> 2.1. Za trenutno množico blokov $\mathcal{B}_t$ izračunaj ponovitveno stopnjo $d_x^{(t)}$ za vsako točko $x \in V$:
+>    $$ d_x^{(t)} := |\{ B \in \mathcal{B}_t : x \in B \}| $$
+> 2.2. Preveri pogoj za ustavitev:
+>    **ČE** $d_x^{(t)} = \lambda$ za vse $x \in V$, **POTEM**
+>    Vrni $\mathcal{B}_t$ in končaj algoritem.
+>    **SICER**
+>    Nadaljuj na Korak 3.
+> 
+> **Korak 3: Izbira Kandidatov za Zamenjavo**
+> 3.1. Definiraj množici točk, ki ne ustrezata pogoju:
+>    *   Množica "prepogostih" točk: $V_{over} := \{ x \in V \mid d_x^{(t)} > \lambda \}$
+>    *   Množica "preredkih" točk: $V_{under} := \{ x \in V \mid d_x^{(t)} < \lambda \}$
+> 3.2. Izberi poljuben element $i \in V_{over}$ in poljuben element $j \in V_{under}$.
+> 
+> **Korak 4: Izvedba Zamenjave (Trade-off)**
+> 4.1. Poišči blok $B \in \mathcal{B}_t$, ki zadošča pogojema:
+>    $$ i \in B \quad \land \quad j \notin B $$
+> 4.2. Konstruiraj nov kandidatni blok $B'$:
+>    $$ B' := (B \setminus \{i\}) \cup \{j\} $$
+> 4.3. Preveri veljavnost zamenjave:
+>    **ČE** $B' \notin \mathcal{B}_t$, **POTEM**
+>      *   Zamenjava je veljavna. Posodobi množico blokov:
+>        $$ \mathcal{B}_{t+1} := (\mathcal{B}_t \setminus \{B\}) \cup \{B'\} $$
+>      *   Povečaj števec iteracij: $t := t+1$.
+>      *   Vrni se na **Korak 2**.
+>    **SICER**
+>      *   Vrni se na **Korak 4.1** in poskusi z drugim ustreznim blokom $B \in \mathcal{B}_t$.
+> 
+> ---
+> **DODATEK: 5. Zagotovilo Napredka (Obstoj Veljavne Zamenjave)**
+> 
+> Ključno vprašanje je, ali se algoritem lahko "zatakne" – to je, ali lahko pride do situacije, ko za izbrani par $(i, j)$ z $d_i > \lambda > d_j$ **vsaka** možna zamenjava ustvari blok, ki že obstaja. Dokaz s protislovjem pokaže, da to ni mogoče.
+> 
+> 1.  **Predpostavka (protislovje):** Recimo, da se je algoritem zataknil. To pomeni, da za vsak blok $B$, ki vsebuje $i$, a ne $j$, novonastali blok $B' = (B \setminus \{i\}) \cup \{j\}$ že obstaja v zbirki $\mathcal{B}$.
+> 
+> 2.  **Argument s štetjem:**
+>     *   Naj bo $\mathcal{B}_{i,\neg j}$ množica blokov, ki vsebujejo $i$, a ne $j$.
+>     *   Naj bo $\mathcal{B}_{j,\neg i}$ množica blokov, ki vsebujejo $j$, a ne $i$.
+>     *   Naša predpostavka pomeni, da vsaka zamenjava bloka iz $\mathcal{B}_{i,\neg j}$ ustvari unikaten blok v $\mathcal{B}_{j,\neg i}$. To bi pomenilo, da je število blokov prve vrste kvečjemu enako številu blokov druge vrste: $|\mathcal{B}_{i,\neg j}| \le |\mathcal{B}_{j,\neg i}|$.
+> 
+> 3.  **Protislovje:**
+>     *   Vendar pa naša začetna izbira temelji na pogoju $d_i > d_j$. Število pojavitev $d_i$ je vsota blokov, ki vsebujejo samo $i$ ($\mathcal{B}_{i,\neg j}$), in tistih, ki vsebujejo oba ($i$ in $j$). Podobno velja za $d_j$.
+>     *   Iz $d_i > d_j$ neposredno sledi, da mora biti $|\mathcal{B}_{i,\neg j}| > |\mathcal{B}_{j,\neg i}|$.
+>     *   To je v neposrednem protislovju s sklepom iz točke 2.
+> 
+> **Zaključek:** Začetna predpostavka, da se je algoritem zataknil, je napačna. Vedno mora obstajati vsaj en blok, ki omogoča veljavno zamenjavo in napredek algoritma.
+> 
+> ---
+> #### 6. Dokaz Konvergence
+> 
+> Algoritem se vedno konča v končnem številu korakov. To dokažemo z uporabo potenčne funkcije (mere napake).
+> 
+> 4.  **Definicija mere napake:** V koraku $t$ definirajmo mero napake $S_t$:
+>     $$ S_t = \sum_{x \in V} |d_x^{(t)} - \lambda| $$
+> 
+> 5.  **Lastnosti mere napake:** $S_t \ge 0$, $S_t$ je sodo celo število, in algoritem se konča natanko takrat, ko je $S_t = 0$.
+> 
+> 6.  **Vpliv zamenjave na mero napake:** Vsaka veljavna zamenjava, ki popravi elementa $i \in V_{over}$ in $j \in V_{under}$, spremeni ponovitvene stopnje $d_i$ in $d_j$ za 1 proti ciljni vrednosti $\lambda$. To zmanjša vsoto $S_t$ za natanko 2:
+>     $$ S_{t+1} = S_t - 2 $$
+> 
+> 7.  **Zaključek:** Ker se mera napake $S_t$ v vsaki iteraciji strogo zmanjša (kot je zagotovljeno v točki 5) in je od spodaj omejena z 0, mora algoritem po končnem številu korakov doseči stanje, kjer je $S_t = 0$. V tem stanju je $\mathcal{B}_t$ veljaven 1-načrt.
+
+
+Če vzamemo načrt, ga lahko posplošimo s tem da rečemo da je $\lambda_{t}$ število ki nam pove v koliko blokih se pojavi $t$-elementna podmnožica v našem načrtu namesto v koliko blokih se pojavi nek element. 
+Tej posplošitvi rečemo **$t$-načrt**.
+
+Velja da je $\mathcal{B}$ $t$-načrt kjer velja
+
+$$\mathcal{B} = \{ B_1,...,B_{b}\}$$
+$$B_{i} \subset [v], |B_{i}| = k$$
+$$\forall T \subset [v]:|T| = t , T \subset B_{i} \text{ za natanko } \lambda_{t}\text{ indeksov }i \text{ (torej v } \lambda_{t} \text{ blokih)}$$
+
+>[!|hide]- **Fainova ravnina**  
+>je $2$-načrt s parametri $(7,3,1)$ in je najmanjša možna projektna ravnina.
+> 1. **Sestava:** Vsebuje natanko **7 točk** in **7 premic**.
+>     
+> 2. **Pravila (aksiomi):**
+>     
+>     - Na vsaki premici ležijo natanko **3 točke**.
+>         
+>     - Skozi vsako točko potekajo natanko **3 premice**.
+>         
+>     - Poljubni dve različni točki določata natanko eno premico.
+>         
+>     - Poljubni dve različni premici se sekata v natanko eni točki. **Posledica: V Fanovi ravnini ni vzporednic!**
 
 
 
-Kaj je to: Definirali smo t-načrte in dokazali, da je vsak t-načrt tudi (t-1)-načrt.
 
-Kaj so to 
+V splošnem **ni znan potreben ali zadosten pogoj** za obstoj $t$-načrta s poljubnimi parametri za $t>1$.
 
-Potem smo se lotili poglavja o permutacijah, razdelitvah in razčlenitvah. Definirali smo Stirlingova števila 1. vrste kot število permutacij n elementov s k cikli. Dokazali smo rekurzivno zvezo in polinomsko enakost. Potem smo definirali še razdelitve, Stirlingova števila 2. vrste in Bellova števila. Povedali smo povezavo Stirlingovih števil 2. vrste z ekvivalenčnimi relacijami in surjekcijami. Povedali smo rekurzivno zvezo za Stirlingova števila 2. vrste.
+
+>Izrek
+>Vsak $t$-načrt je $t-1$-načrt in velja
+>$$\lambda_{t-1} = \lambda_{t}\frac{v-t+1}{k-t+1}$$
+>>[!|dokaz]+ Dokaz:
+> > 
+> > Dokazati moramo, da če je neka struktura $t$-načrt, potem obstaja konstanta $\lambda_{t-1}$, tako da je **vsaka poljubna** $(t-1)$-elementna podmnožica točk vsebovana v natanko $\lambda_{t-1}$ blokih. Ključno je, da to število ni odvisno od izbire podmnožice.
+> > 
+> > 
+> > 1.  **Postavitev:**
+> >     Naj bo $(V, \mathcal{B})$ dan $t$-$(v, k, \lambda_t)$-načrt.
+> >     Izberimo poljubno, $(t-1)$-elementno podmnožico točk in jo poimenujmo $S$. Torej $|S| = t-1$.
+> >     Naj bo $\lambda_{S}$ število blokov v $\mathcal{B}$, ki vsebujejo množico $S$.
+> > 2.  **Argument z dvojnim štetjem:**
+> >     Konstruriramo pare $(x, B)$, kjer velja:
+> >     *   $x \in V \setminus S$ (vse točke ki niso v $S$).
+> >     *   $B \in \mathcal{B}$ je blok, ki vsebuje $S$ in $x$
+> > 
+> > 3.  **1. način štetja (preko blokov):**
+> >     *   Najprej izberemo blok $B$, ki ustreza pogojem. Koliko takih blokov obstaja? Po naši definiciji je to natanko $\lambda_{S}$ blokov, ki vsebujejo množico $S$.
+> >     *   Za vsak tak blok $B$ se vprašajmo, koliko točk $x$ lahko izberemo, da ustrezajo pogojem. Točka $x$ mora biti v bloku $B$, a ne v množici $S$. Ker ima blok $B$ $k$ elementov in množica $S$ $t-1$ elementov, je število takih točk $x$ enako $|B \setminus S| = k - (t-1) = k - t + 1$.
+> >     *   Skupno število parov $(x, B)$ je torej:
+> >         $$ \lambda_{S} \cdot (k - t + 1) $$
+> > 
+> > 4.  **2. način štetja (preko točk):**
+> >     *   Najprej izberemo točko $x$, ki ustreza pogojem, torej $x \in V \setminus S$. Koliko takih točk obstaja? Ker ima $V$ $v$ elementov in $S$ $t-1$ elementov, je število možnih izbir za $x$ enako $|V \setminus S| = v - (t-1) = v - t + 1$.
+> >     *   Za vsako tako izbrano točko $x$ tvorimo novo množico $T = S \cup \{x\}$. Ker je $|S|=t-1$ in $x \notin S$, je $|T|=t$.
+> >     *   Ker je naša struktura $t$-načrt, vemo, da je vsaka $t$-elementna podmnožica (torej tudi naša množica $T$) vsebovana v natanko $\lambda_t$ blokih.
+> >     *   Skupno število parov $(x, B)$ je torej:
+> >         $$ (v - t + 1) \cdot \lambda_t $$
+> > 
+> > 5.  **Zaključek:**
+> >     Ker smo na dva različna načina prešteli isto stvar, morata biti rezultata enaka:
+> >     $$ \lambda_{S} \cdot (k - t + 1) = (v - t + 1) \cdot \lambda_t $$
+> >     Iz te enačbe lahko izrazimo $\lambda_{S}$:
+> >     $$ \lambda_{S} = \frac{(v - t + 1)}{(k - t + 1)} \cdot \lambda_t $$
+> >     Opazimo, da je izraz na desni strani **konstanta**, ki je odvisna le od parametrov načrta ($v, k, t, \lambda_t$) in **ni odvisna od specifične izbire množice $S$**.
+> >     To pomeni, da je vsaka $(t-1)$-elementna podmnožica vsebovana v natanko enakem številu blokov. To število lahko poimenujemo $\lambda_{t-1}$.
+> > 
+> >     Torej, struktura je tudi $(t-1)$-načrt s parametrom:
+> >     $$ \lambda_{t-1} = \frac{v - t + 1}{k - t + 1} \cdot \lambda_t $$
+> >     **Q.E.D.** (Kar je bilo treba dokazati)
+> > 
+
+**Steinerjev sistem trojk** reda $v$ je $2$-načrt $(v,3,1)$.
+Zanj velja da obstaja natanko takrat ko je $v \text{ mod } 6 = 1$ ali $v \text{ mod } 6 = 3$.
+Reši enega izmed najbolj znanih problemov:
+**Kirkmanov problem petnajstih šolark**:  
+Kako razporediti 15 šolark v skupine po 3 za sprehod vsak dan v tednu (7 dni), tako da nobena šolarka ne hodi v paru z isto sošolko več kot enkrat?
+
+***
+
+**Permutacije, razdelitve in razčlenitve**
+
+**Stirlingova števila 1. vrste** $c(n,k)$ so št. permutacij v $S_{n}$ s $k$ cikli.
+*To je ekvivalenetno posedanju $n$ oseb za $k$ orkoglih miz.*
+
+
+$c(4,2)$
+$(\_\,\_\,\_)$ $(\_)$
+$(\_\,\_)(\_\,\_)$
+
+$c(n,k) = 0\,;\;k>n; k<0$
+
+$c(n,n) = 1$
+$c(n,0) = \delta_{n0}$
+$c(n,1) = (n-1)!$
+$c(n,n-1) = \binom{\,n\,}{\,2\,}$
+
+Obstaja rekurzivna zveza
+
+$$c(n,k) = c(n-1,k-1) + (n-1)c(n-1,k)$$
+
+Če izberemo nek element $x$ potem lahko naprej preštejemo vse permutacije kjer je $x$ osamljen v ciklu oz. je singleton. Teh je natanko $c(n-1,k-1)$. Nato pa pogledamo še vse druge permutacije kjer izločimo $x$ iz množice, pogledamo koliko je permutacij in nato vstavimo $x$ na neko mesto v permutacijo *ker je $n-1$ števil v permutaciji je $n-1$ mest za $x$*, kar je $(n-1)c(n-1,k)$
+
+| n\k | 0 | 1 | 2 | 3 | 4 | 5 |
+|:---:|:-:|:-:|:--:|:--:|:--:|:-:|
+| **0** | 1 | | | | | |
+| **1** | 0 | 1 | | | | |
+| **2** | 0 | 1 | 1 | | | |
+| **3** | 0 | 2 | 3 | 1 | | |
+| **4** | 0 | 6 | 11 | 6 | 1 | |
+| **5** | 0 | 24| 50 | 35 | 10 | 1 |
+
+Če seštejemo $c(n,k)$ po vseh $k$-jih potem velja
+
+$$\sum_{k}^{}c(n,k) = n!$$
+
+saj s tem štejemo vse možne permutacije, katerih je $n!$.
+
+Poznamo $\sum_{k}^{}\binom{\,n\,}{\,k\,}x^{k} = (1+x)^{n}$. Velja tudi
+
+$$\large \sum_{k}^{}c(n,k)x^{k} = x^{\overline{\;\!\!n}}$$
+
+To dokažemo z indukcijo, distribuciijo, redefiniranjem $k$, ter rekurzivno zvezo.
+
+$$x=1$$
+$$\sum_{k}^{}c(n,k)1^{k} = 1^{\overline{\;\!\!n}} = n!$$
+
+$$ $$
+$$x=-x$$
+$$\sum_{k}^{}c(n,k)(-x)^{k} = \sum_{k}^{}c(n,k)(-1)^{k}x^{k} = (-1)^{n}x^{\underline{\;\!\!n}} $$
+$$\sum_{k}^{}{\color{green}(-1)^{n-k}c(n,k)}x^{k}  = x^{\underline{\;\!\!n}}$$
+
+$(-1)^{n-k}c(n,k)$ pravimo **preznačeno Strilingovo število prve vrste.**
+***
+
+**Razdelitev** množice $A$ na $k$ blokov je $\{ B_{1},...,B_{k}\}$ da velja
+
+$$\bigcup B_{i} = A \,;\;B_{i}\cap B_{j} = \emptyset \,;\;B_{i} \neq \emptyset$$
+
+*Razdelitev množice na $k$ disjunktnih podmnožic.*
+
+**Stirlingova števila 2. vrste** $S(n,k)$ so razdelitve množice $[n]$ na $k$ blokov.
+
+
+
+**Bellova števila**$B(n)$ so število razdelitev ne poljubno blokov.
+
+Za $B(n)$ velja
+
+$$B(n) = \sum_{k}^{}S(n,k)$$
+
+$S(n,n) = 1$
+$S(n,0) = \delta_{n0}$
+$S(n,1) = 1$
+$S(n,n-1) = \binom{\,n\,}{\,2\,}$
+$S(n,2) = \frac{2^{n}-2}{2}$
+$S(n,k) = 0; k<0, k>n$
+$c(n,k)\geq S(n,k)$
+
+Tudi tu velja rekurzivna zveza
+
+$$S(n,k) = S(n-1,k-1) + k \cdot S(n-1,k)$$
+
+
+Spet osamimo nek element in pogledamo možne razdelitve brez njega: $S(n-1,k-1)$. Nato pa pogledamo še razdelitve velikosti $k$ brez da vključimo element nakar še pogledamo kam ga lahko vstavimo - to pa bo natanko $k$ blokov.
+
+Kot tudi za
+
+$$B(n+1) = \sum_{k}^{n}\binom{\,n\,}{\,k\,}B(k)$$
+
+Kjer si predstavljamo da izoliramo element $x$ in se odločamo koliko elementov ne bo v bloku skupaj z $x$. To naj bo $k$ elementov. Ostane nam $n-k$ elementov ki bodo skupaj z $x$. Sedaj lahko pogledamo na koliko načinov lahko izberemo $k$ elementov ki ne bodo z $x$ to je $\binom{\,n\,}{\,k\,}$, za vsako to množico pa velja da ima  $B(k)$ razcepov.
+
 
