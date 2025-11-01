@@ -81,46 +81,11 @@ Povezavo v usmerjenem grafu predstavimo kot par $(i,j)$.
 Pot kjer vse puščice kažejo v isto smer kot njeni koraki imenujemo **usmerjena pot**. Le-ta je **močno povezan** če usmerjena pot povezuje vsaki dve vozlišči.
 
 ***
-
-**Nizi in jeziki**
-
-Definiramo **abecedo** kot katero koli neprazno končno množico. 
-Člani abecede so **simboli** abecede. 
-Za označevanje abeced običajno uporabljamo velike grške črke $\Sigma$ in $\Gamma$ ter pisavo tipkovnice (typewriter font) za simbole iz abecede. 
-
-Nekaj primerov abeced.
-
-$$\Sigma_1 = \{0, 1\}$$
-$$\Sigma_2 = \{a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z\}$$
-$$\Gamma = \{0, 1, x, y, z\}$$
-
-**Niz nad abecedo** je končno zaporedje simbolov iz te abecede, običajno zapisanih drug poleg drugega in brez vejic. 
-Če je $\Sigma_1 = \{0, 1\}$, je $01001$ niz nad $\Sigma_1$. 
-Če je $\Sigma_2 = \{a, b, c, \ldots, z\}$, je $abracadabra$ niz nad $\Sigma_2$. 
-Če je $w$ niz nad $\Sigma$, je **dolžina** niza $w$, zapisana $|w|$, število simbolov, ki jih vsebuje. 
-Niz z dolžino nič se imenuje **prazni niz** in se zapiše $\epsilon$. 
-Prazni niz igra vlogo $0$ v številskem sistemu.
-
-Če ima $w$ dolžino $n$, lahko zapišemo $w = w_1 w_2 \ldots w_n$, kjer je vsak $w_i \in \Sigma$. 
-**Obrat** niza $w$, zapisan $w^R$, je niz, dobljen z zapisom $w$ v obratnem vrstnem redu (tj. $w_n w_{n-1} \ldots w_1$).
-
-Niz $z$ je **podniz** niza $w$, če se $z$ pojavi zaporedoma znotraj $w$. Na primer, $cad$ je podniz niza $abracadabra$.
-
-Če imamo niz $x$ dolžine $m$ in niz $y$ dolžine $n$, je **konkatenacija** $x$ in $y$, zapisana $xy$, niz, dobljen z dodajanjem $y$ na konec $x$, kot v $x_1 \ldots x_m y_1 \ldots y_n$. 
-Za konkatenacijo niza samega s seboj večkrat uporabljamo nadpisno notacijo $x^k$, ki pomeni
-
-$$ \underbrace{xx \cdots x}_{k} $$
-
-Leksikografski vrstni red nizov je enak znanemu vrstnemu redu slovarja. 
-Občasno bomo uporabili spremenjen leksikografski vrstni red, imenovan **shortlex vrstni red** ali preprosto **vrstni red nizov**, ki je enak leksikografskemu, razen da krajši nizi vedno predhodijo daljšim. Tako je vrstni red vseh nizov nad abecedo $\{0, 1\}$:
-
-$$(\epsilon, 0, 1, 00, 01, 10, 11, 000, \ldots).$$
-
-Rečemo, da je niz $x$ **predpona** niza $y$, če obstaja niz $z$, za katerega velja $xz = y$, in da je $x$ **prava predpona** niza $y$, če poleg tega velja $x \neq y$. 
-
-**Jezik** je množica nizov. Jezik je **brez predpon** (*prefix-free*), če noben član ni prava predpona drugega člana.
+Seveda. Tukaj je posodobljeno besedilo, kjer so dodatki integrirani v tvojo obstoječo strukturo in slog. Ohranjena je ista oblika in tok misli, dodane pa so ključne razširitve in pojasnila.
 
 ---
+
+
 
 **DEFINICIJE, TEOREMI IN DOKAZI**
 

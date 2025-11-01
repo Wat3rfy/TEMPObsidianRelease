@@ -1,14 +1,12 @@
 
-V teoriji računljivosti uporabljamo idealiziran računalnik, imenovan **računski model** (*computational model*). Kot pri vsakem modelu v znanosti je lahko računski model natančen v nekaterih pogledih, v drugih pa morda ne. Zato bomo uporabljali več različnih računskih modelov, odvisno od lastnosti, na katere se želimo osredotočiti. Začnemo z najpreprostejšim modelom, imenovanim **končni avtomat** (*finite state machine* ali *finite automaton*).
+V teoriji računljivosti uporabljamo idealiziran računalnik, imenovan **računski model** (*computational model*). Uporabljali bomo več različnih računskih modelov, odvisno od lastnosti, na katere se želimo osredotočiti. Začnemo z najpreprostejšim modelom, imenovanim **končni avtomat** (*finite state machine* ali *finite automaton*).
 
 ***
 **KONČNI AVTOMATI**
 
-Končni avtomati so dobri modeli za računalnike z izjemno omejeno količino pomnilnika. Kaj lahko računalnik stori s tako majhnim pomnilnikom? Veliko koristnih stvari! Pravzaprav s takimi računalniki ves čas komuniciramo, saj so v središču različnih elektromehanskih naprav.
+Končni avtomati so dobri modeli za računalnike z izjemno omejeno količino pomnilnika.
 
-Krmilnik za avtomatska vrata je en primer take naprave. Pogosto jih najdemo na vhodih in izhodih supermarketov; avtomatska vrata se odprejo, ko krmilnik zazna, da se oseba približuje. Avtomatska vrata imajo podlogo...
 
-Literatura Sipser razdelka 1.1 in 1.2 
 
 **Kodiranje podatkov**
 

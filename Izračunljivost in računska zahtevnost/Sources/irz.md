@@ -1,5 +1,6 @@
-
+https://introtcs.org/public/lec_02_representation.html#defining-representations
 https://github.com/JakMar-FRI/IRZ-skripta/blob/master/irz.md
+https://github.com/JakMar-FRI/IRZ-skripta/blob/master/irz.md#kodiranje-turingovega-stroja
 
 # Izračunljivost in računska zahtevnost
 ### Študijsko leto 2018/19
