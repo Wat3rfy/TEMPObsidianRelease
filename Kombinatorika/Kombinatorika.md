@@ -1431,3 +1431,132 @@ S(0,3) & S(1,3) & S(2,3) & S(3,3)
 $$ \begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 1 & 1 \\ 0 & 0 & 1 & 3 \\ 0 & 0 & 0 & 1 \end{pmatrix} \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 3 \\ 1 \end{pmatrix} $$
 
 $$x^{3}=0 \cdot x^{\underline{0}} + 1 \cdot x^{\underline{1}} + 3 \cdot x^{\underline{2}} + 1 \cdot x^{\underline{3}}$$
+
+### Tabela inverzij in mahovska števila
+
+Naj bo $\pi \in S_{n}, \pi=(\pi(1),...,\pi(i),...\pi(j),...,\pi(n))$, kjer to ni cikel temveč enovrstična notacija.
+
+Število inverzij $\text{inv}(\pi)$ je število parov členov $(i,j)$ kjer velja da je $i<j$ in $\pi(i)>\pi(j)$. Je število parov vseh števil $a,b$ kjer je $a$ večje od $b$ in $b$ stoji pred njim v zapisu permutacije. 
+
+Predznak permutacije lahko izrazimo s številom inverzij:
+
+$$\text{sgn}(\pi) = (-1)^{\text{inv}(\pi)}$$
+
+$$\det A = \sum_{\pi \in S_{n}}^{}\text{sgn}(\pi)a_{1,\pi(1)}\cdot a_{2,\pi(2)}\,\cdot \;... $$
+
+Grupo $S_n$ generirajo enostavne transpozicije $S_{n} = \langle ...,(i,i+1),...\rangle; i \in  \{ 1,...,n-1\}$
+
+Število inverzij $\pi$ je enako najmanjšemu številu enostavnih transpozicij katerih produkt je $\pi$.
+
+Za $\text{inv}(\pi)$ velja
+
+$$0 \leq \text{inv}(\pi) \leq \binom{\,n\,}{\,2\,}$$
+
+Ker lahko za vsako inverzijo izberemo 2 elementa oz. imamo permutacijo ki je $(n,n-1,...,1)$.
+
+**Tabela inverzij** je zapis
+
+$$I(\pi) = (i_{1}...i_{n})$$
+$$0 \leq i_{k}\leq n-k$$
+
+kjer je $i_{k}$ število inverzij za $k$-ti element. Oz, $k$ ima $i_{k}$ elementov večjih od njega levo od sebe.
+
+
+$$I(4\, 2\,5\,3\,1) = (4,1,2,0,0)$$
+
+Velja
+
+$$\sum_{a_{k} \in I(\pi)}^{}a_{k} = \text{inv}(\pi)$$
+
+Izrek:
+
+$$\pi \mapsto I(\pi) \text{ je bijekcija iz } S_{n} \text{ v } \{ (a_{1},...,a_{n}): 0 \leq a_{k}\leq n-k \}$$
+
+Za preslikavo v desno je trivialno $\pi \rightarrow I(\pi)$.
+
+Za preslikavo iz $I(\pi) \rightarrow \pi$ pa lahko vzamemo najbolj desno število oz. največje število $(n)$ in ga vstavimo prvega. Vzamemo naslednje število $(n-1)$ in ga postavimo na primerno mesto, to deluje ker $a_{k}\leq n-k$ kar pomeni da vedno vemo kam ga lahko damo.
+
+To je v resnici še en dokaz da je $|S_{n}| = n!$.
+
+>[!|dokaz]- Dokaz:
+> 
+> Dokaz za $|S_n| = n!$ temelji na tem, da izračunamo število vseh možnih inverzijskih tabel $I(\pi)$, ki jih lahko tvorimo pri danih omejitvah.
+> 
+> Ker je $\pi \mapsto I(\pi)$ bijekcija (eno-eno in na), mora biti število elementov v domeni enako številu elementov v kodomeni:
+> 
+> $$|S_n| = |\{ (a_{1},...,a_{n}): 0 \leq a_{k}\leq n-k \}|$$
+> 
+> Izračunajmo število elementov v kodomeni (množici inverzijskih tabel):
+> 
+> Elementi inverzijske tabele so $a_1, a_2, \dots, a_n$, in za vsakega veljajo neodvisne omejitve:
+> 
+> 1. **Za $a_1$:** $0 \leq a_1 \leq n-1$.
+>    Število možnih vrednosti za $a_1$ je $(n-1) - 0 + 1 = n$.
+> 2. **Za $a_2$:** $0 \leq a_2 \leq n-2$.
+>    Število možnih vrednosti za $a_2$ je $(n-2) - 0 + 1 = n-1$.
+> 3. **Za $a_3$:** $0 \leq a_3 \leq n-3$.
+>    Število možnih vrednosti za $a_3$ je $n-2$.
+>    ...
+> 4. **Za $a_{n-1}$:** $0 \leq a_{n-1} \leq n-(n-1) = 1$.
+>    Število možnih vrednosti za $a_{n-1}$ je $1 - 0 + 1 = 2$.
+> 5. **Za $a_n$:** $0 \leq a_n \leq n-n = 0$.
+>    Število možnih vrednosti za $a_n$ je $0 - 0 + 1 = 1$.
+> 
+> Ker je izbira vsakega $a_k$ neodvisna od ostalih, pomnožimo število možnosti za vsak element, da dobimo skupno število vseh možnih inverzijskih tabel:
+> 
+> $$\text{Število tabel} = n \times (n-1) \times (n-2) \times \cdots \times 2 \times 1$$
+> 
+> To je definicija fakultete.
+> 
+> $$\text{Število tabel} = n!$$
+
+
+### Mahonska števila
+
+$T(n,k)$ je število permutacij v $S_n$ s $k$ inverzijami
+
+$T(n,0) = T(n,\binom{\,n\,}{\,2\,}) = 1$
+
+$$0\leq k\leq \binom{\,n\,}{\,2\,}$$
+$$\sum_{k}^{}T(n,k)q^{k} = q(1+q)(1+q+q^{2})...(1+q+q^{2}+...+q^{n-1})$$
+
+Maksimalna stopnja tega polinoma je $\binom{\,n\,}{\,2\,}$.
+
+Definiramo $q$-naravno število:
+
+$$1 + q +q^{2}+q^{3}+...+q^{n-1} = (n)_{q}$$
+$$q = 1: (n)_{1}=n$$
+
+$$(n)_{q} = (1)_{q}(2)_{q}...(n)_{q}$$
+
+Sedaj lahko dokažemo
+
+$$\sum_{k}^{}T(n,k)q^{k} = q(1+q)(1+q+q^{2})...(1+q+q^{2}+...+q^{n-1})$$
+
+TODO
+
+### Razčlenitve
+
+Naj bo 
+
+$$\lambda = (\lambda _{1},...,\lambda _{l})$$
+$$\lambda _{1} \geq \lambda _{2} \geq ... \geq \lambda _{l} \geq 0$$
+
+je razčlenitev naravnega števila $n$.
+
+Rečemo da je $l$ dolžina $\lambda$, $\lambda_{i}$ je člen $\lambda$ in $n$ je velikost $\lambda$.
+
+Označimo
+
+$p(n)$ je število razčlenitev $n$.
+$p_{k}(n)$ je število razčlenitev z dolžino $k$
+$\overline{p}_{k}(n)$ je število razčlenitev $n$ dolžine manjše ali enake $k$.
+
+$p(0) = 1$; prazna razčlenitev
+$p(1) = 1$
+$p(2) = 2$
+$p(3) = 3$
+$p(4) = 5$
+$p(5) = 7$
+
+Razčlenitve lahko grafično predstavimo z dvema diagramoma
