@@ -1244,7 +1244,7 @@ $$\bigcup B_{i} = A \,;\;B_{i}\cap B_{j} = \emptyset \,;\;B_{i} \neq \emptyset$$
 
 
 
-**Bellova števila**$B(n)$ so število razdelitev ne poljubno blokov.
+**Bellova števila** $B(n)$ so število razdelitev na poljubno blokov.
 
 Za $B(n)$ velja
 
@@ -1271,4 +1271,163 @@ $$B(n+1) = \sum_{k}^{n}\binom{\,n\,}{\,k\,}B(k)$$
 
 Kjer si predstavljamo da izoliramo element $x$ in se odločamo koliko elementov ne bo v bloku skupaj z $x$. To naj bo $k$ elementov. Ostane nam $n-k$ elementov ki bodo skupaj z $x$. Sedaj lahko pogledamo na koliko načinov lahko izberemo $k$ elementov ki ne bodo z $x$ to je $\binom{\,n\,}{\,k\,}$, za vsako to množico pa velja da ima  $B(k)$ razcepov.
 
+Stirlingova števila 2. vrste lahko interpretiramo tudi drugače. Vemo da **ekvivalenčna relacija** definira **ekvivalenčne razrede** za katere velja da so **neprazni in disjunktni** kar so točno tudi bloki v poljubni delitvi. 
+Iz tega lahko **Stirlingova števila 2. vrste** definiramo tudi kot št. ekvivalenčnih relacij na množici $[n]$ s $k$ ekvivalenčnimi razredi, medtem ko so **bellova števila** enaka številu vseh ekvivalenčnih relacij na $[n]$.
 
+Razdelitve so tudi povezane s surjekcijami. Če si predstavljamo surjekcijo iz množice z $n$ elementi v množico s $k$ elementi kjer velja da je $n>k$ potem lahko opazimo da neka surjektivna preslikava razdeli $[n]$ v bloke kjer vsaka slika tvori množico praslik edina razlika je da le to razdelitev lahko premešamo med $k$ elementov torej če nek blok pripada $k_{1}$ elementu ga lahko zamenjamo z nekim drugim. Tako lahko vidimo da je očitno **število surjekcij iz $[n]$ v $[k]$ natanko enako Stirlingovim številom II. vrste pomnoženim s $k!$ zaradi premešavanja pripadajočih elementov iz $[k]$**. 
+
+$$k!S(n,k) = \text{Število surjekcij}$$
+
+TODO
+>[!|dokaz]- Dokaz:
+
+Sledi formula
+
+$$S(n,k) = \frac{1}{k!}\sum_{j=0}^{k}(-1)^{k-j} \binom{\,k\,}{\,j\,} j^{n}$$
+$$= \sum_{j= 0}^{k}\frac{(-1)^{k-j} j^{n}}{j! ( n-j)!}$$
+
+Kot pri prejšnjih številih poznamo tudi tukaj povezavo s polinomi
+
+$$\sum_{k}^{}S(n,k)x^{\underline{k}} = x^{n}$$
+
+>[!|dokaz]- Dokaz:
+> 
+> Ključna ideja je da če dokažemo, da sta dva polinoma stopnje največ $n$ enaka v vsaj $n+1$ točkah, potem sta ta dva polinoma enaka. 
+> 
+> Ker se bosta v našem primeru polinoma ujemala za vsa naravna števila, se ujemata v neskončno točkah, kar je zadosten pogoj, da sta enaka.
+> 
+> Najprej enakost dokažimo za $x \in \mathbb{N}$, z uporabo kombinatoričnega argumenta.
+> 
+> Leva stran enačbe, $x^n$, predstavlja število vseh preslikav iz množice z $n$ elementi, ki jo označimo z $[n] = \{1, 2, \dots, n\}$, v množico z $x$ elementi, $[x] = \{1, 2, \dots, x\}$.
+> 
+> Desno stran enačbe dobimo s preštevanjem istih preslikav na drugačen način – z razdelitvijo po moči slike preslikave. Vsaka preslikava $f: [n] \to [x]$ je surjektivna na svojo sliko, $Im(f) \subseteq [x]$. Naj bo moč slike $|Im(f)| = k$. Število vseh preslikav lahko dobimo tako, da seštejemo število preslikav za vsako možno moč slike $k$.
+> 
+> Za fiksno velikost slike $k$, lahko najprej izberemo $k$-elementno sliko iz kodomene $[x]$ na $\binom{x}{k}$ načinov. Nato moramo prešteti vse surjektivne preslikave iz domene $[n]$ na to izbrano $k$-elementno množico. Število takih surjekcij je enako $k! S(n,k)$, kjer je $S(n,k)$ Stirlingovo število druge vrste (število razdelitev množice z $n$ elementi na $k$ nepraznih podmnožic).
+> 
+> S seštevanjem po vseh možnih velikostih slike $k$ (od $k=0$ do $k=n$) dobimo skupno število vseh preslikav:
+> 
+> $$ x^n = \sum_{k=0}^{n} \binom{x}{k} k! S(n,k) $$
+> 
+> Ta enakost, dokazana s kombinatoričnim argumentom, zagotovo velja za vsa naravna števila $x$.
+> 
+> Zdaj pa obe strani enačbe obravnavajmo kot polinoma v spremenljivki $x$. Leva stran, $x^n$, je očitno polinom stopnje $n$. Tudi desna stran je polinom, saj je binomski koeficient, pomnožen s $k!$, padajoča fakulteta:
+> 
+> $$ \binom{x}{k} k! = \frac{x(x-1)\cdots(x-k+1)}{k!} k! = x(x-1)\cdots(x-k+1) $$
+> 
+> To je polinom v spremenljivki $x$ stopnje $k$. Celotna vsota je torej vsota polinomov in je zato tudi sama polinom, katerega stopnja je največ $n$. Ker smo pokazali, da se vrednosti teh dveh polinomov ujemajo za vsa naravna števila $x$, se torej ujemajo na neskončno mnogo točkah. Iz tega sledi, da morata biti polinoma identično enaka. Zato zgornja enakost velja ne le za naravna števila, ampak za poljubna realna ali kompleksna števila $x$.
+
+
+***
+
+### Lahova števila
+
+Antimarksistična števila
+
+$L(n,k)$ je število razdelitev $[n]$ na $k$ urejenih blokov.
+
+$S(n,k)$ šteje razdelitve na bloke, $c(n,k)$ razdelitve na ciklične bloke, $L(n,k)$ pa urejene bloke.
+
+$L(n,n) = 1$
+$L(n,1) = n!$
+$L(n,n-1) = n(n-1)$
+
+**Trditev:**
+
+$$L(n, k) = \frac{n!}{k!} \binom{n-1}{k-1}$$
+
+To lahko razložimo kot enakost med številom urejenih razdelitev na $k$ blokov: 
+
+$$k! L(n, k)$$ 
+
+in kompozicije $n,k$
+
+$$\dots |\dots| \dots$$
+$$ \binom{n-1}{k-1}$$
+$$n-1 \text{ možnih mest za pregrade}$$
+$$\text{izbira } k-1 \text{ mest za pregrade}$$
+
+Nato pa lahko teh $n$ elementov v blokih poljubno uredimo, torej:
+
+$$\binom{n-1}{k-1} n!$$
+$$ $$
+$$\Rightarrow k! L(n, k) = n! \binom{n-1}{k-1}$$
+$$L(n, k) = \frac{n!}{k!} \binom{n-1}{k-1}$$
+
+
+Drugače pa lahko trdimo da z $\binom{\,n-1\,}{\,k-1\,}$ izberemo pregrade za $k$ množic. Potem pomnožimo s permutacijami elementov $n$ kar nam da urejene množice, a s tem smo premešali tudi množice ki jih moramo z $\frac{1}{k!}$ odmešati.
+
+
+Poznamo tudi rekurzivno zvezo
+
+$$L(n, k) = L(n-1, k-1) + (n+k-1) L(n-1, k)$$
+
+
+>[!|dokaz]- Dokaz:
+> Razdelitev $[n]$ na $k$ blokov:
+> 
+> 1.  **$\{n\}$ je blok:**
+>     $$L(n-1, k-1)$$
+>     (Preostalih $n-1$ elementov razdelimo na $k-1$ blokov.)
+> 
+> 2.  **$\{n\}$ ni blok:**
+>     $$L(n-1, k) \cdot (n-1+k)$$
+>     (Razdelimo $n-1$ elementov na $k$ blokov, element $n$ pa vstavimo na eno izmed $n+k-1$ možnih mest.)
+>     *   $n-1$ : za el (za elemente, tj. za vsakim obstoječim elementom)
+>     *   $k$ : na zač. bloka (na začetek enega izmed $k$ blokov)
+
+
+
+Obstaja tudi polinomska zveza
+
+$$\sum_{k=0}^{n}L(n,k)x^{\underline{k}} = x^{\overline{n}}$$
+
+Iz vseh polinomskih zvez, ki smo jih naredili do sedaj, lahko vidimo povezavo.
+Naj bo $\{ 1,x,x^{2},...\}$ baza za vektorski prostor $\mathbb{R}[x]$.
+
+Za baze lahko vzamemo tudi $\{ 1,x^{\underline{1}},x^{\underline{2}},...\}$ kot tudi $\{ 1,x^{\overline{1}},x^{\overline{2}},...\}$ in kot vemo, med bazami obstajajo prehodne matrike. Izkaže se, da so za
+
+$$\mathcal{B}_1 = \{1, x, x^2, x^3, \dots, x^n, \dots\}$$
+$$\mathcal{B}_{2} = \{1, x^{\underline{1}}, x^{\underline{2}}, \dots, x^{\underline{n}}, \dots\}$$
+$$\mathcal{B}_{3} = \{1, x^{\overline{1}}, x^{\overline{2}}, \dots, x^{\overline{n}}, \dots\}$$
+
+te matrike sestavljene iz naslednjih kombinatoričnih števil.
+
+Spodnje enačbe predstavljajo prehode **iz** baz 
+
+$\mathcal{B}_{1}\rightarrow \mathcal{B_{2}}$, $\mathcal{B}_{2}\rightarrow \mathcal{B_{1}}$
+
+$$\sum_{k=0}^{n} S(n, k) x^{\underline{k}} = x^n$$
+
+$$\sum_{k=0}^{n} (-1)^{n-k} c(n, k) x^k = x^{\underline{n}}$$
+
+$\mathcal{B}_{1}\rightarrow \mathcal{B_{3}}$, $\mathcal{B}_{3}\rightarrow \mathcal{B_{1}}$
+
+$$\sum_{k=0}^{n} c(n, k) x^k = x^{\overline{n}}$$
+
+
+
+$$\sum_{k=0}^{n} (-1)^{n-k} S(n, k) x^{\overline{k}} = x^n$$
+
+$\mathcal{B}_{2}\rightarrow \mathcal{B_{3}}$, $\mathcal{B}_{3}\rightarrow \mathcal{B_{2}}$
+
+$$\sum_{k=0}^{n} L(n, k) x^{\underline{k}} = x^{\overline{n}}$$
+$$\sum_{k=0}^{n} (-1)^{n-k} L(n, k) x^{\overline{k}} = x^{\underline{n}}$$
+
+Natanko prehodne matrike med temi bazami. (Prehodne matrike so $c,S,L$ kjer $i$-ti stolpec vsebuje $c/S/L(i,k)$)
+
+$$x^{3}:$$
+$$ P_{\mathcal{B}_2 \leftarrow \mathcal{B}_1} = \begin{pmatrix}
+S(0,0) & S(1,0) & S(2,0) & S(3,0) \\
+S(0,1) & S(1,1) & S(2,1) & S(3,1) \\
+S(0,2) & S(1,2) & S(2,2) & S(3,2) \\
+S(0,3) & S(1,3) & S(2,3) & S(3,3)
+\end{pmatrix} = \begin{pmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 1 & 1 \\
+0 & 0 & 1 & 3 \\
+0 & 0 & 0 & 1
+\end{pmatrix} $$
+
+$$ \begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 1 & 1 \\ 0 & 0 & 1 & 3 \\ 0 & 0 & 0 & 1 \end{pmatrix} \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 3 \\ 1 \end{pmatrix} $$
+
+$$x^{3}=0 \cdot x^{\underline{0}} + 1 \cdot x^{\underline{1}} + 3 \cdot x^{\underline{2}} + 1 \cdot x^{\underline{3}}$$
