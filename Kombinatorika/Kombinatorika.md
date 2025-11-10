@@ -1559,4 +1559,107 @@ $p(3) = 3$
 $p(4) = 5$
 $p(5) = 7$
 
-Razčlenitve lahko grafično predstavimo z dvema diagramoma
+Razčlenitev $\lambda$ lahko grafično predstavimo z dvema diagramoma
+
+Ferrersov diagram
+$\cdot \cdot \cdot \cdot \cdot$
+$\cdot \cdot \cdot$
+$\cdot \cdot \cdot$
+$\cdot \cdot\,$
+
+Youngsov diagram $\lambda = (5,3,3,2)$
+$\square\;\;\square\;\;\square\;\;\square\;\;\square \;\;\lambda_1$
+$\square\;\;\square\;\;\square\;\;\lambda_2$
+$\square\;\;\square\;\;\square\;\;\lambda_3$
+$\square\;\;\square\;\;\lambda_4$
+
+Predstavljajo število členov v razčlenitvi.
+
+Transpozicija razčlenitve je transponiranje diagrama oz.
+
+$$\lambda_{i}' = | \{ j: \lambda_{j} \geq i\}|$$
+
+$i = 1$ 
+${\color{green}\square}\;\;\square\;\;\square\;\;\square\;\;\square \;\;\lambda_1$
+${\color{green}\square}\;\;\square\;\;\square\;\;\lambda_2$
+${\color{green}\square}\;\;\square\;\;\square\;\;\lambda_3$
+${\color{green}\square}\;\;\square\;\;\lambda_4$
+
+$\lambda_{1,2,3,4} \geq 1 \Rightarrow \lambda_{1}' = 4$
+
+$i = 2$ 
+$\square\;\;{\color{green}\square}\;\;\square\;\;\square\;\;\square \;\;\lambda_1$
+$\square\;\;{\color{green}\square}\;\;\square\;\;\lambda_2$
+$\square\;\;{\color{green}\square}\;\;\square\;\;\lambda_3$
+$\square\;\;{\color{green}\square}\;\;\lambda_4$
+
+$\lambda_{1,2,3,4} \geq 1 \Rightarrow \lambda_{2}' = 4$
+
+$i = 3$
+$\square\;\;\square\;\;{\color{green}\square}\;\;\square\;\;\square \;\;\lambda_1$
+$\square\;\;\square\;\;{\color{green}\square}\;\;\lambda_2$
+$\square\;\;\square\;\;{\color{green}\square}\;\;\lambda_3$
+$\square\;\;\square\;\;\lambda_4$
+
+$\lambda_{1,2,3} \geq 3 \Rightarrow \lambda_{3}' = 3$
+
+$i = 4$
+$\square\;\;\square\;\;\square\;\;{\color{green}\square}\;\;\square \;\;\lambda_1$
+$\square\;\;\square\;\;\square\;\;\lambda_2$
+$\square\;\;\square\;\;\square\;\;\lambda_3$
+$\square\;\;\square\;\;\lambda_4$
+
+$\lambda_{1} \geq 4 \Rightarrow \lambda_{4}' = 1$
+
+$i = 5$
+$\square\;\;\square\;\;\square\;\;\square\;\;{\color{green}\square} \;\;\lambda_1$
+$\square\;\;\square\;\;\square\;\;\lambda_2$
+$\square\;\;\square\;\;\square\;\;\lambda_3$
+$\square\;\;\square\;\;\lambda_4$
+
+$\lambda_{1} \geq 5 \Rightarrow \lambda_{5}' = 1$
+
+
+$\lambda_{i}'$ je število členov $\lambda_{j}$ večje ali enake velikosti $i$ 
+
+Velja tudi da je konjugacija konjugirane razčlenitve enaka originalni razčlenitvi $\lambda'' = \lambda$.
+
+Poznamo rekurzivno zvezo za $p(n), p_{k}(n), \overline{p}_{k}(n)$ :
+
+ $(1) \;\;p_k(n) =-= \overline{p}_k(n-k)$
+
+$(2) \;\;p_k(n) = p_{k-1}(n-1) + p_k(n-k)$
+
+$(3) \;\;\overline{p}_k(n) = \overline{p}_{k-1}(n) + \overline{p}_k(n-k)$
+
+>[!|dokaz]- Dokaz: TODO
+> 
+> $(1)$
+> 
+> Vzemimo poljubno razčlenitev števila $n$ na natanko $k$ delov. Ker ima vsak del vrednost vsaj 1, lahko od vsakega od $k$ delov odštejemo 1. S tem dobimo razčlenitev števila $n-k$ na $k$ delov, od katerih so nekateri lahko enaki 0. Če te ničelne dele opustimo, dobimo razčlenitev števila $n-k$ na največ $k$ delov. Ta postopek je obratno enoličen in vzpostavi bijekcijo med obema množicama razčlenitev. To ustreza tudi odstranitvi prvega stolpca v Ferrerjevem diagramu.
+> 
+> $(2)$
+> 
+> Množico vseh razčlenitev števila $n$ na $k$ delov razdelimo v dve disjunktni skupini:
+> 1.  **Razčlenitve, kjer je najmanjši del enak 1.** Če ta del odstranimo, dobimo razčlenitev števila $n-1$ na $k-1$ delov. Takšnih razčlenitev je $p_{k-1}(n-1)$.
+> 2.  **Razčlenitve, kjer so vsi deli večji od 1.** Če vsakemu od $k$ delov odštejemo 1, dobimo razčlenitev števila $n-k$ na natanko $k$ delov. Takšnih je $p_k(n-k)$.
+> 
+> Ker skupini pokrijeta vse možnosti in sta disjunktni, velja formula $p_k(n) = p_{k-1}(n-1) + p_k(n-k)$.
+> 
+> $(3)$
+> 
+> Število razčlenitev števila $n$ na največ $k$ delov, $\overline{p}_k(n)$, lahko razdelimo na dva primera: razčlenitve, ki imajo natanko $k$ delov, in razčlenitve, ki imajo manj kot $k$ delov (torej največ $k-1$). Iz tega sledi identiteta:
+> $\overline{p}_k(n) = p_k(n) + \overline{p}_{k-1}(n)$
+> 
+> Z uporabo zveze iz prvega dokaza, $p_k(n) = \overline{p}_k(n-k)$, vstavimo desni del v zgornjo enačbo in dobimo iskano rekurzivno formulo:
+> $\overline{p}_k(n) = \overline{p}_{k-1}(n) + \overline{p}_k(n-k)$
+
+
+Poznamo tudi **rekurzivno zvezo za** $p(n)$ znan tudi kot **Eulerjev petkotniški izrek**.
+
+$$p(n) = \sum_{k=0}^{}(-1)^{k-1}\left(p\left(n-\frac{k(3k-1)}{2}\right)+p\left(n-\frac{k(3k+1)}{2}\right)\right)$$
+
+>[!|dokaz]- Dokaz: TODO
+
+
+### DVANAJSTERA POT TODO
