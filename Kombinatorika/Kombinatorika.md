@@ -1278,8 +1278,8 @@ Razdelitve so tudi povezane s surjekcijami. Če si predstavljamo surjekcijo iz m
 
 $$k!S(n,k) = \text{Število surjekcij}$$
 
-TODO
->[!|dokaz]- Dokaz:
+
+>[!|dokaz]- Dokaz:TODO
 
 Sledi formula
 
@@ -1532,8 +1532,58 @@ $$(n)_{q} = (1)_{q}(2)_{q}...(n)_{q}$$
 Sedaj lahko dokažemo
 
 $$\sum_{k}^{}T(n,k)q^{k} = q(1+q)(1+q+q^{2})...(1+q+q^{2}+...+q^{n-1})$$
+$$0\leq k\leq \binom{\,n\,}{\,2\,}$$
 
-TODO
+
+***
+
+
+$$I_n(q) = \sum_{k=0}^{\binom{n}{2}} T(n,k)q^k = (1)_q(2)_q \dots (n)_q $$ $$= \prod_{j=1}^{n} (j)_q = \prod_{j=1}^{n} (1+q+q^2+...+q^{j-1})$$
+
+**Trditev:** Za vsak $n \ge 1$ velja 
+
+$$I_n(q) = \prod_{j=1}^{n} (1+q+q^2+...+q^{j-1})$$
+
+>[!|dokaz]- Dokaz:
+> 
+> Uporabili bomo matematično indukcijo po $n$.
+> 
+> **Baza indukcije:** Za $n=1$ imamo v $S_1$ le eno permutacijo, identiteto $(1)$, ki ima $0$ inverzij. Torej je $T(1,0)=1$ in $T(1,k)=0$ za $k>0$.
+> Leva stran enačbe je $I_1(q) = T(1,0)q^0 = 1$.
+> Desna stran enačbe je $\prod_{j=1}^{1} (j)_q = (1)_q = 1$.
+> Ker sta obe strani enaki, baza indukcije velja.
+> 
+> **Indukcijski korak:** Predpostavimo, da formula velja za $n-1$. Torej velja:
+> $$I_{n-1}(q) = \sum_{k=0}^{\binom{n-1}{2}} T(n-1, k) q^k = \prod_{j=1}^{n-1} (j)_q$$
+> Pokažimo, da formula velja tudi za $n$.
+> 
+> Vsako permutacijo $\pi \in S_n$ lahko enolično tvorimo iz permutacije $\pi' \in S_{n-1}$ tako, da v $\pi'$ (ki je permutacija števil $\{1, 2, \dots, n-1\}$) vstavimo element $n$ na eno od $n$ možnih mest.
+> 
+> Naj bo $\pi' \in S_{n-1}$ poljubna permutacija z $\text{inv}(\pi')$ inverzijami. Ko vanjo vstavimo element $n$, ta tvori novo inverzijo z vsakim elementom, ki se v zapisu nahaja desno od njega. Ker je $n$ največji element, bo prispeval k številu inverzij natanko toliko, kolikor je elementov na njegovi desni.
+> 
+> Če $n$ vstavimo na:
+> -   zadnje mesto, ustvarimo 0 novih inverzij. Skupno število inverzij: $\text{inv}(\pi') + 0$.
+> -   predzadnje mesto, ustvarimo 1 novo inverzijo. Skupno število inverzij: $\text{inv}(\pi') + 1$.
+> -   ...
+> -   prvo mesto, ustvarimo $n-1$ novih inverzij. Skupno število inverzij: $\text{inv}(\pi') + n-1$.
+> 
+> Vsaka permutacija $\pi' \in S_{n-1}$ torej generira $n$ unikatnih permutacij v $S_n$, katerih število inverzij je $\text{inv}(\pi'), \text{inv}(\pi')+1, \dots, \text{inv}(\pi')+(n-1)$.
+> 
+> Zapišimo to z rodovnimi funkcijami. Rodovna funkcija $I_n(q)$ je vsota vseh $q^{\text{inv}(\pi)}$ za $\pi \in S_n$. Združimo člene glede na to, iz katere $\pi' \in S_{n-1}$ izhajajo:
+> $$I_n(q) = \sum_{\pi \in S_n} q^{\text{inv}(\pi)} = \sum_{\pi' \in S_{n-1}} \left( q^{\text{inv}(\pi')} + q^{\text{inv}(\pi')+1} + \dots + q^{\text{inv}(\pi')+(n-1)} \right)$$
+> Izpostavimo skupni faktor $q^{\text{inv}(\pi')}$:
+> $$I_n(q) = \sum_{\pi' \in S_{n-1}} q^{\text{inv}(\pi')} \left( 1 + q + q^2 + \dots + q^{n-1} \right)$$
+> Vsota v oklepaju je $(n)_q$. Ker ta faktor ni odvisen od $\pi'$, ga lahko izpostavimo pred sumacijski znak:
+> $$I_n(q) = \left( \sum_{\pi' \in S_{n-1}} q^{inv(\pi')} \right) \cdot (1 + q + \dots + q^{n-1})$$
+> Prvi faktor je po definiciji rodovna funkcija $I_{n-1}(q)$. Tako dobimo rekurzivno zvezo:
+> $$I_n(q) = I_{n-1}(q) \cdot (n)_q$$
+> Po indukcijski predpostavki je $I_{n-1}(q) = \prod_{j=1}^{n-1} (j)_q$. Če to vstavimo v zgornjo enačbo, dobimo:
+> $$I_n(q) = \left( \prod_{j=1}^{n-1} (j)_q \right) \cdot (n)_q = \prod_{j=1}^{n} (j)_q$$
+> S tem je indukcijski korak dokazan. Trditev velja za vsak $n \ge 1$.
+
+
+
+
 
 ### Razčlenitve
 
@@ -1632,7 +1682,7 @@ $(2) \;\;p_k(n) = p_{k-1}(n-1) + p_k(n-k)$
 
 $(3) \;\;\overline{p}_k(n) = \overline{p}_{k-1}(n) + \overline{p}_k(n-k)$
 
->[!|dokaz]- Dokaz: TODO
+>[!|dokaz]- Dokaz:
 > 
 > $(1)$
 > 
@@ -1662,4 +1712,93 @@ $$p(n) = \sum_{k=0}^{}(-1)^{k-1}\left(p\left(n-\frac{k(3k-1)}{2}\right)+p\left(n
 >[!|dokaz]- Dokaz: TODO
 
 
-### DVANAJSTERA POT TODO
+### Dvanajstera pot
+
+Imamo $n$ kroglic ki jih hočemo razporediti v $k$ škatel. To lahko predstavimo s preslikavo
+
+$$f: [n] \rightarrow [k] $$
+
+Sedaj pa hočemo prešteti funkcije za katere lahko velja da so vse možne, injektivne, surjektivne, ločimo med kroglicami v $[n]$, ločimo med škatlami $[k]$.
+
+Iz tega dobimo 12 možnih problemov : $3 \cdot 2 \cdot 2$.
+In le te lahko damo v tabelo.
+Seveda, tukaj je lepo oblikovana tabela v formatu Markdown z uporabo LaTeX-a za matematične izraze, ki povzema vsebino vaše slike. Ta pristop je znan kot "Dvanajsterna pot" (Twelvefold Way) v kombinatoriki, ki sistematično obravnava načine razporejanja $n$ elementov v $k$ predalov (ali preslikav iz množice z $n$ elementi v množico s $k$ elementi), odvisno od tega, ali so elementi in predali ločljivi ali neločljivi.
+
+---
+
+### Kombinatorični pregled razporeditev (Dvanajsterna pot)
+
+Spodnja tabela prikazuje število načinov za razporeditev $n$ elementov v $k$ predalov, glede na lastnosti elementov in predalov.
+
+| $[n]$ / $[k]$ | Vse preslikave                                 | Injektivne preslikave                                   | Surjektivne preslikave                                 |
+| :------------------------------------- | :--------------------------------------------- | :------------------------------------------------------ | :----------------------------------------------------- |
+| **Ločimo / Ločimo**                | $$k^n$$                                          | $$k^{\underline{n}} = \frac{k!}{(k-n)!}$$                  |  $$k! \, S(n,k) $$$$ \textbf{(1)}$$                      |
+| **Ne ločimo / Ločimo**              | $$\binom{n+k-1}{n}$$                              | $$\binom{k}{n}$$                                          | $$\binom{n-1}{k-1} $$$$ \textbf{(2)}$$                  |
+| **Ločimo / Ne ločimo**              | $$\sum_{i=1}^{k} S(n,i)$$                        | $$\begin{cases} 1 & \text{če } n \le k \\ 0 & \text{če } n > k \end{cases}$$ | $$S(n,k) $$$$ \textbf{(3)}$$                            |
+| **Ne ločimo / Ne ločimo**            | $$\overline{p_k}(n) = \sum_{i=1}^{k} p_i(n)$$      | $$\begin{cases} 1 & \text{če } n \le k \\ 0 & \text{če } n > k \end{cases}$$ | $$p_k(n) $$$$ \textbf{(4)}$$                            |
+
+---
+
+### Pojasnila in opombe iz slike:
+
+1.  **$k! \, S(n,k)$**: Število surjektivnih preslikav iz $n$-članske v $k$-člansko množico. Kombinatorični argument je "najprej razdeli, nato dodeli":
+    *   $S(n,k)$ je število načinov za razdelitev $n$ ločljivih elementov v $k$ nepraznih, **neločljivih** skupin (Stirlingova števila 2. vrste).
+    *   $k!$ je število načinov, na katere lahko teh $k$ skupin priredimo $k$ **ločljivim** predalom.
+
+
+2.  **$\binom{n-1}{k-1}$**: Število načinov za razporeditev $n$ neločljivih elementov v $k$ ločljivih predalov, tako da noben predal ni prazen. To je enako številu **kompozicij** števila $n$ na $k$ delov.
+
+
+3.  **$S(n,k)$**: **Stirlingova števila 2. vrste**. Po definiciji je to število načinov za razdelitev množice z $n$ ločljivimi elementi v $k$ nepraznih podmnožic (ki so neločljive).
+
+
+4.  **$p_k(n)$**: **Število particij (razdelitev)** števila $n$ na natanko $k$ delov. To ustreza razporeditvi $n$ neločljivih elementov v $k$ nepraznih, neločljivih predalov.
+
+    *   Simbol $\overline{p_k}(n)$ v zgornji vrstici predstavlja število particij števila $n$ na *največ* $k$ delov.
+
+Pri vrstici kjer ločimo med $n$ in $k$ elementi štejemo funkcije, pri vrsticah ne ločimo med enim.
+
+Pri kombinatoriki pa rečemo da so elementi neločljivi ko oznake oz. vrstni red ni pomemben, formalno dosežemo to če rečemo da sta **dve funkciji enaki če lahko eno pretvorimo v drugo s permutacijo elementov.**
+
+Imamo množico vseh funkcij
+
+$$F = \{f : N \to K\}$$
+
+
+
+- Če so elementi **ločljivi** (oznaka **1**), je vsaka funkcija svoj unikaten razpored.
+    
+- Če so elementi **neločljivi** (oznaka **0**), uvedemo ekvivalenčno relacijo. Dve funkciji sta "isti" (ekvivalentni), če se razlikujeta le v preimenovanju elementov. Štejemo torej **število ekvivalenčnih razredov** (orbit).
+
+
+
+1. **Primer 01: Neločljiva domena, Ločljiva kodomena**
+*   **Kaj to pomeni:** Mečemo neločljive kroglice (npr. bele ping-pong žogice) v oštevilčene škatle.
+*   **Zapis:** $f \sim_N g \iff \exists \pi \in S_n : f \circ \pi = g$
+*   **Razlaga:**
+    *   $\pi \in S_n$ je permutacija domene (vhodnih podatkov, npr. kroglic).
+    *   Izraz $f \circ \pi = g$ pomeni: "Funkcija $g$ je enaka funkciji $f$, le da smo premešali vhodne elemente."
+    *   Ker so kroglice neločljive, nam je vseeno, *katera* kroglica gre v katero škatlo. Pomembno je le, *koliko* jih konča v posamezni škatli.
+    *   **Rezultat:** To ustreza **multimnožicam** oz. kombinacijam s ponavljanjem ($\binom{n+k-1}{n}$).
+
+2. **Primer 10: Ločljiva domena, Neločljiva kodomena**
+*   **Kaj to pomeni:** Mečemo oštevilčene kroglice v enake (neoznačene) vreče.
+*   **Zapis:** $f \sim_K g \iff \exists \sigma \in S_k : \sigma \circ f = g$
+*   **Razlaga:**
+    *   $\sigma \in S_k$ je permutacija kodomene (izhodnih podatkov, npr. škatel).
+    *   To pomeni, da če prelepimo nalepke na škatlah, dobimo "isto" razporeditev.
+    *   Ni važno, ali so kroglice {A, B} v škatli 1 in {C} v škatli 2, ali obratno. Važno je le, katere kroglice so skupaj.
+    *   **Rezultat:** To ustreza **razbitjem množice (Set partitions)** in Stirlingovim številom 2. vrste ($S(n,k)$).
+
+3. **Primer 00: Neločljiva domena, Neločljiva kodomena**
+*   **Kaj to pomeni:** Mečemo neločljive kroglice v neločljive škatle.
+*   **Zapis:** $f \sim_{n,k} g \iff \exists \sigma, \pi \in S_k, S_n : \sigma \circ f \circ \pi = g$
+*   **Razlaga:**
+    *   Tu smemo mešati tako kroglice ($\pi$) kot škatle ($\sigma$).
+    *   Ker so kroglice enake, štejejo le količine. Ker so škatle enake, vrstni red količin ni važen.
+    *   Razporeditev 3 žogice v prvo, 2 v drugo je ista kot 2 v prvo, 3 v drugo.
+    *   **Rezultat:** To ustreza **razbitjem števila (Integer partitions)** ($p_k(n)$).
+
+
+
+
