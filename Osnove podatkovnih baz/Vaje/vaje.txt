@@ -1,1 +1,2 @@
-https://docs.google.com/document/d/1FB5A_1CPFQ5p6QVZndHI2eMGOHSBCp9VONYeP9QBYNQ/edit?tab=t.0
+select ProductName from products p natural join orderdetails od natural join orders o
+where p.UnitPrice < (select AVG(UnitPrice) from products p1) AND

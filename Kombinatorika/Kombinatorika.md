@@ -474,7 +474,7 @@ $$(1+x)^{n} = \sum_{0}^{n}\binom{\,n\,}{\,k\,}x^{k}$$
 ***
 ### Izbori
 
-Imamo $n$ oštevilčenih kroglic in izberemo $k$ kroglic.
+Imamo $n$ oštevilčenih kroglic in izberemo $k$ kroglic oz. $n$ elementov na $k$ mestih.
 
 Razlikujemo med tem ali je **vrstni red pomemben** ali ne in ali lahko izbiro vračamo nazaj oz. so **dovoljene ponovitve**.
 
@@ -484,19 +484,27 @@ Razlikujemo med tem ali je **vrstni red pomemben** ali ne in ali lahko izbiro vr
 | **Vrstni red je Pomemben (DA)** | **Variacije s ponavljanjem** | **Variacije (Permutacije) brez ponavljanja** |
 | | $$n^k$$ | $$\frac{n!}{(n-k)!}$$ |
 | **Vrstni red ni Pomemben (NE)** | **Kombinacije s ponavljanjem** | **Kombinacije brez ponavljanja** |
-| | $$\binom{n+k-1}{k}$$ | $$\binom{n}{k} = \frac{n!}{k!(n-k)!}$$ |
+| | $$\binom{k+n-1}{n-1}$$ | $$\binom{n}{k} = \frac{n!}{k!(n-k)!}$$ |
 
 **Kombinacije s ponavljanjem**
 
 Če imamo $n$ elementov ki se lahko ponavljajo in jih hočemo razporediti na $k$ mest.
 
-Ker vrstni red ni pomemben lahko vse kombinacije kjer ponavljamo elemente preuredimo v zaporedje kjer so vsi elementi ki so se ponovili skupaj. To naj bo predstavnik te kombinacije - torej lahko vse kombinacije s ponavljanjem predstavimo z zaporedjem kjer so vsi ponovljeni elementi drug za drugim.
+Ker vrstni red ni pomemben lahko pri vseh izbirah kjer ponavljamo elemente  le-te damo skupaj enega za drugega.
 
-Sedaj lahko vpeljemo element pregrade ki stojijo med skupinami. Torej če imamo neke $x,y,z$ elemente ki se lahko ponavljajo na $k$ mestih jih lahko grupiramo in vidimo da jih lahko ločimo z $2$ pregradama oz. če imamo $n$ različnih elementov jih lahko ločimo z $n-1$ pregradami.
+Sedaj imamo za recimo $n=2, k=3$ namesto $*_{1}*_{2}*_{1}$ vedno $*_{1}*_{1}*_{2}$.
+
+Torej lahko vse kombinacije s ponavljanjem predstavimo z zaporedjem kjer so vsi ponovljeni elementi drug za drugim.
+
+Sedaj lahko vpeljemo pregrade ki stojijo med skupinami. Torej če imamo neke $1,...,n$ elemente mestih jih lahko grupiramo in vidimo da jih lahko ločimo z $n-1$ pregradami. Sedaj moramo le ugotoviti rapzporeditev tako da jih bo $k$. 
+
+Če vzamemo le pregrade in $k$ mest potem bo veljalo da tam kjer so mesta med pregradami damo pripadajoče elemente.
+
+Te pregrade lahko imajo ali nimajo vmes prostora kjer stoji dejanski element npr. $11|2|||$ s tem lahko definiramo vsko kombinacijo s ponavljanjem.
 
 Če dodamo našim $k$ prostim mestom še mesta za pregrade dobimo $k + n-1$ mest. Opazimo da je s postavitvijo pregrad že definirana kombinacija saj ostane $k$ mest kjer so po skupinah ločeni elementi.
 
-Vidimo da je v resnici izbira $n-1$ mest za pregrade iz $k+n-1$ vseh mest - za pregrade  in elemente $n-1 + k$.
+Vidimo da je v resnici izbira $n-1$ mest za pregrade iz $k+n-1$ vseh mest - za pregrade in elemente $n-1 + k$.
 
 Torej je enačba
 
@@ -510,7 +518,7 @@ $$\binom{\,k+n-1\,}{\,k\,}$$
 
 ### Kompozicije
 
-Kompozicija števila $n$ je $k$-terica $\lambda_{i}$, kjer velja $\lambda_{i} \in [n]$
+Kompozicija števila $n$ je $k$-terica $\lambda_{i}$, kjer velja $\lambda_{i} \in [n] \Rightarrow$ torej $\lambda_{i} \geq 1$.
 
 $$\sum_{i}^{}\lambda _{i} = n$$
 
@@ -518,26 +526,23 @@ $\lambda_{i}$ so členi kompozicije
 $l$ je dolžina kompozicije
 $n$ je velikost kompozicije
 
-Za $n = 9$:
-Kompozicije si lahko predstavljamo kot kombinacije s ponavljanjem 9 elementov na 9 mestih. Predstavljamo si 9 različnih enk kjer če se neka enka ponavlja tvori večje število. To pomeni da imamo 8 pregrad torej 17 mest iz katerih izbiramo 8 mest za pregrado.
-
-Posplošeno imamo kombinacije s ponavljanjem $n$ elementov na $n$ mestih - $n$ različnih enk. Imamo $n-1$ pregrad oz. $n-1$ mest za pregrado kjer jo lahko postavimo ali ne.
-
-*Mest je $n-1$ ker mora biti vsako število večje ali enako 1, kar pomeni da vsilimo med vsako enko mesto za pregrado potem pa se odločimo ali jo postaivmo ali ne.*
+To si lahko predstavljamo s tem da imamo $n$ elementov in med vsako lahko damo pregrado lahko pa ne. 
 
 Tako imamo skupno število kompozicij enako
 
 $$2^{n-1}$$
 
+saj imamo $n-1$ pregrad ki jih lahko postavimo ali ne.
+
 Za 0 velja da ima eno kompozicijo - prazno kompozicijo.
 
-Št kompozicij števila $n$ dolžine $k$ da imamo $n-1$ aktivnih mest a lahko izberemo le $k-1$ mest za pregrado.
+Št kompozicij števila $n$ dolžine $k$ da imamo $n-1$ aktivnih mest a lahko aktiviramo le $k-1$ pregrad.
 
 $$\binom{\,n-1\,}{\,k-1\,}$$
 ***
 **Šibka kompozicija** števila $n$ je $\lambda = (\lambda_{1},...,\lambda_{n}) \,;\; \lambda_{i}\geq 0$.
 
-Koliko je šibkih kompozicijnekega števila $n$ dolžine $k$.
+Koliko je šibkih kompozicij nekega števila $n$ dolžine $k$.
 
 >[!|dokaz]- Dokaz:
 > 1\. Način
@@ -557,10 +562,13 @@ Koliko je šibkih kompozicijnekega števila $n$ dolžine $k$.
 > $$\mu_{1}+...+\mu_{k}=n+k$$
 > $$\binom{\,n+k-1\,}{\,k-1\,}$$
 
-Šibke kompozicije so spet določene s pregradami in različnimi enkami ki jih lahko grupiramo.
-Razlika je da ne določimo vnaprej $n-1$ mest kjer so lahko pregrade ali ne. Mi imamo $n$ tipov enk ki sestavijo število $n$ ki jih lahko ponavljamo in grupiramo. Postavljamo pregrade. Ker imamo $n$ elementov jih razdelimo z $n-1$ pregradami. Če imamo $k$ mest pomeni da imamo $k+n-1$ prostih mest kjer definiramo šibko kompozicijo s postavitvijo pregrad nakar ostane $k$ mest kamor damo ostale enke. To pomeni da med $k+n-1$ mesti izbiramo $n-1$ mest za pregrade.
+Šibke kompozicije lahko predstavimo z $n$ elementi ki jih ločimo s pregradami. Ker je $k$ mest imamo $k-1$ pregrad.
 
-Kombinacije s ponavljanjem je natanko šibka kompozicija št $n$ dolžine $k$.
+To je podobno kombinacijam s ponavljanjem in sicer $k$ mest v šibki kompoziciji predstavlja $k$ elementov ki se lahko ponavljajo : vsako mesto predstavlja neko množico ponovitev, število $n$ šibke kompozicije pa predstavlja število mest na katere lahko damo teh $k$ elementov ki se lahko ponavljajo. Velja da je šibka kompozicija $n$ na $k$ mest enako kot kombinacija s ponavljanjem $k$ elementov na $n$ mest torej
+
+$$\binom{\,n+k-1\,}{\,k-1\,}$$
+
+Ker je šibkih kompozicij števila $n$ neskončno o vseh šibkih kompozicijah ne govorimo zares. Lahko rečemo da mora biti dolžina maksimalno $n$ kar pa je le šibka kompozicija $n$ z dolžino $n$. Torej $\binom{\,2n-1\,}{\,n-1\,}$
 
 ***
 
