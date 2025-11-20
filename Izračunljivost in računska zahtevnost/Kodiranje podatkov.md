@@ -5,7 +5,7 @@
 
 $$E : X \rightarrow \Sigma^{*}$$
 
-$E$ mora biti tudi injektivna.
+$E$ mora biti tudi **injektivna**. **Ne tudi surjektivna**
 
 Najprej definirajmo ključne pojme, ki so analogni tistim iz teorije jezikov.
 
@@ -44,6 +44,8 @@ Iz tega sledi da če lahko predstaivmo objekt $T$ kot niz, potem lahko predstavi
 **Cantorjev izrek** pravi da ne obstaja surjektivna preslikava $\mathbb{R} \rightarrow \{ 0,1\}^{*}$.
 
 **Neštevnost booleanovih funkcij** je izrek ki trdi da množica booleanovih funkcij $f : \{ 0,1\}^{*} \rightarrow \{ 0,1\}$. Oz. ne obstaja surjektivna funkcija iz $\{ 0,1\}^{*} \rightarrow$ množico booleanovih funkcij.
+
+To je pomemben sklep, kjer dejansko povemo da ker je problemov (funkcij) neštevno mnogo, programov (nizov) pa števno mnogo velja da **obstajajo problemi, ki jih računalnik ne more rešiti**.
 
 Ker lahko predstavljamo še druge elemente. Definiramo reprezentacijsko shemo za predstavitev objektov neke množice $X$. Ta je sestavljena iz **kodirne funkcije** ki preslika objekt $x$ v niz in **dekodirne funkcije** ki dekodira niz nazaj v objekt $x$. 
 
