@@ -41,7 +41,15 @@ Za predstavitev števila $\frac{a}{b}$ sedaj naprej predstavimo obe celi števil
 
 Iz tega sledi da če lahko predstaivmo objekt $T$ kot niz, potem lahko predstavimo terice objektov $T$ z nizi.
 
-**Cantorjev izrek** pravi da ne obstaja surjektivna preslikava $\mathbb{R} \rightarrow \{ 0,1\}^{*}$.
+Rečemo da je množica $X$ števna če velja da obstaja surjektivna preslikava iz $\mathbb{N}$ v $X$ oz. injektivna preslikava iz $X$ v $\mathbb{N}$.
+
+Za množico $\{ 0,1\}^{*}$ vemo da je števna saj obstaja injektivna preslikava iz $\{ 0,1\}^{*}$ v $\mathbb{N}$ kot pretvorba binarnega zapisa v naravno število.
+
+>**Cantorjev izrek** pravi da ne obstaja injektivna preslikava $\mathbb{R} \rightarrow \{ 0,1\}^{*}$
+>oz. ekvivalentno ne obstaja injekcija $\mathbb{R} \rightarrow \mathbb{N}$ oz. ne obstaja injekcija $P(\mathbb{N})\rightarrow \mathbb{\mathbb{N}}$.
+>>[!|dokaz]+ Dokaz:
+>>Dokazujemo da ne obstaja injekcija med $\mathbb{R}$ in $\{ 0,1\}^*$.
+>>Vemo da je $\{ 0,1\}^{*}$ enako velika kot $\mathbb{N}$ torej lahko dokažemo da ne obstaja injekcija med $\mathbb{R}$ in $\mathbb{N}$.
 
 **Neštevnost booleanovih funkcij** je izrek ki trdi da množica booleanovih funkcij $f : \{ 0,1\}^{*} \rightarrow \{ 0,1\}$. Oz. ne obstaja surjektivna funkcija iz $\{ 0,1\}^{*} \rightarrow$ množico booleanovih funkcij.
 

@@ -38,6 +38,8 @@ $f(A)$ je slika $f$ in velja $f(A) \subset B$.
 
 $f$ je **bijektivna** če je oboje hkrati.
 
+Če obstaja surjektivna funkcija iz $A$ v $B$ potem obstaja injektivna funkcija iz $B$ v $A$. In obratno če obstaja injekcija v eno smer obstaja surjekcija v drugo.
+
 Če je funkcija surjektivna pravimo tudi da slika **na** B.
 
 Če imamo za vhod funkcije neko $n$-terico $(a_{1},...,a_{n})$ potem so $a_{i}$ argumenti $f$ in imamo funckijo $n$ spremenljivk. Tako imamo unarne in binarne funckije kot najpogostejše.
@@ -81,13 +83,7 @@ Povezavo v usmerjenem grafu predstavimo kot par $(i,j)$.
 Pot kjer vse puščice kažejo v isto smer kot njeni koraki imenujemo **usmerjena pot**. Le-ta je **močno povezan** če usmerjena pot povezuje vsaki dve vozlišči.
 
 ***
-Seveda. Tukaj je posodobljeno besedilo, kjer so dodatki integrirani v tvojo obstoječo strukturo in slog. Ohranjena je ista oblika in tok misli, dodane pa so ključne razširitve in pojasnila.
 
----
-
-
-
-**DEFINICIJE, TEOREMI IN DOKAZI**
 
 **Definicije** opisujejo objekte in pojme, ki jih uporabljamo. 
 
@@ -99,6 +95,16 @@ Trditev je lahko resnična ali napačna; Dvomljivost glede njenega pomena ni dov
 
 **Teorem** je matematična trditev, ki je dokazano resnična. Na splošno to besedo uporabljamo za trditve posebnega pomena. Občasno dokazujemo trditve, ki so zanimive samo zato, ker pomagajo pri dokazovanju druge, pomembnejše trditve. Takšne trditve se imenujejo **leme**. Včasih nam teorem ali njegov dokaz omogoča, da z lahkoto sklepamo, da so resnične tudi druge, povezane trditve. Te trditve se imenujejo **posledice** teorema.
 
-Za dokazovanje uporabljamo par popularnih strategij kot so **dokaz s protislovjem kot najsplošnejšo, dokaz z indukcijo, dokaz s konstrukcijo.**
+***
 
-Če dokazujemo enako moč množic lahko najdemo bijekcijo ali pa pokažemo da je ena podmnožica druge kot tudi da je druga podrmnožica prve.
+
+
+Za **dokazovanje** uporabljamo par popularnih strategij kot so **dokaz s protislovjem kot najsplošnejšo, dokaz z indukcijo, dokaz s konstrukcijo.**
+
+**Dokaz sprotislovjem** temelji na predpostavljanju negacije posledice skupaj z originalnimi predpostavkami iz česar nato pridemo do protislovja.
+
+**Dokaz z indukcijo** je dokaz ki temelji na lastnosti naranvih števil kjer če za neko število velja $P(n_{0})$ in hkrati velja $P(n) \Rightarrow P(n+1)$ potem velja $P(n) \forall n \geq n_{0}$. 
+
+**Dokaz s konstrukcijo** je uporabljen pri dokazovanju obstoja nekega elementa kar lahko dokažemo s konstrukcijo.
+
+Če dokazujemo **enako moč** množic lahko najdemo **bijekcijo** ali pa pokažemo da sta obe **podmnožici druga druge**.
