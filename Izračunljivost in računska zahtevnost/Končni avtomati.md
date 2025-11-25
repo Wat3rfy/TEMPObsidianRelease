@@ -461,19 +461,10 @@ Opazujmo jezik $L$ nad abecedo $\Sigma = \{d, l\}$. Besede v jeziku $L$ morajo z
 
 
 
-![[Pasted image 20251123165742.png]]
-
-![[Pasted image 20251123165736.png]]
-
-![[Pasted image 20251123165750.png]]
-
-![[Pasted image 20251123165811.png]]![[Pasted image 20251123165816.png]]
 
 
 
 
-
-![[Pasted image 20251123144711.png]]
 
 Pravimo da je prehodna funkcija oblika
 
@@ -484,3 +475,13 @@ Pravimo da je prehodna funkcija oblika
 
 
 Na discordu naloga
+
+![[Screenshot 2025-11-23 165815.png]]
+
+![[Screenshot 2025-11-23 165732.png]]
+
+![[Screenshot 2025-11-23 165740.png]]
+
+![[Screenshot 2025-11-23 165749.png]]
+
+![[Screenshot 2025-11-23 165810.png]]
