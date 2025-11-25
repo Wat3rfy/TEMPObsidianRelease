@@ -208,7 +208,8 @@ PNKA sprejme besedo natanko tedaj ko velja
 
 Definiramo relacijo 
 
-$$L \subset  \Sigma^{*} $$ $$  x,y \in \Sigma^{*}$$
+$$L \subset  \Sigma^{*}$$ 
+$$  x,y \in \Sigma^{*}$$
 $$x \sim_{L} y \Leftrightarrow \forall z \in \Sigma^{*} : xz \in L \Leftrightarrow yz \in L$$ 
 
 ki pravi da sta $x$ in $y$ ekvivalentna saj za vsak $z$ velja da sta še vedno v jeziku. 
