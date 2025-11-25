@@ -1,378 +1,486 @@
 
-V teoriji računljivosti uporabljamo idealiziran računalnik, imenovan **računski model** (*computational model*). Uporabljali bomo več različnih računskih modelov, odvisno od lastnosti, na katere se želimo osredotočiti. Začnemo z najpreprostejšim modelom, imenovanim **končni avtomat** (*finite state machine* ali *finite automaton*).
+V teoriji računljivosti uporabljamo idealiziran računalnik, imenovan **računski model** (*computational model*). 
+
+Obstaja jih več odvisno od potrebovanih lastnosti.
+
+Začnemo z najpreprostejšim modelom - **končni avtomat** (*finite state machine* ali *finite automaton*).
+
+**Končni avtomat** je model račnunalnika z močno omejenim pomnilnikom.
+
+Končni avtomat lahko predstavimo z diagramom stanj. Sestavljen je iz začetnih stanj, vmesnih stanj in končnih oz sprejemnih stanj. Med njimi so puščice - prehodi.
+
+Če dobimo nek vhod kot je 1101 dobimo izhod kot je sprejetost ali zavrnitev. Pravimo da je izhod tipe ja/ne. Ko pridemo do konca pogledamo če smo v končnem stanju - če smo vrnemo ja drugače ne.
+
+
+Končni avtomat definiramo kot 5-terico $M = (Q,\Sigma, \delta, q_{0}, F)$, kjer so
+- $Q \text{ : končna množica vseh stanj}$
+- $\Sigma : \text{ končna množica simbolov oz. vhodna abeceda}$
+- $\delta : Q \times \Sigma \rightarrow Q : \text{prehodna funkcija}$
+- $q_{0} \in Q : \text{ začetno stanje}$
+- $F \subset  Q : \text{ množica končnih stanj}$
+
+Lahko uprabljamo tudi notacijo $\langle \text{objekt}\rangle$, kjer to predstavlja nek simbol iz abecede.
+
+Iz vskaega stanja pelje natanko ena puščica za vsak simbol iz abecede. Torej mora biti v DKA Točno $|Q| \cdot |\Sigma|$.
+
+Če je $A$ jezik ki jih avtomat $M$ sprejme pravimo da je $A$ jezik $M$ oz. $L(M) = A$.
+Avtomat vedno sprejeme natanko en jezik.
+
+> Imamo $M  = (Q, \Sigma, \delta, q_{0}, F)$ in $w = w_{1}...w_{n}$ je  niz sestavljen iz abecede $\Sigma$. $M$ sprejme $w$ če velja da obstaja zaporedje stanj $r_{0},...,r_{n}$ v $Q$ da velja
+> 
+> $$r_{0} = q_{0}$$
+> $$\delta(r_{i},w_{i+1}) = r_{i+1} \,;\; \forall i \in \{ 0,...n-1\}$$
+> $$r_{n} \in F$$
+> 
+> Pravimo da $M$ sprejme jezik $A$ če je $A = \{ w \,;\; M \text{ sprejme } w\}$
+
+
+> Definirajmo funkcije $\delta' : Q \times \Sigma^* \to Q$
+> 
+> 1. ${\delta'}(q, \varepsilon) = q$
+> 2. ${\delta'}(q, xa) = \delta({\delta'}(q, x), a) ; a \in \Sigma, x \in \Sigma^*$
+> 
+> Jezik končnega avtomata pa bo tako
+
+$$L(M) = \{ w \in \Sigma^{*} \,;\; \delta' (q_{0},w) \in  F\}$$
+
+Jezik je **regularen** če obstaja končni avtomat ki ga sprejme.
+
+Konstrukcija končnega avtomata temelji na prepoznavanju nekih končno mnogih stanj med katerimi moramo razločevati npr. sodost lihost simbola, ostanek pri deljenju simbola, kateri so trenutni končni znaki, pojavitev števila zaporednih črk,...
+
+Nad ragularnimi jeziki definiramo regularne operacije **unija, konkatenacija in zvezda**:
+- $A \cup B = \{ x \;;\; x \in A \lor x \in B\}$
+- $A \circ B = \{ xy \;;\; x \in A \land y \in  B \}$
+- $A^{*} = \{ x_{1}x_{2}...x_{k} \,;\;k \geq 0 \land x_{i}\in A\}$
+
+Poleg teh operacij ohranjajo regularnost tudi
+- Presek $L_{1} \cap L_{2}$
+- Komplement $L^{C}$
+- Razlika $L_{1}\backslash L_{2}$
+- Obrat $L^{R}$
+- Homomorfizem $f(L)$
+
+$A^{*}$ vedno vsebuje $\varepsilon$.
+
+>Unija, konkatenacija in zvezda so zaprte operacije za regularne jezike.
+>>[!|dokaz]+ Dokaz:
+>> Za dokaz uporabimo nedeterministične končne avtomate, kjer rečemo da za $L_{1}$ in $L_{2}$ obstajata avtomata $M_{1}$ in $M_{2}$.
+>> Za unijo lahko definiramo novo začetno stanje in povežemo preko $\varepsilon$ z začetnimi stanji $M_1$ in $M_{2}$. 
+>> Za konkatenacijo vzamemo $M_1$ in iz vsakega končnega stanja dodamo $\varepsilon$ prehod v začetno stanje $M_{2}$. Sedaj so sprejemna stanja le še $M_2$.
+>> Za zvezdo ustvarimo novo začetno stanje ki je hkrati sprejemno, dodamo epsilon prehod iz novega začetnega tanja v staro začetno stanje $M_{1}$ in iz vbseh starih sprejemnih stanj dodamo $\varepsilon$ prehod v staro začetno stanje $M_{1}$.
+
+**Nedeterministični končni avtomati** so avtomati kjer velja da lahko iz vsakega stanja gremo v več stanj za nek vhod. Za sprejemanje besede mora veljati da obstaja vsaj 1 pot do končnega stanja, teh je lahko več, dopuščamo pa tudi $\varepsilon$-prehode kar so prehodi brez vhoda.
+
+Velja da je NKA 5-terica $M = (Q, \Sigma, \delta, q_{0}, F)$
+kjer velja vse enako kot pri DKA le da je 
+$\delta : Q \times \Sigma   \rightarrow P\{ Q\}$
+
+$\delta$ lahko vrne prazno množico kot izhod kar ne pomeni da smo sprejeli stanje temveč da je pot umrla.
+
+NKA $N = (Q, \Sigma, \delta, q_{0}, F)$ sprejme $w = y_{1}...y_{n}, y_{i} \in \Sigma_\varepsilon$ natanko tedaj ko velja da je 
+- $r_{0} = q_0$
+- $r_{i+1}\in  \delta(r_{i} , y_{i+1}) \,;\; i \in \{ 0,...,n-1\}$ 
+- $r_{n} \in  F$
+
+Pravimo da je prehodna funkcija oblika
+
+1. $$\delta' (q,\varepsilon) = \{ q\}$$
+2. $$\delta' (q,xa) = \bigcup_{p \in  \delta'(q,x)} \delta(p,a)$$
+
+
+Jezik NKA potem definiramo
+$$L(M) = \{ w \in \Sigma^{*} \,;\; \delta'(q_{0},w) \cap F \neq \emptyset\}$$
+
+
+
+Če definiramo še $\varepsilon$-NKA kot NKA kjer v abecedo vključimo še prazen niz.
+
+Definirajmo še $\varepsilon$ zaprtje nekega stanja kot množica vseh stanj ki jih lahko dosežemo iz nekega stanja preko $\varepsilon$ prehodov oz. preko praznih nizov.
+
+Za vsako stanje velja da preko praznega niza pridemo nazaj vanj oz. je implicitno.
+
+> Velja, da za vsak NKA obstaja ekvivalenten DKA. To dosežemo s **podmnožično konstrukcijo**, kjer množico trenutnih stanj NKA obravnavamo kot eno stanje DKA. Če ima NKA $n$ stanj, jih ima DKA v najslabšem primeru $2^n$.
+>>[!|dokaz]- Dokaz:
+> > **Smer DKA $\Rightarrow$ NKA:** Trivialno, saj je vsak DKA le poseben primer NKA (brez nedeterminizma in $\epsilon$-prehodov).
+> >
+> > **Smer NKA $\Rightarrow$ DKA:**
+> > Konstruiramo DKA $M$ iz NKA $N$:
+> > 1. **Stanja:** Množica stanj $M$ je **potenčna množica** stanj $N$ (oznaka $2^{Q_N}$). Vsako stanje v DKA torej predstavlja *množico* stanj iz NKA.
+> > 2. **Začetno stanje:** Vsebuje začetno stanje $N$ in vsa stanja, dosegljiva z $\epsilon$-prehodi ($\epsilon$-zaprtje).
+> > 3. **Prehodi:** Za stanje $R = \{q_i, \dots\}$ (ki je množica stanj NKA) in simbol $a$ je prehod unija vseh možnih prehodov v NKA:
+> >    $$\delta_{M}(R, a) = \bigcup_{q \in R} \delta_{N}(q, a)$$
+> > 4. **Končna stanja:** So tiste podmnožice v $M$, ki vsebujejo **vsaj eno** končno stanje iz $N$.
+> >
+> > Tak DKA simulira izvajanje NKA tako, da sledi vsem možnim potem hkrati. Beseda je sprejeta, če se simulacija konča v množici, ki vsebuje končno stanje.
+
+Jezik je regularen natanko tedaj, ko ga prepozna nek nedeterministični končni avtomat.
 
 ***
-**KONČNI AVTOMATI**
 
-Končni avtomati so dobri modeli za računalnike z izjemno omejeno količino pomnilnika.
+**Regularni izrazi**
 
-
-
-**Kodiranje podatkov**
-
-Če imamo abecedo $\Sigma$ lahko predstavimo nek matematični objekt s simboli.
-
-$$X \rightarrow \Sigma^*$$
-
-Iščemo neko funkcijo za katero velja da lahko predstavimo matematičen objekt iz $X$ v neko abecedo $\Sigma^{*}$ oz. hočemo funkcijo ki lahko preslika nek matematičen objekt v neke simbole.
-
-$X$ je nabor objektov ki jih želimo kodirati.
-
-$\Sigma$ je nabor simbolov
-
-$\Sigma^{*}$ je nabor vseh možnih **končnih zaporedj** iz abecede $\Sigma$.
-
-Funkciji pa pravimo **algoritem**.
-***
-Števila so oz. naravna števila lahko kodiramo ne več načinov.
-
-$\mathbb{N} \rightarrow \Sigma^{*}$
-
-**Eniško kodiranje**
-
-$$n \rightarrow a^{n}$$
-
-število $n$ je predstavljeno z $n$ ponovitvami enega simbola.
-
-$\Sigma$ je abeceda z enim samim simbolom.
-
-**Pozicijski številski sistem**
-
-$$n \rightarrow s_{0}s_{1}...s_{m-1}$$
-$$n = \sum_{i=0}^{m-1}k^{i}s_{i}$$
-
-***
-
-Govorimo tudi o zaporedjih števil, simbolično vpeljujemo ločila.
-
-Pojem lahko razširimo na množice kot matematični objekt.
-
-Grafe tudi lahko predstavimo kot zaporedje parov  števil (vozlišč.)
-
-***
-
-Kodo objekta $X$ zapišemo
-
-$$\langle X \rangle$$
-
-**Reševanje problemov**
-
-Določanje ali nek string paše ali ne v množico rešitev $L$ (verjetno)
-
-$$\langle x \rangle \in L$$
-
-Hočemo nek avtomat / algoritem ki za nek objekt $\langle x \rangle$ vrne da ali ne.
-
->[!|hide]- 
->Seveda, tukaj gre za temeljne koncepte **Teorije izračunljivosti (Computational Theory)** in **Teorije formalnih jezikov (Theory of Formal Languages)**, ki predstavljata matematični temelj računalništva in določata, kaj je sploh mogoče izračunati oziroma avtomatizirati.
-> 
-> ### Razlaga konceptov
-> 
-> #### 1. Notacija: Kodna beseda objekta ($\langle X \rangle$)
-> 
-> Zapis $\langle X \rangle$ je standardna matematična notacija v teoriji izračunljivosti. Pomeni:
-> 
-> *   **Kodna beseda (Encoding):** Označuje konkreten **niz simbolov** (string) iz abecede $\Sigma^*$, ki služi kot reprezentacija (koda) za abstraktni matematični objekt $X$.
-> *   **Objekt $X$:** Je lahko karkoli: število, graf, funkcija, Turingov stroj, algoritem, drugi formalni jezik, itd.
-> *   **Vloga:** Zagotavlja matematični most med *abstraktnimi* objekti in *konkretnimi* vhodnimi podatki (nizi, stringi), ki jih lahko obdela avtomat ali algoritem.
-> 
-> **Primer:** Če je $X$ Turingov stroj $M$, potem je $\langle M \rangle$ niz ničel in enic, ki je opis samega stroja.
-> 
-> #### 2. Reševanje problemov in Množica rešitev ($L$)
-> 
-> Tu se osredotočimo na **odločitvene probleme (Decision Problems)**: to so problemi, na katere je mogoče odgovoriti zgolj z **DA** ali **NE**.
-> 
-> *   **Jezik $L$ (Množica rešitev):** V teoriji formalnih jezikov se množica vseh kodnih besed $\langle x \rangle$, ki ustrezajo pozitivnemu odgovoru na problem, imenuje **jezik $L$**.
->     *   $L$ je torej formalna definicija problema. Vsebuje natanko tiste nize (kodi), ki "rešijo" problem.
->     *   **Zapis $\langle x \rangle \in L$:** To pomeni, da za dani vhod $\langle x \rangle$ rešitev problema pravi **DA**.
-> 
-> *   **Primer problema (Je število $x$ praštevilo?):**
->     *   $X = \mathbb{N}$ (naravna števila).
->     *   $L$ je množica vseh kod $\langle x \rangle$, ki predstavljajo praštevila (npr. $\langle 2 \rangle, \langle 3 \rangle, \langle 5 \rangle, \dots$).
->     *   Če je $\langle x \rangle = \langle 7 \rangle$, je $\langle 7 \rangle \in L$ (DA). Če je $\langle x \rangle = \langle 4 \rangle$, potem $\langle 4 \rangle \notin L$ (NE).
-> 
-> #### 3. Avtomat/Algoritem (Model izračuna)
-> 
-> Iščemo mehanizem, ki bo za vsak vhodni niz izvedel to odločitev (preveril, ali je niz v jeziku $L$).
-> 
-> *   **Avtomat/Algoritem:** Je matematični model za izvajanje izračunov (računalnik). Najbolj splošen model je **Turingov stroj (Turing Machine)**.
-> *   **Cilj:** Želimo algoritem $A$ (ali Turingov stroj $M$), ki za vhod $\langle x \rangle$ vrne:
->     *   **DA (Sprejmi):** če $\langle x \rangle \in L$.
->     *   **NE (Zavrni):** če $\langle x \rangle \notin L$.
-> 
-> #### Ključni pojmi, povezani s tem
-> 
-> 1.  **Odločljivost (Decidability):** Problem je **odločljiv**, če obstaja algoritem (Turingov stroj), ki se **vedno ustavi** za vsak vhod $\langle x \rangle$ in pravilno vrne DA ali NE.
-> 2.  **Sprejemljivost (Recognizability) ali Rekurzivna števnost:** Problem je **sprejemljiv**, če obstaja algoritem, ki se **ustavi in vrne DA** za vse $\langle x \rangle \in L$, vendar pa se za $\langle x \notin L \rangle$ morda **ne ustavi** (lahko teče v neskončnost).
-> 3.  **Neodločljivost (Undecidability):** Problem je **neodločljiv**, če zanj **ne obstaja** algoritem (Turingov stroj), ki bi se *vedno* ustavil in dal pravilen odgovor (DA/NE). Klasičen primer je **Problem ustavljanja (Halting Problem)**, ki je dokazano neodločljiv.
-> 
-> **Skratka:** Vaša vprašanja vas vodijo neposredno v osrčje **Teorije računanja**, ki se ukvarja z ugotavljanjem:
-> a) Kaj je sploh mogoče avtomatizirati (izračunljivost)?
-> b) Kako učinkovito (hitro in z malo spomina) je to mogoče storiti (teorija kompleksnosti - P/NP)?
-
-***
-
-**Deterministični končni avtomati** 
-*Deterministic final automata*
-
-| Stanje $Q$ | 0 |  1 |
-| :---: | :---: | :---: |
-| **$q_0$** | $q_0$ | $q_1$ |
-| **$q_1$** | $q_2$ | $q_1$ |
-| **$q_2$** | $q_0$ | $q_1$ |
-
-iz tega lahko z nekim stringom kot za vhod $w = 011011$ določimo neko sled izvajanja
-
->[!|hide]- Potek
-| Korak | Trenutno stanje | Vhodni simbol | Naslednje stanje (iz tabele) |
-| :---: | :---: | :---: | :---: |
-| **Start** | $q_0$ | | |
-| **1.** | $q_0$ | **0** | $q_0$ ($\delta(q_0, 0) = q_0$) |
-| **2.** | $q_0$ | **1** | $q_1$ ($\delta(q_0, 1) = q_1$) |
-| **3.** | $q_1$ | **1** | $q_1$ ($\delta(q_1, 1) = q_1$) |
-| **4.** | $q_1$ | **0** | $q_2$ ($\delta(q_1, 0) = q_2$) |
-| **5.** | $q_2$ | **1** | $q_1$ ($\delta(q_2, 1) = q_1$) |
-| **6.** | $q_1$ | **1** | $q_1$ ($\delta(q_1, 1) = q_1$) |
-| **KONEC** | $q_1$ | | |
-
-$$q_0 \xrightarrow{0} q_0 \xrightarrow{1} q_1 \xrightarrow{1} q_1 \xrightarrow{0} q_2 \xrightarrow{1} q_1 \xrightarrow{1} q_1$$
-
-**Formalna definicija**
-
-$$M = (Q, \Sigma, q_{0}, F, \delta)$$
-
-- $Q$ je **končna** množica stanj
-- $\Sigma$ je **končna** abeceda
-- $q_{0} \in Q$ je začetno stanje
-- $F \subset Q$ je množica končnih stanj
-- $\delta: Q \times \Sigma$ je **totalna** funkcija prehodov
+$R$ je **regularni izraz** če velja da je $R$
+- $a$ za nek $a$ v $\Sigma$
+- $\varepsilon$
+- $\emptyset$
+- $R_{1} + R_{2}$
+- $R_{1}R_{2}$
+- $R_{1}^{*}$
   
-  
-**Totalna** pomeni da je definirana za poljuben simbol abecede v poljubnem stanju
+Potem pa lahko še definiramo $R^{+}$ kot $RR^{*}$ in $R^{k}$ kot staknjenje $k$ $R$-jev.
 
-Tipično jih definiramo **grafično**. **Dvojno obkrožen krog je končno stanje oz. je del $F$.**
+Veljajo naslednje identitete:
+- $R + \emptyset = R$
+- $R \varepsilon = R$
+- $R + \varepsilon$ je nova množica ki bsebuje vse nize iz jezika $R$ in prazen niz
+- $R \emptyset = \emptyset$ je uničvelen element
 
-Končne avtomate podajamo z diagrami prehodov, tabelami, zapisi delta funckije.
+Za naslednji izrek potrebujemo PNKA oz. posplošen nedeterminističen končni avtomat kjer lahko za prehodne funkcije uporabljamo regularne izraze kot vhodne spremenljivke.
 
-Izvajanje $\delta' : Q \times  \Sigma^{*} \rightarrow Q$
-
-1. $\delta'(q, \varepsilon) = q$
-2. $\delta'(q,xa) = \delta(\delta'(q,x),a); a \in \Sigma, x \in \Sigma^{*}$
-
-$\delta'$ je funkcija ki prebere celoten niz znakov, $\delta$ pa samo enega.
-
-$\delta'$ formalizira celotno sled izvajanja.
-
-Da predstavimo jezik ki ga sprejme avtomat $M$ zapišemo
-
-$L(M) = \{ w \in \Sigma^{*} ; \delta'(q_{0},w) \in F\}$
-
-kjer je $M$ jezik avtomata - podmnožica nizov ($\Sigma^{*}$).
-Vsi nizi ki pridejo do nekega končenga stanja v množici $F$.
-
-Torej je $L$ množica vseh nizov ki avtomat $M$ pripeljejo iz začetnega stanja v neko končno stanje. 
-
-Če ni se niz zavrže in ni del jezika avtomata.
-
-Poglejmo primere - vedno naj bo $\Sigma = \{ 0,1\}$
-
-**Primer 1**
-
-$$L = \emptyset$$
-
-$$F = \{ \}$$
-
-**Primer 2**
-
-$$L = \Sigma^{*}$$
-$$F = \{ q_{0}\}$$
-q0: 1 : q0, 0 : q0
-
-**Primer 3**
-
-$$L = \{ 01, 10, 0001\}$$
-$$...$$
-
-**Primer 4**
-
-$$L = \{ w \,;\; \text{število 0 je sodo, število 1 je liho}\}$$
-$$\text{npr. 00111} - \text{sodo 0 in liho 1}$$
+>Jezik je regularen natanko tedaj ko je jezik regularnega izraza. 
+>>[!|dokaz]- Dokaz:
+> > 
+> >Smer ($\Leftarrow$): Vsak regularni izraz opisuje regularen jezik
+> >
+> > **Cilj:** Če imamo regularni izraz $R$, moramo dokazati, da obstaja končni avtomat, ki sprejme $L(R)$.
+> > 
+> > **Dokaz (z indukcijo po zgradbi izraza - Thompsonova konstrukcija):**
+> > Dokazujemo, da za vsak regularni izraz lahko zgradimo $\epsilon$-NKA (nedeterministični končni avtomat z $\epsilon$-prehodi). Ker vemo, da je $\epsilon$-NKA enakovreden DKA (determinističnemu avtomatu), je jezik regularen.
+> > 
+> > 2.  **Osnovni primeri:**
+> >     *   $\emptyset, \epsilon, a$ (kjer je $a \in \Sigma$): Za vsakega od teh je trivialno zgraditi preprost avtomat.
+> > 2.  **Induktivni korak:** Predpostavimo, da za izraza $R_1$ in $R_2$ že imamo avtomata $M_1$ in $M_2$.
+> >     *   **Unija ($R_1 + R_2$):** Zgradimo nov avtomat z novim začetnim stanjem, ki ima $\epsilon$-prehod na začetni stanji $M_1$ in $M_2$.
+> >     *   **Stik ($R_1 R_2$):** Povežemo končna stanja $M_1$ z začetnim stanjem $M_2$ preko $\epsilon$-prehodov.
+> >     *   **Kleenejeva zvezdica ($R_1^*$):** Dodamo $\epsilon$-prehode iz končnih stanj $M_1$ nazaj na začetek in omogočimo "preskok" celotnega avtomata (za prazno besedo).
+> > 
+> > **Zaključek:** Ker lahko za vsak operater zgradimo $\epsilon$-NKA, je jezik regularnega izraza regularen.
+> > 
+> > ---
+> > 
+> > Smer ($\Rightarrow$): Vsak regularen jezik se da opisati z regularnim izrazom
+> > **Cilj:** Če je jezik $L$ regularen (torej ga sprejme nek DKA), zanj obstaja regularni izraz.
+> > 
+> > **Dokaz (metoda eliminacije stanj ali GNFA):**
+> > Ker je $L$ regularen, obstaja DKA $A$, ki ga prepozna. Ta DKA pretvorimo v regularni izraz s postopkom posplošenega NKA (GNFA), kjer so prehodi označeni z regularnimi izrazi namesto s črkami.
+> > 
+> > 1.  **Priprava:** DKA pretvorimo v GNFA tako, da dodamo novo začetno stanje (z $\epsilon$-prehodom v staro) in novo končno stanje (z $\epsilon$-prehodi iz vseh starih končnih stanj).
+> > 2.  **Eliminacija:** Izbiramo stanja $q_{k}$ (ki niso začetno ali končno) in jih odstranjujemo enega za drugim.
+> > 3.  **Posodobitev prehodov:** Ko odstranimo stanje $q_{k}$, moramo ohraniti poti, ki so tekle skozi njega. Če imamo prehod iz stanja $q_i$ v $q_j$ skozi $q_k$, posodobimo neposredni prehod $q_i \to q_j$ po formuli:
+> >     $$R_{ij}' = R_{ij} + R_{ik} (R_{kk})^* R_{kj}$$
+> >     *(Pomen: Stara pot ali (pot do k, zanka na k kolikokrat želimo, pot iz k)).*
+> > 4.  **Rezultat:** Na koncu ostaneta le začetno in končno stanje z enim samim prehodom med njima. Oznaka na tem prehodu je iskani regularni izraz.
+> > 
+> > **Zaključek:** Za vsak DKA obstaja ekvivalenten regularni izraz.
+> > 
+> > ---
+> > 
+> > **Končni sklep:** Ker veljata obe smeri, je jezik regularen natanko tedaj, ko ga opiše regularni izraz.
 
 
-**Primer 5**
+Definirajmo še PNKA kot 5-terico $M = (Q, \Sigma , \delta, q_{\text{start}}, q_\text{accept})$, kjer je 
+- $Q$ končna množica vseh stanj
+- $\Sigma$ je vhodna abeceda
+- $\delta : (Q- \{ q_\text{accept}\}) \times (Q - \{ q_\text{start} \}) \rightarrow R$ : je prehodna funkcija, kjer je $R$ množica vseh regulranih izrazov nad $\Sigma$
+- $q_\text{start}$ je začetno stanje
+- $q_\text{end}$ je končno stanje
 
-$$L = \{ w \in \{ 0,1\}^{*} \,;\; \text{beseda predstavlja število v dvojiškem sistemu deljivo s 3}\}$$
+PNKA sprejme besedo natanko tedaj ko velja
+- $q_{0}  = q_\text{start}$
+- $q_{k} = q_\text{accept}$
+- za vsak $i$ je $w_{i} \in  L(R_{i})$, kjer je $R_{i}=\delta(q_{i-1}, q_{i})$ oz. z drugimi besedami $R_{i}$ je izraz puščici med $q_{i-1}$ in $q_{i}$ 
 
-*Gleda se po ostankih*
+
+**Neregularni jeziki**
+
+**Neregularni jeziki** so jeziki ki jih ne moremo izraziti s končnimi avtomati. Ponavadi izhajajo iz dejstva da rabimo slediti neskončno stanjem
+
+>**Lema o napihovanju**
+>$$\exists n \geq 1 : \forall w \in L , |w| \geq n $$ $$ \exists xyz = w , |xy| \leq n, |y| \geq 1 : \forall i\geq 0 : xy^{i}z \in L$$
+>Predpostavimo DKA ki sprejme $L$. Potem lahko za $n$ vzamemo število stanj v avtomatu.
+>
+>Pokažemo da je vsaka beseda velikosti vsaj $n$ lahko razdeljena in napihnjena
+>
+>Če nobena beseda ni velikosti $n$ potem velja da ne obstaja taka beseda in izrek postane prazno izpolnjen, ker pogoji oz. trditve veljajo za vse te besede - ki jih ni.
+>
+>Če je beseda dolžine vsaj $n$ recimo $N$ potem vemo da mora iti čez $N+1$ stanj kjer je zadnje sprejemno. Ker je $N+1 \geq n$ mora veljati da se je neko stanje ponovilo *(Dirichletovo načelo)*. 
+>Naj bo $q$ stanje ki se ponovi. Besedo razdelimo na $x$ del besede ki pride do $q$, $y$ del besede s katerim pridemo nazaj v $q$ (ker se $q$ ponovi je $|y| \geq 1$ $\Rightarrow$ ker imamo $n$ stanj moramo do prve ponovitve stanja priti v največ $n$ korakih (od prvega do $n$ v $n-1$ $+ 1$ prva ponovitev preko $y$) : $|xy| \leq n$), $z$ del besede s katerim pridemo v končno stanje. Ker je $y$ del ki nas iz $q$ pripelje v $q$ ga lahko spustimo ali pa ponovimo poljubnokrat. Torej velja $xy^{i}z \in L; \forall i$
+
+Definiramo relacijo 
+
+$$L \subset  \Sigma^{*} $$ $$  x,y \in \Sigma^{*}$$
+$$x \sim_{L} y \Leftrightarrow \forall z \in \Sigma^{*} : xz \in L \Leftrightarrow yz \in L$$ 
+
+ki pravi da sta $x$ in $y$ ekvivalentna saj za vsak $z$ velja da sta še vedno v jeziku. 
+
+Iz nje lahko določimo pripadaoče ekvivalenčne razrede oz. množice vseh nizov ki so v relaciji. Iz množice lahko izberemo nek element in ga vzamemo kot predstavnika - zapišemo $[x]$.
+
+*Ekvivalenčne razrede razlikujemo po nizih $z$ za katere dobimo različne izide sprejemanje/zavračanje.*
+
+>**Myhill-Nerode izrek**
+>Jezik je regularen natanko tedaj ko je število ekvivalenčnih razredov relacije končno.
+>Število končnih stanj v minimalnem DKA je enako številu ekvivalenčnih razredov.
+Tukaj je dokaz izreka Myhill-Nerode v obliki zveznega besedila.
+> >[!|dokaz]+ Dokaz:
+> >
+> > 
+> > Oznaka $[x]$ v predstavlja ekvivalenčni razred niza $x$ glede na relacijo $\sim_L$.
+> > 
+> > **Dokaz smeri ($\Rightarrow$): Če je $L$ regularen, je število ekvivalenčnih razredov končno**
+> > 
+> > Predpostavimo, da je jezik $L$ regularen. To pomeni, da obstaja deterministični končni avtomat (DKA) $A = (Q, \Sigma, \delta, q_0, F)$, ki prepozna ta jezik. Na podlagi tega avtomata lahko vpeljemo novo relacijo $\sim_A$, kjer sta dva niza $x$ in $y$ v relaciji, če nas branje obeh nizov iz začetnega stanja pripelje v isto stanje avtomata, torej $\delta(q_0, x) = \delta(q_0, y)$. Ker je množica stanj $Q$ končna, ima relacija $\sim_A$ končno mnogo ekvivalenčnih razredov, in sicer največ toliko, kolikor je stanj v avtomatu.
+> > 
+> > Pokazati moramo povezavo z relacijo $\sim_L$. Če sta niza $x$ in $y$ v relaciji $\sim_A$, se avtomat po branju obeh nahaja v istem stanju $q$. Če na to stanje dodamo poljuben niz $z$, bo avtomat za vhoda $xz$ in $yz$ končal v istem stanju $\delta(q, z)$. To končno stanje je bodisi sprejemno bodisi nesprejemno, kar pomeni, da niz $xz$ pripada jeziku $L$ natanko tedaj, ko jeziku $L$ pripada niz $yz$. Po definiciji to pomeni, da velja $x \sim_L y$. Ugotovimo torej, da relacija $\sim_A$ implicira relacijo $\sim_L$, kar pomeni, da so ekvivalenčni razredi relacije $\sim_A$ vsebovani v razredih relacije $\sim_L$. Posledično je število ekvivalenčnih razredov $\sim_L$ manjše ali enako številu razredov $\sim_A$. Ker je slednje končno, je tudi število ekvivalenčnih razredov $\sim_L$ končno.
+> > 
+> > **Velja da je število ekvivalenčnih razredov manjše ali enako številu stanj oz. je število stanj večje ali enako številu ekv. razredov.** Sedaj moramo dokazati le še minimalnost oz. da obstaja DKA s številom stanj kot je ekvivalenčnih razredov in ker je to spodnja meja za število stanj mora biti to minimalni avtomat. 
+> > 
+> > **Dokaz smeri ($\Leftarrow$): Če je število ekvivalenčnih razredov končno, je $L$ regularen**
+> > 
+> > Za dokaz v drugo smer predpostavimo, da ima relacija $\sim_L$ končno število ekvivalenčnih razredov. Konstruiramo lahko DKA, kjer so stanja ravno ti ekvivalenčni razredi. Množico stanj $Q'$ definiramo kot množico vseh razredov $\{[x] \mid x \in \Sigma^{*}\}$. Začetno stanje je razred, ki vsebuje prazen niz, $[\epsilon]$. Množica končnih stanj $F'$ pa vsebuje tiste razrede $[x]$, za katere velja $x \in L$. Ta definicija končnih stanj je smiselna, saj iz definicije relacije sledi: če je $x \in L$ in $x \sim_L y$, potem je tudi $y \in L$ (če vzamemo $z=\epsilon$).
+> > 
+> > Prehodno funkcijo definiramo s predpisom $\delta'([x], a) = [xa]$. Da je ta definicija veljavna, moramo preveriti neodvisnost od izbire predstavnika. Če velja $x \sim_L y$, mora veljati tudi $xa \sim_L ya$. To lastnost imenujemo desna invariantnost in sledi neposredno iz definicije relacije $\sim_L$: če sta $x$ in $y$ nerazločljiva glede na poljuben podaljšek $z$, sta nerazločljiva tudi, če je prvi znak tega podaljška $a$. Avtomat je tako dobro definiran. Z indukcijo je enostavno videti, da avtomat po branju niza $w$ konča v stanju $[w]$. Ker smo končna stanja definirali kot tista, ki vsebujejo nize iz $L$, avtomat sprejme niz $w$ natanko tedaj, ko je $w \in L$. Ker smo uspeli konstruirati končni avtomat, je jezik $L$ regularen.
+> > 
+> > *Prehodna funkcija ($\delta'$): $\delta'([x], a) = [xa]$.*
+> >     *Moramo preveriti, ali prehod ni odvisen od izbire predstavnika $x$.*
+> >     *Če $x \sim_L y$, ali velja $xa \sim_L ya$?*
+> >     *$$ x \sim_L y \implies \forall z: (xz \in L \iff yz \in L) $$*
+> >     *Preverimo za $xa$ in $ya$ s poljubnim $w$:*
+> >     *$$ (xa)w \in L \iff x(aw) \in L \iff y(aw) \in L \iff (ya)w \in L $$*
+> >     *Ker to velja za vsak $w$, je $xa \sim_L ya$. Relacija je **desno invariantna**, zato je prehodna funkcija dobro definirana.*
+> > 
+> > **Dokaz o minimalnosti avtomata**
+> > 
+> > Izrek trdi tudi, da je število stanj v minimalnem DKA enako številu ekvivalenčnih razredov relacije $\sim_L$. V drugem delu dokaza smo konstruirali avtomat, ki ima natanko toliko stanj, kot je ekvivalenčnih razredov $\sim_L$, kar nam da zgornjo mejo za velikost minimalnega avtomata. V prvem delu dokaza pa smo videli, da za vsak poljuben avtomat, ki prepozna $L$, velja, da je število njegovih stanj večje ali enako številu ekvivalenčnih razredov $\sim_L$. To pomeni, da noben avtomat ne more imeti manj stanj od števila ekvivalenčnih razredov. Sledi, da je avtomat, zgrajen na ekvivalenčnih razredih, minimalen.
 
 ***
 
-**Nedeterminizem**
+**Konetkstno neodvisna gramatika**
 
-Končne avtomate delimo na **deterministične** in **nedeterministične**.
+Množica jezikov ki se da zapisati s KNG imenujemo kontekstno neodvisni jeziki. Vsebujejo vse regularne jezike in druge.
 
-Nedeterminizem pomeni da za dano stanje in vhodni simbol avtomat **nima nujno samo ene** poti v naslednje stanje.
+Gramatika je zgrajena iz **pravil nadomeščanja** oz. **produkcij**. Sestavljeno je iz simbola, puščice in niza. Simbol je **spremenljivka**, niz pa je sestalvjen iz spremenljivk in drugih simbolov imenovani **terminali**.
+Ena spremenljivka je določena kot **začetna spremenljivka**.
 
-Avtomat lahko ima **več kot en prehod**, **nič možnih prehodov**, prehod prek **praznega niza**.
+Vsi nizi generirani s produkcijami so jezik gramatike. Vsak jezik ga lahko generira KNG se imenuje **kontekstno neodvisen jezik**.
 
-**Formalna razlika**
+**Kontekstno neodvisna gramtika** je $G = (V, \Sigma, R, S)$ kjer 
+- $V$ je končna množica spremenljivk
+- $\Sigma$ je končna množica terminalov disjuktna z $V$
+- $R$ je končna množica pravil sestavljenih iz spremenljivke in niza spremenljivk in terminalov
+- $S \in  V$ je začetna spremenljivka
 
-$$\delta: Q \times (\Sigma \cup \{ \varepsilon\}) \rightarrow 2^{Q}$$
+Če so $u,v,w$ nizi spremenljivk in terminalov in je $A \rightarrow w$ pravilo gramatike pravimo da $uAv$ daje $uwv$. 
 
-Prehod se lahko zgodi brez da bi prebral vhodni simbol - $\varepsilon$-prehodi.
+Pravimo da se $u$ izpelje v $v$ zapisano $u \stackrel{*}{\Rightarrow} v$, če velja $u = v$ ali če obstaja zaporedje $u_1, u_2, \dots, u_k$ za $k \ge 0$, tako da velja:
+$$u \Rightarrow u_1 \Rightarrow u_2 \Rightarrow \dots \Rightarrow u_k \Rightarrow v.$$
 
-Ker dovoljujemo prehod v več stanj je NDA po prebranem vhodnem nizu sočasno v **množici stanj** $2^{Q}$
+**Jezik gramatike** je $\{w \in \Sigma^* \mid S \stackrel{*}{\Rightarrow} w\}$.
 
-Niz $w$ je sprejet če **obstaja vsaj ena pot** iz začetnega stanja $q_{0}$ ki vodi v eno od končnih stanj $F$.
+Če lahko gramatika generira nek niz na vsaj dva načina rečemo da je **dvoumna**. Natančneje najprej definiramo **levo izpeljavo** za katero velja da na vsakem koraku izpeljave niza $w$ v neki gramatiki $G$ nadomestimo najbolj levo spremenljivko.
+Niz $w$ je izpeljan **dvoumno** če ima vsaj 2 različni levi izpeljavi.
+Gramatika je **dvoumna** če je nek niz generiran **dvoumno**.
 
-$\varepsilon$-prehod spremeni stanje brez da preberemo vhodni znak.
+Ponavadi lahko pretvorimo dvoumno gramatiko v nedvoumno ampak nekatere so lahko le **dvoumne**. Tem pravimo **izhodiščno dvoumne**.
 
-$$\delta'(q,\varepsilon) = \{ q\}$$
-$$\delta'(q,xa) = \bigcup_{p \,\in\, \delta'(q,x)} \delta(p,a)$$
-
-Jezik NKA
-
-$$L(M) = \{ w \in \Sigma^{*} \,;\;\delta'(q_{0} ,w) \cap F \neq \emptyset\}$$
-
-**Primer 1**
-
-$$L = \{ aab, abb,aaaa\}$$
+Poznamo Chomskyjevo normalno obliko kjer je vsako pravilo oblike
+$$A \rightarrow BC$$
+$$A \rightarrow a$$
+Dovolimo $A \rightarrow \varepsilon$ če je $A$ začetna spremenljivka. $B,c$ ne smeta biti začetni.
 
 
-**Eno uro sm spustu kle ampak mislm da je blo o avtomatih naprej al neki**
+Seveda, tukaj so dodatni zapiski, ki pokrivajo vsebino s priloženih slik (Skladovni avtomati in njihova ekvivalenca s kontekstno neodvisnimi gramatikami), napisani v istem stilu kot tvoji obstoječi zapiski.
 
-*Poljuben reulgarni izraz lahko zapišemo s končnim avotmatom in obranto*
+Dodaj to na konec svojih zapiskov (po razdelku o Context-Free Grammars in dvoumnosti).
+
+***
+
+**Skladovni avtomati (Pushdown Automata)**
+
+Skladovni avtomati (PDA) so nov računski model, ki je podoben nedeterminističnemu končnemu avtomatu, vendar ima dodatno komponento: **sklad** (*stack*).
+
+Sklad omogoča avtomatu neomejen dodaten pomnilnik, ki deluje po principu "zadnji noter, prvi ven" (LIFO - Last In, First Out). To omogoča prepoznavanje jezikov, ki niso regularni (npr. $\{0^n 1^n \mid n \ge 0\}$), saj si lahko avtomat na sklad shrani število prebranih ničel in jih kasneje "poparčka" z enkami.
+
+Skladovni avtomat lahko na sklad **potisne** (*push*) simbol ali pa z njega **vzame** (*pop*) simbol. Dostop je mogoč le do vrhnjega simbola.
+
+
+Formalno je **skladovni avtomat** definiran kot 6-terica $P = (Q, \Sigma, \Gamma, \delta, q_0, F)$, kjer so:
+- $Q$: končna množica stanj,
+- $\Sigma$: vhodna abeceda,
+- $\Gamma$: **skladovna abeceda** (lahko vsebuje simbole, ki niso v $\Sigma$),
+- $\delta : Q \times \Sigma_\varepsilon \times \Gamma_\varepsilon \rightarrow \mathcal{P}(Q \times \Gamma_\varepsilon)$: prehodna funkcija,
+- $q_0 \in Q$: začetno stanje,
+- $F \subseteq Q$: množica sprejemnih stanj.
+
+Opomba: $\Sigma_\varepsilon = \Sigma \cup \{\varepsilon\}$ in $\Gamma_\varepsilon = \Gamma \cup \{\varepsilon\}$.
+
+Prehodna funkcija $\delta(q, a, x)$ vzame trenutno stanje $q$, naslednji vhodni simbol $a$ in vrhnji simbol na skladu $x$. Vrne množico parov $(r, y)$, kjer je $r$ novo stanje in $y$ simbol, ki zamenja $x$ na skladu (če je $y=\varepsilon$, se $x$ izbriše - *pop*; če je $x=\varepsilon$, se $y$ doda - *push*).
+
+**Nedeterminizem** je pri skladovnih avtomatih ključen. Deterministični skladovni avtomati (DPDA) so šibkejši in ne prepoznajo vseh kontekstno neodvisnih jezikov. Mi se osredotočamo na nedeterministične.
+
+
+
+Vhod $w$ sprejme, če lahko $w$ zapišemo kot $w = w_1 w_2 \dots w_m$, kjer je vsak $w_i \in \Sigma_{\varepsilon}$, in če obstajata zaporedje stanj $r_0, r_1, \dots, r_m \in Q$ ter zaporedje nizov $s_0, s_1, \dots, s_m \in \Gamma^*$, ki zadoščajo naslednjim trem pogojem. Nizi $s_i$ predstavljajo zaporedje vsebine sklada, ki ga ima $M$ na sprejemajoči veji računanja.
+
+1.  $r_0 = q_0$ in $s_0 = \varepsilon$. Ta pogoj pomeni, da $M$ začne pravilno, v začetnem stanju in s praznim skladom.
+2.  Za $i = 0, \dots, m - 1$ velja $(r_{i+1}, b) \in \delta(r_i, w_{i+1}, a)$, kjer je $s_i = at$ in $s_{i+1} = bt$ za neka $a, b \in \Gamma_{\varepsilon}$ in $t \in \Gamma^*$. Ta pogoj pravi, da se $M$ premika pravilno glede na stanje, sklad in naslednji vhodni simbol.
+3.  $r_m \in F$. Ta pogoj pravi, da se na koncu vhoda pojavi sprejemno stanje.
+
+
+***
+
+**Ekvivalenca med KNG in PDA**
+
+
+>**Izrek:** Jezik je kontekstno neodvisen natanko tedaj, ko ga prepozna nek skladovni avtomat.
+
+Dokazujemo dve smeri:
+
+**1. Smer (KNG $\Rightarrow$ PDA):**
+Če je jezik $L$ kontekstno neodvisen, zanj obstaja KNG $G$. Konstruiramo PDA $P$, ki simulira izpeljave te gramatike.
+
+*Ideja:*
+PDA na svojem skladu hrani vmesne nize izpeljave. Začne z začetno spremenljivko.
+- Če je na vrhu sklada **spremenljivka** $A$, PDA nedeterministično izbere eno od pravil za $A$ (npr. $A \to w$) in na skladu zamenja $A$ z $w$.
+- Če je na vrhu sklada **terminal** $a$, PDA prebere znak z vhoda. Če se ujemata, terminala "odšteje" (pop s sklada). Če se ne ujemata, se veja izvajanja prekine (zavrne).
+- Če je sklad prazen in smo prebrali celoten vhod, sprejmemo.
+
+**2. Smer (PDA $\Rightarrow$ KNG):**
+Če PDA $P$ prepozna jezik, zanj obstaja KNG $G$.
+Ta smer je težja. Želimo zgraditi gramatiko, ki generira vse nize, ki avtomat $P$ pripeljejo iz enega stanja v drugega s praznim skladom.
+
+*Postopek:*
+1. Najprej poenostavimo PDA, da ima le eno sprejemno stanje, da sprazni sklad pred sprejetjem in da vsak prehod bodisi doda simbol bodisi ga odvzame (ne oboje hkrati).
+2. Definiramo spremenljivke gramatike oblike $A_{pq}$.
+   Spremenljivka $A_{pq}$ generira vse nize, ki avtomat pripeljejo iz stanja $p$ (s praznim skladom) v stanje $q$ (s praznim skladom).
+3. Pravila gramatike:
+   - Za vsak $p$ dodamo $A_{pp} \to \varepsilon$ (v 0 korakih ostanemo v istem stanju).
+   - Za poti, kjer se sklad vmes ne sprazni: Če avtomat iz $p$ preide v $r$ (push $u$), nato iz $r$ pride v $s$ (vmesno dogajanje) in iz $s$ v $q$ (pop $u$), dodamo pravilo:
+     $$A_{pq} \to a A_{rs} b$$
+     kjer sta $a$ in $b$ vhodna simbola pri prvem in zadnjem koraku.
+   - Za poti, kjer se sklad vmes sprazni v nekem stanju $r$:
+     $$A_{pq} \to A_{pr} A_{rq}$$
+
+S tem dokažemo, da so jeziki, ki jih prepozna PDA, natanko tisti, ki jih generira KNG.
+
+
+
+
 
 ***
 
 
-**Regularni izrazi in avtomati, neregularnost**
+**Naloga:**
 
+Opazujmo jezik $L$ nad abecedo $\Sigma = \{d, l\}$. Besede v jeziku $L$ morajo zadoščati naslednjim pogojem:
+1.  Beseda se mora končati z nizom **$dd$**.
+2.  Beseda **ne sme vsebovati** niza $dd$ nikjer drugje kot na samem koncu (torej se $dd$ pojavi natanko enkrat).
+3.  Beseda **ne sme vsebovati** niza **$lll$** (trije zaporedni l-ji).
 
-**Posplošeni nedeterminirani končni avtomati (PNKA)** imajo namesto prehodnih simbolov, kar regularne izraze, torej so prehodi med stanji označeni z regulranimi izrazi.
+*(Opomba: Glede na rešitev (a) in (c) obstaja tudi implicitna omejitev, da se beseda ne sme začeti z $ll$, oziroma natančneje: vsak $l$ mora biti soseden vsaj enemu $d$-ju. Vendar so pri tovrstnih nalogah pogoji običajno podani z prepovedanimi podnizi, zato so zgornje tri točke najbolj verjeten opis).*
 
-Sedaj bo vedno samo ena puščica med dvema stanjema.
+**Vprašanja:**
 
-Obstaja neka **posebna oblika** - obstaja samo eno začetno stanje in samo eno končno stanje.
-Nimamo prehodov v začetno stanje, brz prehodov iz končnega stanja.
-Med vsakim ostalim parom stanj pa obstaja prehod - torej vsak je povezan z vsakim.
+*   **(a) (5 točk)** Zapišite **regularni izraz**, ki generira jezik $L$.
+*   **(b) (8 točk)** Poiščite primer jezika $M$, ki je podmnožica jezika $L$ ($M \subseteq L$), in je **kontekstno neodvisen**, ni pa regularen.
+    *   Zapišite kontekstno neodvisno gramatiko za vaš izbrani jezik $M$.
+    *   Z uporabo leme o napihovanju (Pumping lemma) dokažite, da jezik $M$ ni regularen.
+*   **(c) (7 točk)** Narišite **končni avtomat** (DFA ali NFA), ki sprejema jezik $L$.
 
-Le-ta se uporablja za dokaz ekvivalence med reg. izrazi in končnimi avtomati.
 
-Če začnemo z nekim končnim avtomatom ga hočemo spremeniti v PNKA.
 
-Ker nočemo povezav vzačetno stanje naredimo novo začetno stanje in prehod v nasldnje označimo z $\varepsilon$, kot naredimo tudi novo končno stanje in povezavo $\varepsilon$ v njega.
 
-Med vsakima dvema stanjema $q_i$ in $q_j$ (razen iz $q_{accept}$ in v $q_{start}$) mora obstajati natančno en prehod, označen z regularnim izrazom. Če med $q_i$ in $q_j$ ni prehoda, ga označimo s praznim jezikom ($\emptyset$). Če med njima obstaja več prehodov, jih združimo z operacijo unije ($\cup$).
 
-PNKA definiramo z 
 
-$$M =\langle Q,\Sigma, \delta ,q_{s},q_{e} \rangle$$
 
-$$\delta: (Q\backslash \{ q_{e}\}) \times (Q\backslash \{ q_{s}\}) \rightarrow RI $$
 
-$RI$ so regulratni izrazi
-Funkcija delta slika med vsemi stanji razen začetnim in končnim, funkcija pa so regularn izrazi.
+***
 
-Jezik PNKA
 
-$$L(M) = \{ w=w_{1}...w_{n} \,;\;\exists q_{s}q_{1}...q_{e},w_{i} \in L(\delta(q_{i-1},q_{i}))\}$$
 
-$$q_{0}= q_{s}$$
+>[!|hide]- Naloge iz skladovnih avtomatov
+> ### Napredne naloge: Skladovni avtomati (Težavnost 9/10)
+> 
+> **1. Komplement enakosti (The "Anti-Copy" Language)**
+> Zapišite **nedeterministični** skladovni avtomat za jezik:
+> $$L_1 = \{ w \in \{a, b\}^* \mid w \neq uu \text{ za poljuben } u \in \{a, b\}^* \}$$
+> *(Opomba: To je jezik vseh nizov, ki **niso** oblike $ww$. To vključuje nize lihe dolžine in nize sode dolžine, kjer se prva polovica razlikuje od druge.)*
+> 
+> **2. Dvojna neenakost**
+> Zapišite skladovni avtomat za jezik:
+> $$L_2 = \{ a^i b^j c^k \mid i \neq j \lor j \neq k \}$$
+> *(Namig: Neenakost ($i \neq j$) pomeni ($i < j \lor i > j$). Naloga zahteva konstrukcijo, ki pokriva unijo štirih različnih primerov.)*
+> 
+> **3. Aritmetika na skladu s spremembo smeri**
+> Zapišite **deterministični** skladovni avtomat (DPDA) za jezik:
+> $$L_3 = \{ a^n b^m c^k \mid n + k = m; \ n,m,k \ge 1 \}$$
+> *(Izziv: Sklad morate uporabiti tako, da najprej beležite $a$-je, nato jih "uničite" z $b$-ji, presežek $b$-jev pa shranite, da jih kasneje "uničite" s $c$-ji. Vse mora biti deterministično.)*
+> 
+> **4. Razmerja v poljubnem vrstnem redu**
+> Zapišite skladovni avtomat za jezik:
+> $$L_4 = \{ w \in \{a, b\}^* \mid 2 \cdot \#_a(w) \neq 3 \cdot \#_b(w) \}$$
+> *(Izziv: Simboli so premešani (ni nujno $a^n b^m$). Avtomat mora preverjati razmerje 2:3. Ker gre za neenakost ($\neq$), morate zgraditi vejo za "manj kot" in vejo za "več kot".)*
+> 
+> **5. "Almost" Palindromi**
+> Zapišite skladovni avtomat za jezik:
+> $$L_5 = \{ w \in \{a, b\}^* \mid w = w^R \text{ in } \#_a(w) = \#_b(w) \}$$
+> *(Izziv: To je presek dveh kontekstno neodvisnih jezikov (palindromi in enakim številom a/b). Ali je to sploh mogoče s skladovnim avtomatom? Če ni, utemeljite. Če je, narišite. Za težavnost 9/10 poskusite raje to variacijo, ki **je** mogoča: $L = \{xcx^R \mid x \in \{a,b\}^*\} \cup \{ a^n b^n \mid n \ge 1 \}$.) *
+> 
+> ---
+> 
+> ### Namigi in rešitve (zakaj so to 9/10 naloge)
+> 
+> Če želite te naloge rešiti, morate razmišljati "izven okvirjev" običajnega štetja $a^n b^n$. Tukaj je logika za najtežji dve:
+> 
+> **Analiza naloge 1 (Komplement $ww$):**
+> To je klasičen "težek" problem teorije. Jezik $L = \{ww\}$ ni kontekstno neodvisen (ne morete ga prepoznati s SA). Njegov komplement pa **je**.
+> *   **Strategija:** Avtomat nedeterministično ugane eno od dveh možnosti:
+>     1.  Niz je lihe dolžine (lahko preverimo).
+>     2.  Niz je sode dolžine $2n$, vendar obstaja nek indeks $k$ (kjer $1 \le k \le n$), da se $k$-ti simbol niza razlikuje od $(n+k)$-tega simbola.
+>     *   Avtomat mora "uganiti" ta indeks $k$, si zapomniti simbol na tem mestu, preskočiti $n-1$ znakov in preveriti, če se simbol na $n+k$ razlikuje. To zahteva zapleteno manipulacijo sklada za štetje dolžine.
+> 
+> **Analiza naloge 2 (Dvojna neenakost):**
+> Logični pogoj je $P_1 \lor P_2$, kjer je $P_1: (i < j \lor i > j)$ in $P_2: (j < k \lor j > k)$.
+> *   To pomeni, da mora vaš avtomat na začetku z $\epsilon$-prehodom nedeterministično skočiti v eno izmed štirih stanj, ki preverjajo:
+>     1.  $i < j$ (in ignorira $k$)
+>     2.  $i > j$ (in ignorira $k$)
+>     3.  $j < k$ (ignorira $i$, nato preveri $j < k$)
+>     4.  $j > k$ (ignorira $i$, nato preveri $j > k$)
+> *   Težavnost je v pravilnem "ignoriranju" delov niza, ki niso relevantni za izbrano neenakost, hkrati pa zagotavljanju, da je sklad prazen na koncu.
 
-$$ q_{n}= q_{e}$$
 
-$w$ je sprejemni niz če obstaja pot iz $q_s$ v $q_{e}$, del besede $w_{i}$ se mora ujemati z nekim izrazom na prehodu $\color{light}w_{i}\in L(\delta(q_{i-1},q_{i} ))$
 
 
+***
 
 
-	
-Dokaz se nadaljuje z zmanjševanjem števila notranjih stanj. V vsakem koraku odstranimo eno notranje stanje $q_{x}$ in ustrezno posodobimo regularne izraze na vseh prehodih, ki so šli skozi $q_{x}$.
 
-**Za vsak par stanj $q_i$ in $q_j$ (ki nista $q_{x}$):**
 
-Prehod $q_i \to q_j$ se posodobi z regularnim izrazom, ki zajame poti, ki so prej šle:
-1.  **Direktno** iz $q_i$ v $q_j$
-2.  Iz $q_i$ v $q_{x}$, poljubno število zank v $q_{x}$, in nato iz $q_{x}$ v $q_j$.
 
-**Formalna posodobitev prehoda:**
 
-$$R'_{ij} = R_{ij} \cup (R_{i, x} (R_{x, x})^* R_{x, j})$$
 
-Kjer:
-*   $R'_{ij}$ je nov regularni izraz med $q_i$ in $q_j$.
-*   $R_{ij}$ je stari regularni izraz med $q_i$ in $q_j$.
-*   $R_{i, x}$ je izraz iz $q_i$ v $q_{x}$.
-*   $(R_{x, x})^*$ je Kleenejeva zvezda za zanko na $q_{x}$.
-*   $R_{x, j}$ je izraz iz $q_{x}$ v $q_j$.
 
->Izrek
->$$\forall G \in \text{PNKA} : L(G) = L(\text{convert}(G))$$
->Hočemo da je jezik originalnega avtomata enak jeziku avtomata z eliminiranimi stanji.
 
->[!|dokaz]- Dokaz:
-> Hočemo dokazati da če vzamemo poljubno stanje $q_{x}$ potem se ohranja jezik oz. je jezik novega $G'$ enak jeziku $G$.
->Pri število stanj je $|Q| = 2$ je trivialno in drži.
->Indukcijski korak:
->Predpostavimo da izrek drži za $k-1$ stanj in pokažimo da držu tudi za $G$,
-> torej moramo pokazati
->$$w \in L(G) \Leftrightarrow w \in L(G')$$
->$\Rightarrow$
->$q_{s}q_{1}...q_{e}$ je zaporedje ki sprejema $w$ v avtomatu $G$ in $w_{1}w_{2}...w_{n}$ je pripadajoče razbitje beede $w$.
->*Predpostavljamo da je $L(G') = L(\text{convert}(L(G')))$*
->a) $q_x$ ni v tem zaporedju, potem isto zaporedje sprejema $w$ v $G'$.
->b) $q_x$ je v tem zaporedju, potem odstranimo vse pojavitve $q_x$ iz zaporedja (pripadajoče besede staknemo) in dobimo veljavno zaporedje stanj.
->...
->vrjetn lahko z ai
 
+![[Pasted image 20251123165742.png]]
 
+![[Pasted image 20251123165736.png]]
 
-**Lema o napihovanju**
+![[Pasted image 20251123165750.png]]
 
-Za vsak regularni jezik $L$ obstaja konstanta $n$ da za vsako besedo $w \in L$ ki je daljša od $n$ lahko razbijemo na 3 komponente:
+![[Pasted image 20251123165811.png]]![[Pasted image 20251123165816.png]]
 
-$w = xyz$
 
-za katere velja
 
-$|y| > 0$
-$|xy| \leq n$
-$\forall i \geq 0 : xy^{i}z \in  L$
 
 
+![[Pasted image 20251123144711.png]]
 
+Pravimo da je prehodna funkcija oblika
 
+1. $$\delta' (q,\varepsilon) = \{ q\}$$
+2. $$\delta' (q,xa) = \bigcup_{p \in  \delta'(q,x)} \delta(p,a)$$
 
+Če definiramo še $\varepsilon$-NKA kot NKA kjer v abecedo vključimo še prazen niz.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Na discordu naloga

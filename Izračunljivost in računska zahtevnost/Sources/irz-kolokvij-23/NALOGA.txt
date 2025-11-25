@@ -1,0 +1,17 @@
+
+**Naloga:**
+
+Opazujmo jezik $L$ nad abecedo $\Sigma = \{d, l\}$. Besede v jeziku $L$ morajo zadoščati naslednjim pogojem:
+1.  Beseda se mora končati z nizom **$dd$**.
+2.  Beseda **ne sme vsebovati** niza $dd$ nikjer drugje kot na samem koncu (torej se $dd$ pojavi natanko enkrat).
+3.  Beseda **ne sme vsebovati** niza **$lll$** (trije zaporedni l-ji).
+
+*(Opomba: Glede na rešitev (a) in (c) obstaja tudi implicitna omejitev, da se beseda ne sme začeti z $ll$, oziroma natančneje: vsak $l$ mora biti soseden vsaj enemu $d$-ju. Vendar so pri tovrstnih nalogah pogoji običajno podani z prepovedanimi podnizi, zato so zgornje tri točke najbolj verjeten opis).*
+
+**Vprašanja:**
+
+*   **(a) (5 točk)** Zapišite **regularni izraz**, ki generira jezik $L$.
+*   **(b) (8 točk)** Poiščite primer jezika $M$, ki je podmnožica jezika $L$ ($M \subseteq L$), in je **kontekstno neodvisen**, ni pa regularen.
+    *   Zapišite kontekstno neodvisno gramatiko za vaš izbrani jezik $M$.
+    *   Z uporabo leme o napihovanju (Pumping lemma) dokažite, da jezik $M$ ni regularen.
+*   **(c) (7 točk)** Narišite **končni avtomat** (DFA ali NFA), ki sprejema jezik $L$.
