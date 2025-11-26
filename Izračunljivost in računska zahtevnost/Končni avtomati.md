@@ -41,8 +41,8 @@ Avtomat vedno sprejeme natanko en jezik.
 > 2. ${\delta'}(q, xa) = \delta({\delta'}(q, x), a) ; a \in \Sigma, x \in \Sigma^*$
 > 
 > Jezik končnega avtomata pa bo tako
-
-$$L(M) = \{ w \in \Sigma^{*} \,;\; \delta' (q_{0},w) \in  F\}$$
+> 
+> $$L(M) = \{ w \in \Sigma^{*} \,;\; \delta' (q_{0},w) \in  F\}$$
 
 Jezik je **regularen** če obstaja končni avtomat ki ga sprejme.
 
@@ -185,15 +185,23 @@ Definirajmo še PNKA kot 5-terico $M = (Q, \Sigma , \delta, q_{\text{start}}, q_
 - $q_\text{start}$ je začetno stanje
 - $q_\text{end}$ je končno stanje
 
-PNKA sprejme besedo natanko tedaj ko velja
+PNKA sprejme besedo natanko tedaj ko velja da obstaja zaporedje stanj $q_{0},...,q_{n}$ tako da za besedo $w = w_{1}...w_{n}$ velja
 - $q_{0}  = q_\text{start}$
 - $q_{k} = q_\text{accept}$
 - za vsak $i$ je $w_{i} \in  L(R_{i})$, kjer je $R_{i}=\delta(q_{i-1}, q_{i})$ oz. z drugimi besedami $R_{i}$ je izraz puščici med $q_{i-1}$ in $q_{i}$ 
+
+$w_{i}$ je lahko prezen niz
 
 
 **Neregularni jeziki**
 
 **Neregularni jeziki** so jeziki ki jih ne moremo izraziti s končnimi avtomati. Ponavadi izhajajo iz dejstva da rabimo slediti neskončno stanjem
+
+Velja par ključnih trditev
+- Komplement ohranja neregularnost
+- Unija ni nujno neregularna $A \cup A^{C}$ kjer je $A$ neregularen da regularni jezik vseh nizov.
+- Presek ni zaprt ker lahko dobimo prazno množico kar je regularen jezik.
+- **Če mešamo regularen in neregularen jezik preko unije potem je neregularen.**
 
 >**Lema o napihovanju**
 >$$\exists n \geq 1 : \forall w \in L , |w| \geq n $$ $$ \exists xyz = w , |xy| \leq n, |y| \geq 1 : \forall i\geq 0 : xy^{i}z \in L$$
@@ -370,33 +378,6 @@ S tem dokažemo, da so jeziki, ki jih prepozna PDA, natanko tisti, ki jih generi
 ***
 
 
-**Naloga:**
-
-Opazujmo jezik $L$ nad abecedo $\Sigma = \{d, l\}$. Besede v jeziku $L$ morajo zadoščati naslednjim pogojem:
-1.  Beseda se mora končati z nizom **$dd$**.
-2.  Beseda **ne sme vsebovati** niza $dd$ nikjer drugje kot na samem koncu (torej se $dd$ pojavi natanko enkrat).
-3.  Beseda **ne sme vsebovati** niza **$lll$** (trije zaporedni l-ji).
-
-*(Opomba: Glede na rešitev (a) in (c) obstaja tudi implicitna omejitev, da se beseda ne sme začeti z $ll$, oziroma natančneje: vsak $l$ mora biti soseden vsaj enemu $d$-ju. Vendar so pri tovrstnih nalogah pogoji običajno podani z prepovedanimi podnizi, zato so zgornje tri točke najbolj verjeten opis).*
-
-**Vprašanja:**
-
-*   **(a) (5 točk)** Zapišite **regularni izraz**, ki generira jezik $L$.
-*   **(b) (8 točk)** Poiščite primer jezika $M$, ki je podmnožica jezika $L$ ($M \subseteq L$), in je **kontekstno neodvisen**, ni pa regularen.
-    *   Zapišite kontekstno neodvisno gramatiko za vaš izbrani jezik $M$.
-    *   Z uporabo leme o napihovanju (Pumping lemma) dokažite, da jezik $M$ ni regularen.
-*   **(c) (7 točk)** Narišite **končni avtomat** (DFA ali NFA), ki sprejema jezik $L$.
-
-
-
-
-
-
-
-
-***
-
-
 
 >[!|hide]- Naloge iz skladovnih avtomatov
 > ### Napredne naloge: Skladovni avtomati (Težavnost 9/10)
@@ -457,25 +438,6 @@ Opazujmo jezik $L$ nad abecedo $\Sigma = \{d, l\}$. Besede v jeziku $L$ morajo z
 
 
 
-
-
-
-
-
-
-
-
-
-
-Pravimo da je prehodna funkcija oblika
-
-1. $$\delta' (q,\varepsilon) = \{ q\}$$
-2. $$\delta' (q,xa) = \bigcup_{p \in  \delta'(q,x)} \delta(p,a)$$
-
-Če definiramo še $\varepsilon$-NKA kot NKA kjer v abecedo vključimo še prazen niz.
-
-
-Na discordu naloga
 
 ![[Screenshot 2025-11-23 165815.png]]
 
