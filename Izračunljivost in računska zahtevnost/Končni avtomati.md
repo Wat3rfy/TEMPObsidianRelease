@@ -248,14 +248,39 @@ Tukaj je dokaz izreka Myhill-Nerode v obliki zveznega besedila.
 > > Za dokaz v drugo smer predpostavimo, da ima relacija $\sim_L$ končno število ekvivalenčnih razredov. Konstruiramo lahko DKA, kjer so stanja ravno ti ekvivalenčni razredi. Množico stanj $Q'$ definiramo kot množico vseh razredov $\{[x] \mid x \in \Sigma^{*}\}$. Začetno stanje je razred, ki vsebuje prazen niz, $[\epsilon]$. Množica končnih stanj $F'$ pa vsebuje tiste razrede $[x]$, za katere velja $x \in L$. Ta definicija končnih stanj je smiselna, saj iz definicije relacije sledi: če je $x \in L$ in $x \sim_L y$, potem je tudi $y \in L$ (če vzamemo $z=\epsilon$).
 > > 
 > > Prehodno funkcijo definiramo s predpisom $\delta'([x], a) = [xa]$. Da je ta definicija veljavna, moramo preveriti neodvisnost od izbire predstavnika. Če velja $x \sim_L y$, mora veljati tudi $xa \sim_L ya$. To lastnost imenujemo desna invariantnost in sledi neposredno iz definicije relacije $\sim_L$: če sta $x$ in $y$ nerazločljiva glede na poljuben podaljšek $z$, sta nerazločljiva tudi, če je prvi znak tega podaljška $a$. Avtomat je tako dobro definiran. Z indukcijo je enostavno videti, da avtomat po branju niza $w$ konča v stanju $[w]$. Ker smo končna stanja definirali kot tista, ki vsebujejo nize iz $L$, avtomat sprejme niz $w$ natanko tedaj, ko je $w \in L$. Ker smo uspeli konstruirati končni avtomat, je jezik $L$ regularen.
-> > 
-> > *Prehodna funkcija ($\delta'$): $\delta'([x], a) = [xa]$.*
-> >     *Moramo preveriti, ali prehod ni odvisen od izbire predstavnika $x$.*
-> >     *Če $x \sim_L y$, ali velja $xa \sim_L ya$?*
-> >     *$$ x \sim_L y \implies \forall z: (xz \in L \iff yz \in L) $$*
-> >     *Preverimo za $xa$ in $ya$ s poljubnim $w$:*
-> >     *$$ (xa)w \in L \iff x(aw) \in L \iff y(aw) \in L \iff (ya)w \in L $$*
-> >     *Ker to velja za vsak $w$, je $xa \sim_L ya$. Relacija je **desno invariantna**, zato je prehodna funkcija dobro definirana.*
+> > >[!|hide]- Dodatna razlaga
+> > > ### Kaj je problem?
+> > > Ko definiramo funkcijo na **ekvivalenčnih razredih** (kot je $[x]$), imamo vedno isto težavo:
+> > > Razred $[x]$ je "vreča", v kateri je veliko različnih nizov (npr. $x$, $y$, $u$ ...). Vsi ti nizi predstavljajo **isto stanje**.
+> > > 
+> > > Definicija prehodne funkcije pravi:
+> > > $$ \delta'([x], a) = [xa] $$
+> > > 
+> > > Tukaj smo za izračun rezultata uporabili predstavnika $x$.
+> > > **Vprašanje:** Kaj pa, če bi iz te iste vreče potegnili drug niz, recimo $y$ (torej velja $[x] = [y]$ oz. $x \sim_L y$)? Ali bi nas definicija pripeljala v **isto** ciljno stanje ali v neko drugo?
+> > > Če bi nas pripeljala v drugo stanje ($[xa] \neq [ya]$), potem funkcija **ni** dobro definirana (saj za isto vhodno stanje dobimo dva različna rezultata).
+> > > 
+> > > ### Kaj dokaže slika?
+> > > Da je funkcija dobro definirana, moramo dokazati:
+> > > **Če sta $x$ in $y$ v istem razredu ($x \sim_L y$), potem morata biti tudi $xa$ in $ya$ v istem razredu ($xa \sim_L ya$).**
+> > > 
+> > > Postopek na sliki to stori takole:
+> > > 
+> > > 1.  **Predpostavka:** Vzamemo dva niza, ki sta "nerazločljiva" (ekvivalentna): $x \sim_L y$. To pomeni, da za *katerikoli* podaljšek $z$ velja: $xz \in L \iff yz \in L$.
+> > > 2.  **Korak:** Pustimo, da avtomat prebere znak $a$. Dobimo niza $xa$ in $ya$.
+> > > 3.  **Test:** Ali sta tudi $xa$ in $ya$ "nerazločljiva"? Preverimo s poljubnim podaljškom $w$.
+> > >     *   Ali je $(xa)w \in L \iff (ya)w \in L$?
+> > > 4.  **Trik (asociativnost):** To je isto kot vprašanje:
+> > >     *   Ali je $x(aw) \in L \iff y(aw) \in L$?
+> > > 5.  **Zaključek:** Ker sta bila $x$ in $y$ na začetku nerazločljiva za **vse** podaljške, sta nerazločljiva tudi za specifičen podaljšek $aw$.
+> > >     *   Torej velja $xa \sim_L ya$.
+> > > 
+> > > ### Povzetek
+> > > Ker smo dokazali, da iz $x \sim_L y$ sledi $xa \sim_L ya$, to pomeni:
+> > > $$ [x] = [y] \implies [xa] = [ya] $$
+> > > $$ [x] = [y] \implies \delta'([x], a) = \delta'([y], a) $$
+> > > 
+> > > To pomeni, da ni važno, kateri niz izberemo za predstavnika stanja – rezultat (naslednje stanje) bo vedno enak. **Funkcija je dobro definirana.**
 > > 
 > > **Dokaz o minimalnosti avtomata**
 > > 
@@ -297,11 +322,6 @@ $$A \rightarrow a$$
 Dovolimo $A \rightarrow \varepsilon$ če je $A$ začetna spremenljivka. $B,c$ ne smeta biti začetni.
 
 
-Seveda, tukaj so dodatni zapiski, ki pokrivajo vsebino s priloženih slik (Skladovni avtomati in njihova ekvivalenca s kontekstno neodvisnimi gramatikami), napisani v istem stilu kot tvoji obstoječi zapiski.
-
-Dodaj to na konec svojih zapiskov (po razdelku o Context-Free Grammars in dvoumnosti).
-
-***
 
 **Skladovni avtomati (Pushdown Automata)**
 
